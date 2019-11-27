@@ -44,7 +44,7 @@ dependencies {
 
     // Add the SDKs for any other Firebase products you want to use in your app
     // For example, to use Firebase Authentication and Cloud Firestore
-    implementation 'com.google.firebase:firebase-auth:19.1.0'
+    implementation 'com.google.firebase:firebase-auth:19.2.0'
     implementation 'com.google.firebase:firebase-firestore:21.3.0'
 
     // Getting a "Could not find" error? Make sure that you've added
@@ -53,7 +53,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-auth:17.0.0'
 //    implementation 'com.google.firebase:firebase-core:16.0.8'
 
-    implementation 'com.google.firebase:firebase-database:17.0.0'
+    implementation 'com.google.firebase:firebase-database:19.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

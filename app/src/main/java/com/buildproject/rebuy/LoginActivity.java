@@ -61,6 +61,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         DatabaseReference myRef = database.getReference("users");
         User user = new User(account);
         myRef.child(account.getId()).setValue(user);
+        Log.d(TAG,"Registered User Id"+account.getId());
     }
 
 

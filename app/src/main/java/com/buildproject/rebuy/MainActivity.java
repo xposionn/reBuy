@@ -1,10 +1,12 @@
 package com.buildproject.rebuy;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,5 +56,10 @@ public class MainActivity extends AppCompatActivity {
                 System.out.println("clicked on help");
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    public void moveToLists(View v){
+        Intent i = new Intent(getApplicationContext(),ListsActivity.class);
+        startActivity(i);
     }
 }

@@ -7,7 +7,7 @@ class User {
     private String lastName;
 
 
-    public User(GoogleSignInAccount account) {
+    User(GoogleSignInAccount account) {
         firstName = account.getGivenName();
         lastName = account.getFamilyName();
     }
