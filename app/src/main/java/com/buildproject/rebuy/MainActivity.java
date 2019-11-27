@@ -1,6 +1,5 @@
 package com.buildproject.rebuy;
 
-import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -15,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     GoogleSignInAccount account;
     TextView dispName;
     ImageView profilePic;
-    Bitmap bitmap;
     Uri imageUri;
 
     @Override
