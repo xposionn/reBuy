@@ -13,11 +13,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.buildproject.rebuy.Modules.ListOfItems;
+import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.squareup.picasso.Picasso;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = MainActivity.class.getName();
+
+
     GoogleSignInAccount account;
+
     TextView dispName;
     ImageView profilePic;
     Uri imageUri;
@@ -39,6 +45,10 @@ public class MainActivity extends AppCompatActivity {
         dispName.setText(account.getDisplayName());
         Picasso.get().load(imageUri).into(profilePic);
 
+        User user = new User(account);
+        ListOfItems list1 = new ListOfItems(user);
+        list1.addEditor(user);
+        list1.addViewer(user);
 
     }
 
@@ -58,8 +68,10 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void moveToLists(View v){
-        Intent i = new Intent(getApplicationContext(),ListsActivity.class);
+    public void moveToLists(View v) {
+        Intent i = new Intent(getApplicationContext(), ListsActivity.class);
+        i.putExtra("account", account);
         startActivity(i);
+
     }
 }
