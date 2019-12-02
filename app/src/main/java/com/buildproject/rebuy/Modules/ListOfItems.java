@@ -34,6 +34,11 @@ public class ListOfItems extends ArrayList {
         getReference().child("editors").setValue(editor.getUserId());
     }
 
+    public void addItem(ItemInList item){
+        this.items.add(item);
+        getReference().child("items").setValue(item.getItemName());
+    }
+
     private DatabaseReference getReference(){
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         return database.getReference("lists/"+getListId());
@@ -45,6 +50,7 @@ public class ListOfItems extends ArrayList {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("lists/"+getListId());
         myRef.child("owner").setValue(getOwner().getUserId());
+        myRef.child("editors").setValue(getEditors());
     }
 
     public List<String> getEditors() {

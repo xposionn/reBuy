@@ -13,15 +13,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.buildproject.rebuy.Modules.ListOfItems;
 import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = MainActivity.class.getName();
 
-
+    User user1;
     GoogleSignInAccount account;
 
     TextView dispName;
@@ -45,10 +50,29 @@ public class MainActivity extends AppCompatActivity {
         dispName.setText(account.getDisplayName());
         Picasso.get().load(imageUri).into(profilePic);
 
-        User user = new User(account);
-        ListOfItems list1 = new ListOfItems(user);
-        list1.addEditor(user);
-        list1.addViewer(user);
+
+//        ListOfItems list1 = new ListOfItems(user);
+//        list1.addEditor(user);
+//        list1.addViewer(user);
+
+
+        // Read from the database
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference userReference = mDatabase.getReference()
+                .child("users").child(account.getId());
+        userReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                System.out.println("my user"+user);
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+//                Toast.makeText(ThreadActivity.this, R.string.error_loading_user, Toast.LENGTH_SHORT).show();
+//                finish();
+            }
+        });
 
     }
 

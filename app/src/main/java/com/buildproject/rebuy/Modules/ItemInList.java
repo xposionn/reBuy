@@ -29,6 +29,7 @@ public class ItemInList {
         this.priority = Priority.LOW;
         this.listOfItems = listOfItem;
         putOnDb();
+
     }
 
     private void putOnDb() {

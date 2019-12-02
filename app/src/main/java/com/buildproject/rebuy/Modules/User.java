@@ -12,6 +12,9 @@ public class User {
     List<ListOfItems> itemList;
 
 
+    public User() {
+    }
+
     public String getUserId() {
         return userId;
     }
@@ -33,5 +36,16 @@ public class User {
 
     public String getLastName() {
         return lastName;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", itemList=" + itemList +
+                '}';
     }
 }
