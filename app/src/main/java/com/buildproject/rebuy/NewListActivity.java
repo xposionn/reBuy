@@ -6,15 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
-public class ListsActivity extends AppCompatActivity {
-    private static final String TAG = ListsActivity.class.getName();
+public class NewListActivity extends AppCompatActivity {
+    private static final String TAG = NewListActivity.class.getName();
     GoogleSignInAccount account;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lists);
+        setContentView(R.layout.activity_addnewlist);
 
         account = getIntent().getParcelableExtra("account");
 
