@@ -1,29 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parent_layout"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="15dp"
-    android:id="@+id/parent_layout">
+    android:layout_height="80dp"
+    android:padding="15dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        xmlns:app="http://schemas.android.com/apk/res-auto"
+    <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/image"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:src="@mipmap/ic_launcher"
         android:layout_alignParentLeft="true"
+        android:src="@mipmap/ic_launcher"
 
         />
 
     <TextView
         android:id="@+id/image_name"
-        android:layout_toRightOf="@+id/image"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:textColor="#000"
         android:layout_centerVertical="true"
         android:layout_marginLeft="30dp"
-        android:textSize="17sp"
+        android:layout_toRightOf="@+id/image"
         android:text="Canada"
-        />
+        android:textColor="#000"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/quantity"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="20dp"
+        android:gravity="center"
+        android:text="25"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 </RelativeLayout>
