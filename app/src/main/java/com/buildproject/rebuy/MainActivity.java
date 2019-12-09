@@ -96,6 +96,10 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), NewListActivity.class);
         i.putExtra("account", account);
         startActivity(i);
+    }
 
+    public void moveToList(View v) {
+        Intent i = new Intent(getApplicationContext(), ActivityList.class);
+        startActivity(i);
     }
 }
