@@ -58,6 +58,7 @@ public class ActivityList extends AppCompatActivity {
         mImageUrls.add("https://i.imgur.com/ZcLLrkY.jpg");
         mNames.add("Washington");
 
+
         initRecyclerView();
     }
 

@@ -96,4 +96,6 @@
     </string>
     <string name="action_settings">Settings</string>
     <string name="profilephotoTxt">profilePhoto</string>
+    <string name="notes">Notes:</string>
+    <string name="bought">Bought</string>
 </resources>
