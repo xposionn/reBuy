@@ -3,6 +3,7 @@
     package="com.buildproject.rebuy">
 
     <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -10,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ActivityList"></activity>
+        <activity android:name=".Modules.EditItemActivity"></activity>
+        <activity android:name=".ActivityList" />
         <activity android:name=".NewListActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
