@@ -98,4 +98,11 @@
     <string name="profilephotoTxt">profilePhoto</string>
     <string name="notes">Notes:</string>
     <string name="bought">Bought</string>
+    <string name="default_item_quantity_1">1</string>
+    <string name="priority">Priority:</string>
+    <string name="f_name_l_name">F.name, L.name</string>
+    <string name="added_by">Added by:</string>
+    <string name="added_at">Added at:</string>
+    <string name="dateWithTimeHere">dateWithTimeHere</string>
+    <string name="recommendationAdvice">Would you like to scan a barcode and help the community by recommending this item name?</string>
 </resources>
