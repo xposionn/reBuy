@@ -13,6 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.buildproject.rebuy.Modules.EditItemActivity;
 import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
@@ -100,6 +101,10 @@ public class MainActivity extends AppCompatActivity {
 
     public void moveToList(View v) {
         Intent i = new Intent(getApplicationContext(), ActivityList.class);
+        startActivity(i);
+    }
+    public void moveToAddItemActivity(View v) {
+        Intent i = new Intent(getApplicationContext(), EditItemActivity.class);
         startActivity(i);
     }
 }
