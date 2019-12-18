@@ -194,29 +194,38 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
-        android:hint="Add notes: \n\n\n"
+        android:hint="Add notes: \n\n"
         />
 <!--  recommendation:  text "add to recom.", imgButton  -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="120sp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:orientation="vertical"
+        android:orientation="horizontal"
+        android:weightSum="100"
         >
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/recommendationAdvice"
-            />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="80"
+            android:layout_gravity="center_vertical"
+            android:text="@string/recommendationAdvice" />
 
         <pl.droidsonroids.gif.GifImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="70dp"
+            android:layout_height="100dp"
             android:scaleType="fitCenter"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="0sp"
             android:src="@drawable/barcodegif"
-            />
+            android:layout_weight="20"/>
     </LinearLayout>
+    
+    <Button
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Apply"
+    android:layout_gravity="center"/>
+
 </LinearLayout>
 </ScrollView>
