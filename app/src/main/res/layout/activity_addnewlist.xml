@@ -1,9 +1,272 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".NewListActivity">
+    >
+    <LinearLayout
+        android:id="@+id/parent_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:weightSum="100"
+        android:orientation="vertical"
+        >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <!-- list name -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/uid"
+                android:gravity="center"
+                android:clickable="true"
+                android:hint="@string/enter_list_name"
+                android:inputType="text"
+                android:maxLines="1"/>
+
+        </LinearLayout>
+
+
+
+        <!--  priority: text, Linear(img1, img2, img3)  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:gravity="center_vertical"
+                android:text="@string/priority"
+                android:textSize="20sp"
+                />
+
+            <LinearLayout
+                android:layout_weight="70"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:weightSum="100"
+                >
+
+                <ImageButton
+                    android:id="@+id/imageButton3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="33"
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/green_priority_btn"
+
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/low_priority" />
+
+                <ImageButton
+                    android:id="@+id/imageButton4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="33"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/yellow_priority_btn"
+                    android:scaleType="centerInside"
+                    android:contentDescription="@string/medium_priority" />
+
+                <ImageButton
+                    android:id="@+id/imageButton5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="34"
+                    android:background="@android:color/transparent"
+
+                    app:srcCompat="@drawable/red_priority_btn"
+                    android:scaleType="centerInside"
+                    android:contentDescription="@string/high_priority" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+
+        <!-- Owner: text "added by: ", text  -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/list_owner"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:layout_marginStart="5dp"
+                android:textSize="17sp"
+                android:text="@string/f_name_l_name"/>   <!--will be changed from db  -->
+
+
+        </LinearLayout>
+
+        <!-- Editors: LinLayout: 1st line: text "Editors ", (+) button
+                      LinLayout: 2nd line: editor1.Fname,  editor1.Lname
+                                 3rd line: editor2.Fname,  editor2.Lname
+                                 etc... -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/editors"
+                    android:textSize="17sp"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton6"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@android:drawable/ic_input_add"
+                    android:contentDescription="@string/plus_sign_image" />
+            </LinearLayout>
+
+<!--             arraylist of users, where every user is an editor -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+                <androidx.recyclerview.widget.RecyclerView
+
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+<!--                    android:id="@+id/recycler_view" or another ID.
+                        each item: F.name, L.name
+
+-->
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--  Viewers:  same as editors, see above  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/viewers"
+                    android:textSize="17sp"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton7"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@android:drawable/ic_input_add"
+                    android:contentDescription="@string/plus_sign_image" />
+
+
+            </LinearLayout>
+
+            <!--  arraylist of users, where every user is a viewer -->
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp">
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+<!--                F.name, L.name-->
+                </androidx.recyclerview.widget.RecyclerView>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- CreatedAt: text "Created at: ", Date  -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/created_at"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:layout_marginStart="5dp"
+                android:text="@string/dateWithTimeHere"
+                android:textSize="17sp"/>
+
+        </LinearLayout>
+
+<!--     Delete list:  Delete, X button below it.-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textSize="17sp"
+            android:text="@string/delete_list"/>
+
+        <ImageButton
+            android:id="@+id/imageButton8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            app:srcCompat="@android:drawable/ic_menu_delete" />
+
+
+    </LinearLayout>
+
+
+
+    </LinearLayout>
+</ScrollView>
+
