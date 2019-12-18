@@ -110,4 +110,9 @@
     <string name="viewers">Viewers:</string>
     <string name="created_at">Created at:</string>
     <string name="delete_list">Delete List</string>
+    <string name="low_priority">Low Priority</string>
+    <string name="medium_priority">Medium Priority</string>
+    <string name="high_priority">High Priority</string>
+    <string name="list_owner">List Owner:</string>
+    <string name="plus_sign_image">Plus sign image</string>
 </resources>
