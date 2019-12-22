@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ActivityList extends AppCompatActivity {
+public class ListActivity extends AppCompatActivity {
 
-    private static final String TAG = "ActivityList";
+    private static final String TAG = "ListActivity";
 
     //vars
     private ArrayList<String> mNames = new ArrayList<>();

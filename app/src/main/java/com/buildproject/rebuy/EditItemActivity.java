@@ -1,4 +1,4 @@
-package com.buildproject.rebuy.Modules;
+package com.buildproject.rebuy;
 
 import androidx.appcompat.app.AppCompatActivity;
 
