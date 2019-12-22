@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void moveToList(View v) {
-        Intent i = new Intent(getApplicationContext(), ListActivity.class);
+        Intent i = new Intent(getApplicationContext(), ListsActivity.class);
         startActivity(i);
     }
     public void moveToAddItemActivity(View v) {

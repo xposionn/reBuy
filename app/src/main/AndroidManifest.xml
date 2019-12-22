@@ -13,7 +13,6 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ListsActivity"></activity>
         <activity android:name=".EditItemActivity" />
-        <activity android:name=".ListActivity" />
         <activity android:name=".NewListActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">

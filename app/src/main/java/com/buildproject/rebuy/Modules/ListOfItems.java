@@ -10,7 +10,7 @@ import java.util.UUID;
 public class ListOfItems extends ArrayList {
     private String listId;
     private String titleName;
-    private User owner;
+    private User owner; //id of owner, as
     private String priority;
     private List<String> editors;
     private List<String> viewers;
@@ -22,6 +22,10 @@ public class ListOfItems extends ArrayList {
         this.viewers = new ArrayList<>();
         this.items = new ArrayList<>();
         putOnDb();
+    }
+
+    public ListOfItems(){ //used to init from firebase db
+
     }
 
     //Add viewer
