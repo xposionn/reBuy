@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_height="wrap_content"
     android:layout_width="match_parent"
-    >
+    android:layout_height="wrap_content">
+
     <LinearLayout
         android:id="@+id/parent_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:weightSum="100"
         android:orientation="vertical"
-        >
+        android:padding="15dp"
+        android:weightSum="100">
 
         <!-- list name -->
         <LinearLayout
@@ -20,26 +19,25 @@
             android:orientation="vertical">
 
             <EditText
+                android:id="@+id/uid"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/uid"
-                android:gravity="center"
                 android:clickable="true"
+                android:gravity="center"
                 android:hint="@string/enter_list_name"
                 android:inputType="text"
-                android:maxLines="1"/>
+                android:maxLines="1" />
 
         </LinearLayout>
-
 
 
         <!--  priority: text, Linear(img1, img2, img3)  -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:weightSum="100"
+            android:layout_marginTop="10dp"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp">
+            android:weightSum="100">
 
             <TextView
                 android:layout_width="0dp"
@@ -47,27 +45,25 @@
                 android:layout_weight="30"
                 android:gravity="center_vertical"
                 android:text="@string/priority"
-                android:textSize="20sp"
-                />
+                android:textSize="20sp" />
 
             <LinearLayout
-                android:layout_weight="70"
-                android:layout_height="40dp"
-                android:orientation="horizontal"
                 android:layout_width="0dp"
-                android:weightSum="100"
-                >
+                android:layout_height="40dp"
+                android:layout_weight="70"
+                android:orientation="horizontal"
+                android:weightSum="100">
 
                 <ImageButton
                     android:id="@+id/imageButton3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="33"
-                    android:scaleType="centerInside"
-                    app:srcCompat="@drawable/green_priority_btn"
-
                     android:background="@android:color/transparent"
-                    android:contentDescription="@string/low_priority" />
+                    android:contentDescription="@string/low_priority"
+
+                    android:scaleType="centerInside"
+                    app:srcCompat="@drawable/green_priority_btn" />
 
                 <ImageButton
                     android:id="@+id/imageButton4"
@@ -75,9 +71,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="33"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@drawable/yellow_priority_btn"
+                    android:contentDescription="@string/medium_priority"
                     android:scaleType="centerInside"
-                    android:contentDescription="@string/medium_priority" />
+                    app:srcCompat="@drawable/yellow_priority_btn" />
 
                 <ImageButton
                     android:id="@+id/imageButton5"
@@ -86,14 +82,13 @@
                     android:layout_weight="34"
                     android:background="@android:color/transparent"
 
-                    app:srcCompat="@drawable/red_priority_btn"
+                    android:contentDescription="@string/high_priority"
                     android:scaleType="centerInside"
-                    android:contentDescription="@string/high_priority" />
+                    app:srcCompat="@drawable/red_priority_btn" />
             </LinearLayout>
 
 
         </LinearLayout>
-
 
 
         <!-- Owner: text "added by: ", text  -->
@@ -108,15 +103,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/list_owner"
-                android:textSize="17sp"/>
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="bottom"
                 android:layout_marginStart="5dp"
-                android:textSize="17sp"
-                android:text="@string/f_name_l_name"/>   <!--will be changed from db  -->
+                android:gravity="bottom"
+                android:text="@string/f_name_l_name"
+                android:textSize="17sp" />   <!--will be changed from db  -->
 
 
         </LinearLayout>
@@ -136,11 +131,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/editors"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
 
                 <ImageButton
                     android:id="@+id/imageButton6"
@@ -148,24 +144,25 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@android:drawable/ic_input_add"
-                    android:contentDescription="@string/plus_sign_image" />
+                    android:contentDescription="@string/plus_sign_image"
+                    app:srcCompat="@android:drawable/ic_input_add" />
             </LinearLayout>
 
-<!--             arraylist of users, where every user is an editor -->
+            <!--             arraylist of users, where every user is an editor -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
                 <androidx.recyclerview.widget.RecyclerView
 
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-<!--                    android:id="@+id/recycler_view" or another ID.
-                        each item: F.name, L.name
+                    <!--                    android:id="@+id/recycler_view" or another ID.
+                                            each item: F.name, L.name
 
--->
+                    -->
 
                 </androidx.recyclerview.widget.RecyclerView>
 
@@ -184,11 +181,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/viewers"
-                    android:textSize="17sp"/>
+                    android:textSize="17sp" />
 
                 <ImageButton
                     android:id="@+id/imageButton7"
@@ -196,8 +194,8 @@
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
-                    app:srcCompat="@android:drawable/ic_input_add"
-                    android:contentDescription="@string/plus_sign_image" />
+                    android:contentDescription="@string/plus_sign_image"
+                    app:srcCompat="@android:drawable/ic_input_add" />
 
 
             </LinearLayout>
@@ -206,12 +204,13 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:orientation="vertical">
+
                 <androidx.recyclerview.widget.RecyclerView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
-<!--                F.name, L.name-->
+                    <!--                F.name, L.name-->
                 </androidx.recyclerview.widget.RecyclerView>
 
             </LinearLayout>
@@ -230,41 +229,73 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/created_at"
-                android:textSize="17sp"/>
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:gravity="bottom"
                 android:layout_marginStart="5dp"
+                android:gravity="bottom"
                 android:text="@string/dateWithTimeHere"
-                android:textSize="17sp"/>
+                android:textSize="17sp" />
 
         </LinearLayout>
 
-<!--     Delete list:  Delete, X button below it.-->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical">
-        <TextView
+        <!--     Delete list:  Delete, X button below it.-->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center_horizontal"
-            android:textSize="17sp"
-            android:text="@string/delete_list"/>
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-        <ImageButton
-            android:id="@+id/imageButton8"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            app:srcCompat="@android:drawable/ic_menu_delete" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_weight="50">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/save_list"
+                    android:textSize="17sp" />
+
+                <ImageButton
+                    android:id="@+id/save_list_btn"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@android:drawable/ic_menu_save" />
 
 
-    </LinearLayout>
+            </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="vertical"
+                android:layout_weight="50">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="@string/delete_list"
+                    android:textSize="17sp" />
+
+                <ImageButton
+                    android:id="@+id/imageButton8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@android:drawable/ic_menu_delete" />
+
+
+            </LinearLayout>
+        </LinearLayout>
 
 
     </LinearLayout>
