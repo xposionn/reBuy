@@ -27,7 +27,7 @@ public class EditItemActivity extends AppCompatActivity {
     //item data
     ItemInList current_item;
     ListOfItems current_list;
-    //TODO initilize user
+    //TODO initilize current_user
     User current_user;
 
     //components
@@ -143,19 +143,21 @@ public class EditItemActivity extends AppCompatActivity {
     private void setPriority(Priority prio) {
         priority = prio;
 
-        green_priority.setBackgroundColor(0xffffffff);
-        yellow_priority.setBackgroundColor(0xffffffff);
-        red_priority.setBackgroundColor(0xffffffff);
+        int not_chosen = 0xffffffff;
+        int chosen = 0x00000000;
+        green_priority.setBackgroundColor(not_chosen);
+        yellow_priority.setBackgroundColor(not_chosen);
+        red_priority.setBackgroundColor(not_chosen);
 
         switch (priority) {
             case LOW:
-                green_priority.setBackgroundColor(0x00000000);
+                green_priority.setBackgroundColor(chosen);
                 break;
             case MID:
-                yellow_priority.setBackgroundColor(0x00000000);
+                yellow_priority.setBackgroundColor(chosen);
                 break;
             case HIGH:
-                red_priority.setBackgroundColor(0x00000000);
+                red_priority.setBackgroundColor(chosen);
                 break;
         }
     }
