@@ -9,6 +9,7 @@ import java.util.UUID;
 
 public class ListOfItems extends ArrayList {
     private String listId;
+    private String titleName;
     private User owner;
     private List<String> editors;
     private List<String> viewers;
@@ -69,6 +70,9 @@ public class ListOfItems extends ArrayList {
         return owner;
     }
 
+    public String getTitleName() {
+        return titleName;
+    }
 
     public String getListId() {
         return listId;
