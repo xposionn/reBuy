@@ -2,7 +2,9 @@ package com.buildproject.rebuy;
 
 import androidx.annotation.NonNull;
 
+import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,5 +50,18 @@ public class FirebaseDBadapter {
 
             }
         });
+    }
+
+
+    public void addList(ListOfItems listOfItems,final DataStatus dataStatus){
+
+        String key = mReferenceLists.push().getKey();
+        mReferenceLists.child(key).setValue(listOfItems)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsInserted();
+                    }
+                });
     }
 }

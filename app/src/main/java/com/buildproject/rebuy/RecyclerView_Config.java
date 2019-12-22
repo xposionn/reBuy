@@ -43,7 +43,7 @@ public class RecyclerView_Config {
         }
         public void bind(ListOfItems list, String key){
             mListTitleName.setText(list.getTitleName());
-            mListOwnerName.setText(list.getOwner().getFirstName());
+            mListOwnerName.setText(list.getOwner());
             mListPriority.setText(list.getPriority());
             this.key = key;
         }
