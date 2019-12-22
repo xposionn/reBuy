@@ -22,7 +22,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/uid"
+            android:id="@+id/edit_item_name"
             android:gravity="center"
             android:clickable="true"
             android:hint="Enter name for this item"
@@ -42,14 +42,15 @@
 
 
         <ImageButton
-            android:id="@+id/imageButton"
+            android:id="@+id/imageButton_down"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="clickDown"
             app:srcCompat="@android:drawable/arrow_down_float" />
 
         <EditText
-            android:id="@+id/editText3"
+            android:id="@+id/quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -62,10 +63,11 @@
             android:layout_marginHorizontal="25dp"/>
 
         <ImageButton
-            android:id="@+id/imageButton2"
+            android:id="@+id/imageButton_up"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:onClick="clickUp"
             app:srcCompat="@android:drawable/arrow_up_float" />
     </LinearLayout>
 
@@ -95,32 +97,34 @@
             >
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/imageButton_green"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="33"
                 android:scaleType="centerInside"
+                android:onClick="clickGreen"
                 app:srcCompat="@drawable/green_priority_btn"
-
                 android:background="@android:color/transparent"
+
                 />
 
             <ImageButton
-                android:id="@+id/imageButton4"
+                android:id="@+id/imageButton_yellow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="33"
                 android:background="@android:color/transparent"
+                android:onClick="clickYellow"
                 app:srcCompat="@drawable/yellow_priority_btn"
                 android:scaleType="centerInside"/>
 
             <ImageButton
-                android:id="@+id/imageButton5"
+                android:id="@+id/imageButton_red"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="34"
+                android:onClick="clickRed"
                 android:background="@android:color/transparent"
-
                 app:srcCompat="@drawable/red_priority_btn"
                 android:scaleType="centerInside"/>
         </LinearLayout>
@@ -133,6 +137,7 @@
     <CheckBox
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:id="@+id/isbought"
         android:text="Bought"
         android:textSize="20sp"
         android:layout_marginTop="10dp"/>
@@ -154,6 +159,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:id="@+id/add_by"
             android:gravity="bottom"
             android:layout_marginStart="5dp"
             android:text="@string/f_name_l_name"
@@ -173,7 +179,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/added_at"
+            android:id="@+id/changed_at"
+            android:text="@string/changed_at"
             android:textSize="17sp"/>
 
         <TextView
@@ -194,6 +201,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="18sp"
+        android:id="@+id/edit_notes"
         android:hint="Add notes: \n\n"
         />
 <!--  recommendation:  text "add to recom.", imgButton  -->
@@ -215,13 +223,17 @@
         <pl.droidsonroids.gif.GifImageView
             android:layout_width="70dp"
             android:layout_height="100dp"
+            android:id="@+id/barcode"
             android:scaleType="fitCenter"
             android:layout_marginTop="0sp"
             android:src="@drawable/barcodegif"
+            android:onClick="onBarcodeClick"
             android:layout_weight="20"/>
     </LinearLayout>
-    
+
     <Button
+        android:id="@+id/edit_item_apply"
+        android:onClick="saveItem"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:text="Apply"

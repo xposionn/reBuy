@@ -24,8 +24,13 @@ import java.util.Date;
 
 public class EditItemActivity extends AppCompatActivity {
 
+    //item data
     ItemInList current_item;
+    ListOfItems current_list;
+    //TODO initilize user
+    User current_user;
 
+    //components
     EditText item_name;
 
     EditText quantity;
@@ -35,7 +40,7 @@ public class EditItemActivity extends AppCompatActivity {
     ImageButton green_priority;
     ImageButton yellow_priority;
     ImageButton red_priority;
-    Priority priority;
+    Priority priority; //temp data about chosen priority
 
     CheckBox is_bought;
 
@@ -55,6 +60,7 @@ public class EditItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+        //init components
         item_name = findViewById(R.id.edit_item_name);
         quantity = findViewById(R.id.quantity);
         down = findViewById(R.id.imageButton_down);
@@ -73,14 +79,15 @@ public class EditItemActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         current_item = (ItemInList)bundle.get("item_info");
+        //if is new item
         if (current_item == null) {
             current_item = new ItemInList();
-            //TODO current_item.setAddedBy(getUserName);
+            current_item.setAddedBy(current_user);
         }
 
+        //get data about exists item
         else {
             item_name.setText(current_item.getItemName());
-            added_by.setText((CharSequence) current_item.getAddedBy());
             added_at.setText(date_time_format.format(new Date()));
             if (!current_item.getNotes().isEmpty())
                 notes.setText(current_item.getNotes());
@@ -89,6 +96,25 @@ public class EditItemActivity extends AppCompatActivity {
         quantity.setText(current_item.getQuantity());
         setPriority(current_item.getPriority());
         is_bought.setChecked(current_item.isBought());
+
+        User user_added_by = current_item.getAddedBy();
+        added_by.setText(String.format("%s %s", user_added_by.getFirstName(), user_added_by.getLastName()));
+
+        //If current user is viewer
+        current_list = (ListOfItems)bundle.get("list_info");
+        if (current_list.getViewers().contains(current_user.getUserId())) {
+            item_name.setEnabled(false);
+            quantity.setEnabled(false);
+            down.setEnabled(false);
+            up.setEnabled(false);
+            green_priority.setEnabled(false);
+            yellow_priority.setEnabled(false);
+            red_priority.setEnabled(false);
+            is_bought.setEnabled(false);
+            notes.setEnabled(false);
+            apply_button.setEnabled(false);
+            //enable to press barcode_button!
+        }
     }
 
     public void clickDown(View view) {
@@ -116,11 +142,26 @@ public class EditItemActivity extends AppCompatActivity {
 
     private void setPriority(Priority prio) {
         priority = prio;
-        //TODO change something in images of priority
+
+        green_priority.setBackgroundColor(0xffffffff);
+        yellow_priority.setBackgroundColor(0xffffffff);
+        red_priority.setBackgroundColor(0xffffffff);
+
+        switch (priority) {
+            case LOW:
+                green_priority.setBackgroundColor(0x00000000);
+                break;
+            case MID:
+                yellow_priority.setBackgroundColor(0x00000000);
+                break;
+            case HIGH:
+                red_priority.setBackgroundColor(0x00000000);
+                break;
+        }
     }
 
     public void onBarcodeClick(View view) {
-        //TODO open scanner activity and delete this stupid toast
+        //TODO in future: open scanner activity and delete this stupid toast
         CharSequence text = "Thank you!";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), text, duration);
