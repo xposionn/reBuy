@@ -11,6 +11,7 @@ public class ListOfItems extends ArrayList {
     private String listId;
     private String titleName;
     private User owner;
+    private String priority;
     private List<String> editors;
     private List<String> viewers;
     private List<ItemInList> items;
@@ -72,6 +73,10 @@ public class ListOfItems extends ArrayList {
 
     public String getTitleName() {
         return titleName;
+    }
+
+    public String getPriority() {
+        return priority;
     }
 
     public String getListId() {
