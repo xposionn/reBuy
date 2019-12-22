@@ -8,6 +8,8 @@ import android.widget.TextView;
 import androidx.appcompat.view.menu.MenuView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buildproject.rebuy.Modules.ListOfItems;
+
 import org.w3c.dom.Text;
 
 public class RecyclerView_Config {
@@ -28,6 +30,11 @@ public class RecyclerView_Config {
             mListPriority = (TextView) itemView.findViewById(R.id.list_priorityText);
 
         }
-
+        public void bind(ListOfItems list, String key){
+            mListTitleName.setText(list.getTitleName());
+            mListOwnerName.setText(list.getOwner().getFirstName());
+            mListPriority.setText(list.getPriority());
+            this.key = key;
+        }
     }
 }
