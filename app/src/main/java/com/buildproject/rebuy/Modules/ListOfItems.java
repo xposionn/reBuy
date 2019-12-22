@@ -10,12 +10,12 @@ import java.util.UUID;
 public class ListOfItems extends ArrayList {
     private String listId;
     private String titleName;
-    private User owner; //id of owner, as
+    private String owner; //id of owner, as
     private String priority;
     private List<String> editors;
     private List<String> viewers;
     private List<ItemInList> items;
-    public ListOfItems(User owner) {
+    public ListOfItems(String owner) {
         this.listId = UUID.randomUUID().toString();
         this.owner = owner;
         this.editors = new ArrayList<>();
@@ -55,7 +55,7 @@ public class ListOfItems extends ArrayList {
     private void putOnDb() {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("lists/"+getListId());
-        myRef.child("owner").setValue(getOwner().getUserId());
+        myRef.child("owner").setValue(getOwner());
         myRef.child("editors").setValue(getEditors());
     }
 
@@ -71,7 +71,7 @@ public class ListOfItems extends ArrayList {
         return items;
     }
 
-    public User getOwner() {
+    public String getOwner() {
         return owner;
     }
 
