@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void moveToLists(View v) {
+    public void moveToNewListActivity(View v) {
         Intent i = new Intent(getApplicationContext(), NewListActivity.class);
         i.putExtra("account", account);
         startActivity(i);
