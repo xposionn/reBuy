@@ -21,10 +21,8 @@ public class NewListActivity extends AppCompatActivity {
     GoogleSignInAccount account;
 
     private TextView uid;
-
     private ImageButton saveButton;
     private String priority="Normal";
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +39,16 @@ public class NewListActivity extends AppCompatActivity {
                 //TODO: Get text and value from the activity
                 ListOfItems listOfItems = new ListOfItems();
                 listOfItems.setPriority(priority);
-                listOfItems.setTitleName(uid.getText().toString());
+
+                String titleName = uid.getText().toString();
+                if (titleName.isEmpty()) {
+                    Toast toast = Toast.makeText(view.getContext(), "Enter list name!", Toast.LENGTH_SHORT);
+                    toast.show();
+                    return;
+                }
+                else
+                    listOfItems.setTitleName(titleName);
+
                 listOfItems.setOwner(account.getDisplayName());
 
                 new FirebaseDBadapter().addList(listOfItems, new FirebaseDBadapter.DataStatus() {
@@ -89,8 +96,6 @@ public class NewListActivity extends AppCompatActivity {
 //            public void onCancelled(DatabaseError databaseError) {}
 //        };
 //        ref.addListenerForSingleValueEvent(eventListener);
-
-
 
     }
 
