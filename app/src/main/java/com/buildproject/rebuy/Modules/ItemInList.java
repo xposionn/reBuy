@@ -7,8 +7,14 @@ import java.util.Date;
 
 public class ItemInList {
 
-    private enum Priority {
+    public enum Priority {
         LOW, MID, HIGH;
+
+
+    }
+
+    public ItemInList(){
+
     }
 
     private String barcode = "";
@@ -30,6 +36,42 @@ public class ItemInList {
         this.listOfItems = listOfItem;
         putOnDb();
 
+    }
+
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setAddedBy(User addedBy) {
+        this.addedBy = addedBy;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public void setAddedTime(Date addedTime) {
+        this.addedTime = addedTime;
+    }
+
+    public void setBought(boolean bought) {
+        isBought = bought;
+    }
+
+    public void setListOfItems(ListOfItems listOfItems) {
+        this.listOfItems = listOfItems;
     }
 
     private void putOnDb() {

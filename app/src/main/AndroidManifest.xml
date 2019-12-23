@@ -14,6 +14,7 @@
         <activity android:name=".ListsActivity"></activity>
         <activity android:name=".EditItemActivity" />
         <activity android:name=".NewListActivity" />
+        <activity android:name=".ItemsActivity"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>

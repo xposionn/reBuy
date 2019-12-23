@@ -5,7 +5,8 @@
     android:id="@+id/linearLayout"
     style="List"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:onClick="onClickOnList">
 
     <TextView
         android:id="@+id/list_titleName"

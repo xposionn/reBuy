@@ -17,13 +17,15 @@ import java.util.List;
 public class FirebaseDBadapterItems {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceItems;
+    private DatabaseReference mReferenceList;
     private List<ItemInList> items = new ArrayList<>();
     String list_id;
 
     public FirebaseDBadapterItems(String list_id) {
         mDatabase = FirebaseDatabase.getInstance();
         this.list_id = list_id;
-        //TODO mReferenceLists = mDatabase.getReference("lists");
+        mReferenceItems = mDatabase.getReference("lists").child(list_id);
+        mReferenceList = mDatabase.getReference("lists").child(list_id);
     }
 
     public interface DataStatus{
@@ -34,9 +36,9 @@ public class FirebaseDBadapterItems {
     }
 
     public void addItem(ItemInList itemInList,final DataStatus dataStatus){
-
-        String key = mReferenceItems.push().getKey();
-        mReferenceItems.child(key).setValue(itemInList)
+        mReferenceList = mReferenceItems.child("items");
+        String key = mReferenceList.push().getKey();
+        mReferenceList.child(key).setValue(itemInList)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -46,7 +48,7 @@ public class FirebaseDBadapterItems {
     }
 
     public void readItems(final DataStatus dataStatus){
-        mReferenceItems.addValueEventListener(new ValueEventListener() {
+        mReferenceItems.child("items").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 items.clear();

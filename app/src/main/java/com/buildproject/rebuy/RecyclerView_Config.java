@@ -1,9 +1,12 @@
 package com.buildproject.rebuy;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuView;
@@ -46,6 +49,18 @@ public class RecyclerView_Config {
             mListOwnerName.setText(list.getOwner());
             mListPriority.setText(list.getPriority());
             this.key = key;
+
+
+        }
+
+        public void bind(ListOfItems list, String key, View.OnClickListener listener){
+            mListTitleName.setText(list.getTitleName());
+            mListOwnerName.setText(list.getOwner());
+            mListPriority.setText(list.getPriority());
+            itemView.setOnClickListener(listener);
+            this.key = key;
+
+
         }
     }
 
@@ -65,8 +80,16 @@ public class RecyclerView_Config {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull ListItemView holder, int position) {
-            holder.bind(mList.get(position), mKeys.get(position));
+        public void onBindViewHolder(@NonNull ListItemView holder, final int position) {
+            holder.bind(mList.get(position), mKeys.get(position), new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent newIntent = new Intent(view.getContext(),ItemsActivity.class);
+                    newIntent.putExtra("list_id",mKeys.get(position));
+                    view.getContext().startActivity(newIntent);
+                }
+            });
+
 
         }
 
