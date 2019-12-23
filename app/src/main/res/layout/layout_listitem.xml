@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/parent_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -17,15 +18,16 @@
             android:weightSum="100"
             android:layout_weight="70">
 
-            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/image"
-                android:layout_width="0dp"
-                android:layout_height="30dp"
-                android:src="@mipmap/ic_launcher"
-                android:layout_weight="10"
-                android:layout_gravity="center"/>
+            <ImageView
+                android:id="@+id/InList_priority"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_weight="40dp"
+                android:foregroundGravity="center_vertical"
+                app:srcCompat="@drawable/yellow_priority_btn" />
+
             <TextView
-                android:id="@+id/image_name"
+                android:id="@+id/InList_item_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Canada"
@@ -34,7 +36,7 @@
                 android:textSize="17sp" />
 
             <TextView
-                android:id="@+id/quantity"
+                android:id="@+id/InList_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -59,7 +61,7 @@
             android:weightSum="100">
 
             <CheckBox
-                android:id="@+id/isbought"
+                android:id="@+id/InList_isbought"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/bought"
@@ -68,7 +70,7 @@
                 />
 
             <TextView
-                android:id="@+id/note"
+                android:id="@+id/InList_note"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
