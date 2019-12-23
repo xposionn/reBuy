@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void moveToList(View v) {
         Intent i = new Intent(getApplicationContext(), ListsActivity.class);
+        i.putExtra("account", account);
         startActivity(i);
     }
 

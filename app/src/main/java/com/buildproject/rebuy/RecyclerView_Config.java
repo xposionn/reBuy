@@ -86,6 +86,7 @@ public class RecyclerView_Config {
                 public void onClick(View view) {
                     Intent newIntent = new Intent(view.getContext(),ItemsActivity.class);
                     newIntent.putExtra("list_id",mKeys.get(position));
+
                     view.getContext().startActivity(newIntent);
                 }
             });

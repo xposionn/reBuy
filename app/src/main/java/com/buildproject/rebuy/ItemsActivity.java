@@ -17,13 +17,13 @@ import java.util.Objects;
 public class ItemsActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
-
+    private String list_id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        String list_id= Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
+        list_id= Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
 
         setContentView(R.layout.activity_items);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview_items);
@@ -82,7 +82,8 @@ public class ItemsActivity extends AppCompatActivity {
 
     public void moveToAddItemActivity(View v) {
         Intent i = new Intent(getApplicationContext(), EditItemActivity.class);
-//        i.putExtra("list_id",)
+        i.putExtra("list_info",list_id);
+
         startActivity(i);
     }
 }
