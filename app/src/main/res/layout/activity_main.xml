@@ -59,7 +59,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="88dp"
         android:onClick="moveToList"
-        android:text="Button"
+        android:text="Your Lists"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -69,7 +69,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:onClick="moveToAddItemActivity"
-        android:text="addItemBtn"
-        tools:layout_editor_absoluteX="157dp"
-        tools:layout_editor_absoluteY="440dp" />
+        android:text="Add New Item"
+        tools:layout_editor_absoluteX="147dp"
+        tools:layout_editor_absoluteY="405dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.buildproject.rebuy;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
@@ -22,7 +23,7 @@ public class NewListActivity extends AppCompatActivity {
     private TextView uid;
 
     private ImageButton saveButton;
-
+    private String priority="Normal";
 
 
     @Override
@@ -33,12 +34,13 @@ public class NewListActivity extends AppCompatActivity {
         account = getIntent().getParcelableExtra("account");
         uid = findViewById(R.id.uid);
         saveButton = findViewById(R.id.save_list_btn);
+
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //TODO: Get text and value from the activity
                 ListOfItems listOfItems = new ListOfItems();
-                listOfItems.setPriority("normal");
+                listOfItems.setPriority(priority);
                 listOfItems.setTitleName(uid.getText().toString());
                 listOfItems.setOwner(account.getDisplayName());
 
@@ -50,7 +52,7 @@ public class NewListActivity extends AppCompatActivity {
 
                     @Override
                     public void DataIsInserted() {
-                        Toast.makeText(NewListActivity.this, "added list", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(NewListActivity.this, "List Added!", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -65,6 +67,10 @@ public class NewListActivity extends AppCompatActivity {
                 });
             }
         });
+
+
+
+
 
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference ref = database.getReference("lists");
@@ -86,9 +92,17 @@ public class NewListActivity extends AppCompatActivity {
 
 
 
+    }
 
+    public void priorityLowPressed(View v){
+        priority = "Low";
+    }
 
+    public void priorityNormalPressed(View v){
+        priority = "Normal";
+    }
 
-
+    public void priorityHighPressed(View v){
+        priority = "High";
     }
 }
