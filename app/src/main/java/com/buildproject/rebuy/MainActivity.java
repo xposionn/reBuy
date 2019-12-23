@@ -103,8 +103,5 @@ public class MainActivity extends AppCompatActivity {
         Intent i = new Intent(getApplicationContext(), ListsActivity.class);
         startActivity(i);
     }
-    public void moveToAddItemActivity(View v) {
-        Intent i = new Intent(getApplicationContext(), EditItemActivity.class);
-        startActivity(i);
-    }
+
 }

@@ -21,5 +21,6 @@
     android:layout_height="wrap_content"
     android:layout_gravity="bottom|right"
     android:layout_margin="30dp"
+    android:onClick="moveToAddItemActivity"
     />
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
