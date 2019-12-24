@@ -36,8 +36,8 @@ public class ListOfItems {
     }
 
     //Add viewer
-    public void addViewer(User viewer){
-    this.viewers.add(viewer.getUserId());
+    public void addViewer(String viewer){
+    this.viewers.add(viewer);
     }
 
     //TODO:REMOVE THIS

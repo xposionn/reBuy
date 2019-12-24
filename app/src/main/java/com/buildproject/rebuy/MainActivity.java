@@ -14,6 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.buildproject.rebuy.Modules.ItemInList;
+import com.buildproject.rebuy.Modules.ListOfItems;
 import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import java.util.List;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -105,4 +109,34 @@ public class MainActivity extends AppCompatActivity {
         startActivity(i);
     }
 
+    public void hardCodedList(View view) {
+        ListOfItems listOfItems = new ListOfItems();
+        listOfItems.setOwner(account.getId());
+        listOfItems.setTitleName("this is hard coded list");
+        listOfItems.addItem(new ItemInList("item1","HIGH"));
+        listOfItems.addItem(new ItemInList("item2","LOW"));
+        listOfItems.addEditor("id of editor");
+        listOfItems.addViewer("id of viewer");
+        new FirebaseDBadapter().addList(listOfItems, new FirebaseDBadapter.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<ListOfItems> lists, List<String> keys) {
+
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
+    }
 }

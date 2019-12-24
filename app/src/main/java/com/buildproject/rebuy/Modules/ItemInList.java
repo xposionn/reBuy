@@ -1,10 +1,5 @@
 package com.buildproject.rebuy.Modules;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.Date;
-
 public class ItemInList {
 
     public enum Priority {
@@ -17,105 +12,88 @@ public class ItemInList {
 
     }
 
-    private String barcode = "";
-    private String itemName;
-    private User addedBy;
-    private int quantity = 1;
-    private Priority priority;
-    private String notes;
-    private Date addedTime;
-    private boolean isBought = false;
-    private ListOfItems listOfItems;
-
-
-    public ItemInList(String itemName, User addedBy, ListOfItems listOfItem) {
+    public ItemInList(String itemName,String priority) {
         this.itemName = itemName;
-        this.addedBy = addedBy;
-        this.addedTime = new Date();
-        this.priority = Priority.LOW;
-        this.listOfItems = listOfItem;
-        putOnDb();
-
-    }
-
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public void setAddedBy(User addedBy) {
-        this.addedBy = addedBy;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setPriority(Priority priority) {
         this.priority = priority;
     }
 
-    public void setNotes(String notes) {
-        this.notes = notes;
-    }
-
-    public void setAddedTime(Date addedTime) {
-        this.addedTime = addedTime;
-    }
-
-    public void setBought(boolean bought) {
-        isBought = bought;
-    }
-
-    public void setListOfItems(ListOfItems listOfItems) {
-        this.listOfItems = listOfItems;
-    }
-
-    private void putOnDb() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("lists/"+listOfItems.getListId());
-        myRef.setValue(this);
-    }
+    private String barcode = "";
+    private String itemName;
+    private String useId;
+    private int quantity = 1;
+    private String priority = "HAS NON";
+    private String notes = "NO NOTES";
+//    private Date addedTime;
+    private boolean isBought = false;
+    private String listId;
 
 
     public String getBarcode() {
         return barcode;
     }
 
+    public void setBarcode(String barcode) {
+        this.barcode = barcode;
+    }
+
     public String getItemName() {
         return itemName;
     }
 
-    public User getAddedBy() {
-        return addedBy;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public String getUseId() {
+        return useId;
+    }
+
+    public void setUseId(String useId) {
+        this.useId = useId;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public Priority getPriority() {
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getPriority() {
         return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
     }
 
     public String getNotes() {
         return notes;
     }
 
-    public Date getAddedTime() {
-        return addedTime;
+    public void setNotes(String notes) {
+        this.notes = notes;
     }
 
     public boolean isBought() {
         return isBought;
     }
 
-    public ListOfItems getListOfItems() {
-        return listOfItems;
+    public void setBought(boolean bought) {
+        isBought = bought;
     }
+
+    public String getListId() {
+        return listId;
+    }
+
+    public void setListId(String listId) {
+        this.listId = listId;
+    }
+
+
+
 
     /*
  ######    Constructor for barcode

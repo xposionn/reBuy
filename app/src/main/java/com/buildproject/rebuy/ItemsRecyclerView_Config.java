@@ -50,21 +50,21 @@ public class ItemsRecyclerView_Config {
         }
         public void bind(ItemInList item, String key){
             mItemTitleName.setText(item.getItemName());
-            mItemQuantity.setText(item.getQuantity());
+            mItemQuantity.setText(Integer.toString(item.getQuantity()));
             mItemNote.setText(item.getNotes());
             mItemBought.setChecked(item.isBought());
-            switch (item.getPriority()) {
-
-                case LOW:
-                    mItemPriority.setImageResource(R.drawable.green_priority_btn);
-                    break;
-                case MID:
-                    mItemPriority.setImageResource(R.drawable.yellow_priority_btn);
-                    break;
-                case HIGH:
-                    mItemPriority.setImageResource(R.drawable.red_priority_btn);
-                    break;
-            }
+//            switch (item.getPriority()) {
+//
+//                case LOW:
+//                    mItemPriority.setImageResource(R.drawable.green_priority_btn);
+//                    break;
+//                case MID:
+//                    mItemPriority.setImageResource(R.drawable.yellow_priority_btn);
+//                    break;
+//                case HIGH:
+//                    mItemPriority.setImageResource(R.drawable.red_priority_btn);
+//                    break;
+//            }
             this.key = key;
         }
     }
