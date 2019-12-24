@@ -42,16 +42,33 @@ public class FirebaseDBadapter {
 
     }
 
-    public void readLists(final DataStatus dataStatus) {
-        mReferenceLists.addValueEventListener(new ValueEventListener() {
+    public void readLists(String id, final DataStatus dataStatus){
+        class ValueEventListener_WithID implements ValueEventListener {
+            String id;
+
+            ValueEventListener_WithID(String _id) {
+                super();
+                id = _id;
+            }
+
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 lists.clear();
                 List<String> keys = new ArrayList<>();
-                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    keys.add(keyNode.getKey());
+                for(DataSnapshot keyNode: dataSnapshot.getChildren()){
                     ListOfItems listOfItems = keyNode.getValue(ListOfItems.class);
-                    lists.add(listOfItems);
+
+                    boolean is_my_list = false;
+                    if (listOfItems.getOwner().equals(id))
+                        is_my_list = true;
+                    else if (listOfItems.getEditors().contains(id))
+                        is_my_list = true;
+                    else if (listOfItems.getViewers().contains(id))
+                        is_my_list = true;
+                    if (is_my_list) {
+                        keys.add(keyNode.getKey());
+                        lists.add(listOfItems);
+                    }
                 }
                 dataStatus.DataIsLoaded(lists, keys);
             }
@@ -60,8 +77,11 @@ public class FirebaseDBadapter {
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
-        });
+        }
+
+        mReferenceLists.addValueEventListener(new ValueEventListener_WithID(id));
     }
+
 
 
     public void addList(ListOfItems listOfItems, final DataStatus dataStatus) {

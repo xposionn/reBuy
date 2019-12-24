@@ -25,7 +25,7 @@ public class ListsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_lists);
         account = getIntent().getParcelableExtra("account");
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview_lists);
-        new FirebaseDBadapter().readLists(new FirebaseDBadapter.DataStatus() {
+        new FirebaseDBadapter().readLists(account.getId(),new FirebaseDBadapter.DataStatus() {
             @Override
             public void DataIsLoaded(List<ListOfItems> lists, List<String> keys) {
                 new RecyclerView_Config().setConfig(mRecyclerView, ListsActivity.this, lists,keys);
