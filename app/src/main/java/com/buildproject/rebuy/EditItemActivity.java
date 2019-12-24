@@ -126,12 +126,12 @@ public class EditItemActivity extends AppCompatActivity {
     public void clickDown(View view) {
         int i = Integer.parseInt(quantity.getText().toString());
         if (i>0) //minimum quantity is 0
-            quantity.setText(i-1);
+            quantity.setText(Integer.toString(i-1));
     }
 
     public void clickUp(View view) {
         int i = Integer.parseInt(quantity.getText().toString());
-        quantity.setText(++i);
+        quantity.setText(Integer.toString(++i));
     }
 
     public void clickGreen(View view) {
