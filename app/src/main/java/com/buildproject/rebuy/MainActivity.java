@@ -1,6 +1,5 @@
 package com.buildproject.rebuy;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -113,8 +112,6 @@ public class MainActivity extends AppCompatActivity {
         ListOfItems listOfItems = new ListOfItems();
         listOfItems.setOwner(account.getId());
         listOfItems.setTitleName("this is hard coded list");
-        listOfItems.addItem(new ItemInList("item1","HIGH"));
-        listOfItems.addItem(new ItemInList("item2","LOW"));
         listOfItems.addEditor("id of editor");
         listOfItems.addViewer("id of viewer");
         new FirebaseDBadapter().addList(listOfItems, new FirebaseDBadapter.DataStatus() {

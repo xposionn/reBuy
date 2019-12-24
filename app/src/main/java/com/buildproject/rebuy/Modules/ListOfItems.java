@@ -4,6 +4,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
@@ -14,7 +15,7 @@ public class ListOfItems {
     private String priority;
     private List<String> editors;
     private List<String> viewers;
-    private List<ItemInList> items;
+    private HashMap<String,ItemInList> items;
 
 
     public void setListId(String listId) {
@@ -32,7 +33,7 @@ public class ListOfItems {
     public ListOfItems(){ //used to init from firebase db
         this.editors = new ArrayList<>();
         this.viewers = new ArrayList<>();
-        this.items = new ArrayList<>();
+        this.items = new HashMap<>();
     }
 
     //Add viewer
@@ -52,8 +53,8 @@ public class ListOfItems {
         this.editors.add(editor);
     }
 
-    public void addItem(ItemInList item){
-        this.items.add(item);
+    public void addItem(String key,ItemInList item){
+        this.items.put(key,item);
     }
 
 
@@ -67,8 +68,20 @@ public class ListOfItems {
         return viewers;
     }
 
-    public List<ItemInList> getItems() {
+    public void setEditors(List<String> editors) {
+        this.editors = editors;
+    }
+
+    public void setViewers(List<String> viewers) {
+        this.viewers = viewers;
+    }
+
+    public HashMap<String, ItemInList> getItems() {
         return items;
+    }
+
+    public void setItems(HashMap<String, ItemInList> items) {
+        this.items = items;
     }
 
     public String getOwner() {

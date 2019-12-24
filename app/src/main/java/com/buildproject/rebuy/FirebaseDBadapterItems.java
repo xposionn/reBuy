@@ -36,9 +36,9 @@ public class FirebaseDBadapterItems {
     }
 
     public void addItem(ItemInList itemInList,final DataStatus dataStatus){
-        mReferenceList = mReferenceItems.child("items");
-        String key = mReferenceList.push().getKey();
-        mReferenceList.child(key).setValue(itemInList)
+        mReferenceItems = mReferenceItems.child("items");
+        String key = mReferenceItems.push().getKey();
+        mReferenceItems.child(key).setValue(itemInList)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

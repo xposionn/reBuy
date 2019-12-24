@@ -48,41 +48,13 @@ public class ItemsActivity extends AppCompatActivity {
 
             }
         });
-        //Creates new Item and insert into DB
-      /*  ItemInList item = new ItemInList();
-        item.setItemName("itemname");
-        item.setBought(false);
-
-        new FirebaseDBadapterItems(list_id).addItem(item, new FirebaseDBadapterItems.DataStatus() {
-            @Override
-            public void DataIsLoaded(List<ItemInList> lists, List<String> keys) {
-
-            }
-
-            @Override
-            public void DataIsInserted() {
-                Toast.makeText(getApplicationContext(), "Item Added!", Toast.LENGTH_SHORT).show();
-
-            }
-
-            @Override
-            public void DataIsUpdated() {
-
-            }
-
-            @Override
-            public void DataIsDeleted() {
-
-            }
-        });*/
-
 
     }
 
 
     public void moveToAddItemActivity(View v) {
         Intent i = new Intent(getApplicationContext(), EditItemActivity.class);
-        i.putExtra("list_info",list_id);
+        i.putExtra("list_id",list_id);
 
         startActivity(i);
     }

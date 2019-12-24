@@ -1,5 +1,7 @@
 package com.buildproject.rebuy.Modules;
 
+import java.util.Date;
+
 public class ItemInList {
 
     public enum Priority {
@@ -12,16 +14,33 @@ public class ItemInList {
 
     }
 
-    public ItemInList(String itemName,String priority) {
+    public ItemInList(String itemName,Priority priority) {
         this.itemName = itemName;
         this.priority = priority;
     }
-
+//    private Date addedTime = null;
     private String barcode = "";
     private String itemName;
-    private String useId;
+    private String userId;
     private int quantity = 1;
-    private String priority = "HAS NON";
+
+    public Priority getPriority() {
+        return priority;
+    }
+
+//    public Date getAddedTime() {
+//        return addedTime;
+//    }
+//
+//    public void setAddedTime(Date addedTime) {
+//        this.addedTime = addedTime;
+//    }
+
+    public void setPriority(Priority priority) {
+        this.priority = priority;
+    }
+
+    private Priority priority = Priority.LOW;
     private String notes = "NO NOTES";
 //    private Date addedTime;
     private boolean isBought = false;
@@ -44,12 +63,12 @@ public class ItemInList {
         this.itemName = itemName;
     }
 
-    public String getUseId() {
-        return useId;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUseId(String useId) {
-        this.useId = useId;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public int getQuantity() {
@@ -60,13 +79,6 @@ public class ItemInList {
         this.quantity = quantity;
     }
 
-    public String getPriority() {
-        return priority;
-    }
-
-    public void setPriority(String priority) {
-        this.priority = priority;
-    }
 
     public String getNotes() {
         return notes;

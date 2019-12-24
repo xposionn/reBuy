@@ -4,219 +4,240 @@
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
     >
-<LinearLayout
-    android:id="@+id/parent_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="15dp"
-    android:weightSum="100"
-    android:orientation="vertical"
-    >
-
-    <!-- item name -->
     <LinearLayout
+        android:id="@+id/parent_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="wrap_content"
+        android:padding="15dp"
+        android:weightSum="100"
+        android:orientation="vertical"
+        >
 
-        <EditText
+        <!-- item name -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/uid"
-            android:gravity="center"
-            android:clickable="true"
-            android:hint="Enter name for this item"
-            android:inputType="text"
-            android:maxLines="1"/>
+            android:orientation="vertical">
 
-    </LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/edit_item_name"
+                android:gravity="center"
+                android:clickable="true"
+                android:hint="Enter name for this item"
+                android:inputType="text"
+                android:maxLines="1"/>
 
-<!--  img down , text (quantity) , img up  -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="100"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:layout_marginTop="10dp">
+        </LinearLayout>
 
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/arrow_down_float" />
-
-        <EditText
-            android:id="@+id/editText3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="3"
-            android:textStyle="bold"
-            android:gravity="center"
-            android:textSize="22sp"
-            android:text="@string/default_item_quantity_1"
-            android:inputType="numberSigned"
-            android:layout_marginHorizontal="25dp"/>
-
-        <ImageButton
-            android:id="@+id/imageButton2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@android:drawable/arrow_up_float" />
-    </LinearLayout>
-
-<!--  priority: text, Linear(img1, img2, img3)  -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:weightSum="100"
-        android:orientation="horizontal"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="30"
-            android:gravity="center_vertical"
-            android:text="@string/priority"
-            android:textSize="20sp"
-            />
-
+        <!--  img down , text (quantity) , img up  -->
         <LinearLayout
-            android:layout_weight="70"
-            android:layout_height="40dp"
-            android:orientation="horizontal"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:weightSum="100"
-            >
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="10dp">
+
 
             <ImageButton
-                android:id="@+id/imageButton3"
+                android:id="@+id/imageButton_down"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="33"
-                android:scaleType="centerInside"
-                app:srcCompat="@drawable/green_priority_btn"
+                android:layout_weight="1"
+                android:onClick="clickDown"
+                app:srcCompat="@android:drawable/arrow_down_float" />
 
-                android:background="@android:color/transparent"
+            <EditText
+                android:id="@+id/quantity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="3"
+                android:textStyle="bold"
+                android:gravity="center"
+                android:textSize="22sp"
+                android:text="@string/default_item_quantity_1"
+                android:inputType="numberSigned"
+                android:layout_marginHorizontal="25dp"/>
+
+            <ImageButton
+                android:id="@+id/imageButton_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="clickUp"
+                app:srcCompat="@android:drawable/arrow_up_float" />
+        </LinearLayout>
+
+        <!--  priority: text, Linear(img1, img2, img3)  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:weightSum="100"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30"
+                android:gravity="center_vertical"
+                android:text="@string/priority"
+                android:textSize="20sp"
                 />
 
-            <ImageButton
-                android:id="@+id/imageButton4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="33"
-                android:background="@android:color/transparent"
-                app:srcCompat="@drawable/yellow_priority_btn"
-                android:scaleType="centerInside"/>
+            <LinearLayout
+                android:layout_weight="70"
+                android:layout_height="40dp"
+                android:orientation="horizontal"
+                android:layout_width="0dp"
+                android:weightSum="100"
+                >
 
-            <ImageButton
-                android:id="@+id/imageButton5"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="34"
-                android:background="@android:color/transparent"
+                <ImageButton
+                    android:id="@+id/imageButton_green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="33"
+                    android:scaleType="centerInside"
+                    android:onClick="clickGreen"
+                    app:srcCompat="@drawable/green_priority_btn"
+                    android:background="@android:color/transparent"
 
-                app:srcCompat="@drawable/red_priority_btn"
-                android:scaleType="centerInside"/>
+                    />
+
+                <ImageButton
+                    android:id="@+id/imageButton_yellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="33"
+                    android:background="@android:color/transparent"
+                    android:onClick="clickYellow"
+                    app:srcCompat="@drawable/yellow_priority_btn"
+                    android:scaleType="centerInside"/>
+
+                <ImageButton
+                    android:id="@+id/imageButton_red"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="34"
+                    android:onClick="clickRed"
+                    android:background="@android:color/transparent"
+                    app:srcCompat="@drawable/red_priority_btn"
+                    android:scaleType="centerInside"/>
+            </LinearLayout>
+
+
         </LinearLayout>
 
 
-    </LinearLayout>
-
-
-<!--  isBought: checkBox+text "is Bought?" [V]  -->
-    <CheckBox
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Bought"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"/>
-
-<!-- Addedby: text "added by: ", text  -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/added_by"
-            android:textSize="17sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:layout_marginStart="5dp"
-            android:text="@string/f_name_l_name"
-            android:textSize="17sp"/>
-
-
-    </LinearLayout>
-
-<!-- AddedAt: text "added at: ", Date  -->
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/added_at"
-            android:textSize="17sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:layout_marginStart="5dp"
-            android:text="@string/dateWithTimeHere"
-            android:textSize="17sp"/>
-
-
-
-    </LinearLayout>
-
-<!--  Notes:  text "Notes: ", text(wrap content -vertical)  -->
-
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="18sp"
-        android:hint="Add notes: \n\n\n"
-        />
-<!--  recommendation:  text "add to recom.", imgButton  -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="120sp"
-        android:layout_marginTop="10dp"
-        android:orientation="vertical"
-        >
-        <TextView
+        <!--  isBought: checkBox+text "is Bought?" [V]  -->
+        <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/recommendationAdvice"
-            />
+            android:id="@+id/isbought"
+            android:text="Bought"
+            android:textSize="20sp"
+            android:layout_marginTop="10dp"/>
 
+        <!-- Addedby: text "added by: ", text  -->
 
-        <pl.droidsonroids.gif.GifImageView
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scaleType="fitCenter"
-            android:layout_marginTop="20sp"
-            android:src="@drawable/barcodegif"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/added_by"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:id="@+id/add_by"
+                android:gravity="bottom"
+                android:layout_marginStart="5dp"
+                android:text="@string/f_name_l_name"
+                android:textSize="17sp"/>
+
+
+        </LinearLayout>
+
+        <!-- AddedAt: text "added at: ", Date  -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/changed_at"
+                android:text="@string/change_at"
+                android:textSize="17sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="bottom"
+                android:layout_marginStart="5dp"
+                android:text="@string/dateWithTimeHere"
+                android:textSize="17sp"/>
+
+
+
+        </LinearLayout>
+
+        <!--  Notes:  text "Notes: ", text(wrap content -vertical)  -->
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:id="@+id/edit_notes"
+            android:hint="Add notes: \n\n"
             />
+        <!--  recommendation:  text "add to recom.", imgButton  -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:layout_gravity="center_vertical"
+                android:text="@string/recommendationAdvice" />
+
+            <pl.droidsonroids.gif.GifImageView
+                android:layout_width="70dp"
+                android:layout_height="100dp"
+                android:id="@+id/barcode"
+                android:scaleType="fitCenter"
+                android:layout_marginTop="0sp"
+                android:src="@drawable/barcodegif"
+                android:onClick="onBarcodeClick"
+                android:layout_weight="20"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/edit_item_apply"
+            android:onClick="saveItem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Apply"
+            android:layout_gravity="center"/>
+
     </LinearLayout>
-</LinearLayout>
 </ScrollView>
