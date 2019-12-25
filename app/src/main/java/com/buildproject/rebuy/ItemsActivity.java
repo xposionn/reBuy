@@ -24,7 +24,7 @@ public class ItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list_id= Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
-        setTitle(DBProvider.getInstance().getListByID(list_id).getTitleName());
+//        setTitle(DBProvider.getInstance().getListByID(list_id).getTitleName());
 
         setContentView(R.layout.activity_items);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview_items);
