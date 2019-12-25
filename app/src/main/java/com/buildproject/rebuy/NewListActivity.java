@@ -49,7 +49,7 @@ public class NewListActivity extends AppCompatActivity {
                 else
                     listOfItems.setTitleName(titleName);
 
-                listOfItems.setOwner(account.getDisplayName());
+                listOfItems.setOwner(account.getId());
 
                 new FirebaseDBadapter().addList(listOfItems, new FirebaseDBadapter.DataStatus() {
                     @Override

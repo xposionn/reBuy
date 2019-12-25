@@ -150,7 +150,7 @@ public class EditItemActivity extends AppCompatActivity {
         priority = prio;
 
         int not_chosen = 0xffffffff;
-        int chosen = 0x00000000;
+        int chosen = 0x88888888;
         green_priority.setBackgroundColor(not_chosen);
         yellow_priority.setBackgroundColor(not_chosen);
         red_priority.setBackgroundColor(not_chosen);

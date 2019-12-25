@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
+import com.buildproject.rebuy.Services.DBProvider;
 
 import java.util.List;
 import java.util.Objects;
@@ -22,8 +23,8 @@ public class ItemsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         list_id= Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
+        setTitle(DBProvider.getInstance().getListByID(list_id).getTitleName());
 
         setContentView(R.layout.activity_items);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview_items);
