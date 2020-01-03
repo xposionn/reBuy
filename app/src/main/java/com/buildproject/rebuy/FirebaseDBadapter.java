@@ -59,12 +59,18 @@ public class FirebaseDBadapter {
                     ListOfItems listOfItems = keyNode.getValue(ListOfItems.class);
 
                     boolean is_my_list = false;
-                    if (listOfItems.getOwner().equals(id))
+                    if (listOfItems.getOwner().equals(id)) {
                         is_my_list = true;
-                    else if (listOfItems.getEditors().contains(id))
+                        listOfItems.setPermission(ListOfItems.Permission.OWNER);
+                    }
+                    else if (listOfItems.getEditors().contains(id)) {
                         is_my_list = true;
-                    else if (listOfItems.getViewers().contains(id))
+                        listOfItems.setPermission(ListOfItems.Permission.EDITOR);
+                    }
+                    else if (listOfItems.getViewers().contains(id)) {
                         is_my_list = true;
+                        listOfItems.setPermission(ListOfItems.Permission.VIEWER);
+                    }
                     if (is_my_list) {
                         keys.add(keyNode.getKey());
                         lists.add(listOfItems);

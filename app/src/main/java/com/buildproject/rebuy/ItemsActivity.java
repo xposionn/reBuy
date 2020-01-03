@@ -31,7 +31,7 @@ public class ItemsActivity extends AppCompatActivity {
         new FirebaseDBadapterItems(list_id).readItems(new FirebaseDBadapterItems.DataStatus() {
             @Override
             public void DataIsLoaded(List<ItemInList> items, List<String> keys) {
-                new ItemsRecyclerView_Config().setConfig(mRecyclerView, ItemsActivity.this, items, keys);
+                new ItemsRecyclerView_Config().setConfig(mRecyclerView, ItemsActivity.this, items, keys, list_id);
             }
 
             @Override
@@ -56,7 +56,6 @@ public class ItemsActivity extends AppCompatActivity {
     public void moveToAddItemActivity(View v) {
         Intent i = new Intent(getApplicationContext(), EditItemActivity.class);
         i.putExtra("list_id",list_id);
-
         startActivity(i);
     }
 }

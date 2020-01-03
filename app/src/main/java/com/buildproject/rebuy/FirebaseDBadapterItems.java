@@ -17,7 +17,6 @@ import java.util.List;
 public class FirebaseDBadapterItems {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceItems;
-    private DatabaseReference mReferenceList;
     private List<ItemInList> items = new ArrayList<>();
     String list_id;
 
@@ -25,7 +24,6 @@ public class FirebaseDBadapterItems {
         mDatabase = FirebaseDatabase.getInstance();
         this.list_id = list_id;
         mReferenceItems = mDatabase.getReference("lists").child(list_id);
-        mReferenceList = mDatabase.getReference("lists").child(list_id);
     }
 
     public interface DataStatus{
@@ -33,6 +31,26 @@ public class FirebaseDBadapterItems {
         void DataIsInserted();
         void DataIsUpdated();
         void DataIsDeleted();
+    }
+
+    public void updateItem (String itemId, String attribute, Object value, final DataStatus dataStatus) {
+        mReferenceItems.child("items").child(itemId).child(attribute).setValue(value)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsUpdated();
+                    }
+                });
+    }
+
+    public void deleteItem (String key, final DataStatus dataStatus){
+        mReferenceItems.child("items").child(key).setValue(null)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsDeleted();
+                    }
+                });
     }
 
     public void addItem(ItemInList itemInList,final DataStatus dataStatus){
