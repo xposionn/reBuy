@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ItemInList.Priority;
+import com.google.firebase.Timestamp;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -147,7 +148,8 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void saveItem (View view) {
-//            current_item.setAddedTime(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+        current_item.setAddedTime(sdf.format(new Date()));
         current_item.setBought(is_bought.isChecked());
         current_item.setItemName(item_name.getText().toString());
         current_item.setNotes(notes.getText().toString());
