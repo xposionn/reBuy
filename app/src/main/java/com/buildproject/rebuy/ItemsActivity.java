@@ -3,14 +3,11 @@ package com.buildproject.rebuy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.buildproject.rebuy.Modules.ItemInList;
-import com.buildproject.rebuy.Modules.ListOfItems;
-import com.buildproject.rebuy.Services.DBProvider;
 
 import java.util.List;
 import java.util.Objects;
@@ -54,7 +51,7 @@ public class ItemsActivity extends AppCompatActivity {
 
 
     public void moveToAddItemActivity(View v) {
-        Intent i = new Intent(getApplicationContext(), EditItemActivity.class);
+        Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
         i.putExtra("list_id",list_id);
         startActivity(i);
     }

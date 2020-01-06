@@ -2,8 +2,6 @@ package com.buildproject.rebuy;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.Image;
-import android.renderscript.RenderScript;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +9,12 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.buildproject.rebuy.Modules.ItemInList;
-import com.buildproject.rebuy.Modules.ListOfItems;
 
 import java.util.List;
 
@@ -174,7 +170,7 @@ public class ItemsRecyclerView_Config {
             holder.bind(mItem.get(position), mKeys.get(position), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent newIntent = new Intent(view.getContext(),EditItemActivity.class);
+                    Intent newIntent = new Intent(view.getContext(), AddItemActivity.class);
                    // newIntent.putExtra("item_info",mItem.get(position));
                     newIntent.putExtra("list_id",list_id);
                     view.getContext().startActivity(newIntent);

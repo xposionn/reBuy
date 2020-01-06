@@ -1,5 +1,7 @@
 package com.buildproject.rebuy;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -9,8 +11,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ItemInList.Priority;
 
@@ -19,7 +19,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
-public class EditItemActivity extends AppCompatActivity {
+public class AddItemActivity extends AppCompatActivity {
 
     //item data
     ItemInList current_item;
@@ -37,7 +37,7 @@ public class EditItemActivity extends AppCompatActivity {
     ImageButton green_priority;
     ImageButton yellow_priority;
     ImageButton red_priority;
-    Priority priority; //temp data about chosen priority
+    ItemInList.Priority priority; //temp data about chosen priority
 
     CheckBox is_bought;
 
@@ -78,46 +78,19 @@ public class EditItemActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
 //        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
         list_id = bundle.getString("list_id");
-        //current_item = (ItemInList)bundle.get("item_info");
 
-        //if is new item
-        if (current_item == null) {
-            current_item = new ItemInList();
-            current_item.setUserId(userId);
-        }
+        current_item = new ItemInList();
+        current_item.setUserId(userId);
 
-        //get data about exists item
-        else {
-            item_name.setText(current_item.getItemName());
-            added_at.setText(date_time_format.format(new Date()));
-            if (!current_item.getNotes().isEmpty())
-                notes.setText(current_item.getNotes());
-        }
-
+        //set default values
         quantity.setText(Integer.toString(current_item.getQuantity()));
         setPriority(current_item.getPriority());
         is_bought.setChecked(current_item.isBought());
 
         String user_added_by = current_item.getUserId();
 //        added_by.setText(String.format("%s %s", user_added_by.getFirstName(), user_added_by.getLastName()));
-//        added_by.setText("ADDED BY..");
 
-        //If current user is viewer
 
-/*        current_list = (ListOfItems)bundle.get("list_info");
-        if (current_list.getViewers().contains(current_user.getUserId())) {
-            item_name.setEnabled(false);
-            quantity.setEnabled(false);
-            down.setEnabled(false);
-            up.setEnabled(false);
-            green_priority.setEnabled(false);
-            yellow_priority.setEnabled(false);
-            red_priority.setEnabled(false);
-            is_bought.setEnabled(false);
-            notes.setEnabled(false);
-            apply_button.setEnabled(false);
-            //enable to press barcode_button!
-        }*/
     }
 
     public void clickDown(View view) {
@@ -174,7 +147,6 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     public void saveItem (View view) {
-//        if (current_item.getAddedTime() == null)
 //            current_item.setAddedTime(new Date());
         current_item.setBought(is_bought.isChecked());
         current_item.setItemName(item_name.getText().toString());
@@ -190,7 +162,7 @@ public class EditItemActivity extends AppCompatActivity {
 
             @Override
             public void DataIsInserted() {
-                Toast.makeText(EditItemActivity.this, "Item has been added successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddItemActivity.this, "Item has been added successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -204,9 +176,6 @@ public class EditItemActivity extends AppCompatActivity {
             }
         });
 
-//        //go to list activity
-//        Intent toList = new Intent(getBaseContext(), .class);
-//        startActivity(toList);
         super.onBackPressed();
     }
 }
