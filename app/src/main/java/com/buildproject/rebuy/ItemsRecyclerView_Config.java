@@ -7,6 +7,7 @@ import android.renderscript.RenderScript;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -40,6 +41,7 @@ public class ItemsRecyclerView_Config {
     class ItemItemView extends RecyclerView.ViewHolder{
         private TextView mItemTitleName;
         private TextView mItemQuantity;
+        private Button mDeleteItem;
         private TextView mItemNote;
         private ImageView mItemPriority;
         private CheckBox mItemBought;
@@ -51,6 +53,7 @@ public class ItemsRecyclerView_Config {
                     .inflate(R.layout.layout_listitem, parent,false));
             mItemTitleName = (TextView) itemView.findViewById(R.id.InList_item_name);
             mItemQuantity = (TextView) itemView.findViewById(R.id.InList_quantity);
+            mDeleteItem = (Button) itemView.findViewById(R.id.InList_delete);
             mItemNote = (TextView) itemView.findViewById(R.id.InList_note);
             mItemBought = (CheckBox) itemView.findViewById(R.id.InList_isbought);
             //TODO update database on click
@@ -103,7 +106,36 @@ public class ItemsRecyclerView_Config {
                             });
                 }
             });
+
+            mDeleteItem.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    new FirebaseDBadapterItems(list_id).deleteItem(key,
+                            new FirebaseDBadapterItems.DataStatus() {
+                                @Override
+                                public void DataIsLoaded(List<ItemInList> lists, List<String> keys) {
+
+                                }
+
+                                @Override
+                                public void DataIsInserted() {
+
+                                }
+
+                                @Override
+                                public void DataIsUpdated() {
+
+                                }
+
+                                @Override
+                                public void DataIsDeleted() {
+                                    //TODO write log
+                                }
+                            });
+                }
+            });
         }
+
 
         public void bind(final ItemInList item, final String key, View.OnClickListener listener){
             setElements(item);

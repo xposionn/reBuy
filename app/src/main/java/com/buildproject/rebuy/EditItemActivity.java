@@ -60,10 +60,6 @@ public class EditItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
-        //get from previous intent
-        list_id= Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
-
-
         //init components
         item_name = findViewById(R.id.edit_item_name);
         quantity = findViewById(R.id.quantity);
@@ -81,8 +77,12 @@ public class EditItemActivity extends AppCompatActivity {
         barcode_button = findViewById(R.id.barcode);
         apply_button = findViewById(R.id.edit_item_apply);
 
+        //get from previous intent
         Bundle bundle = getIntent().getExtras();
-        current_item = (ItemInList)bundle.get("item_info");
+//        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
+        list_id = bundle.getString("list_id");
+        //current_item = (ItemInList)bundle.get("item_info");
+
         //if is new item
         if (current_item == null) {
             current_item = new ItemInList();
@@ -101,9 +101,9 @@ public class EditItemActivity extends AppCompatActivity {
         setPriority(current_item.getPriority());
         is_bought.setChecked(current_item.isBought());
 
-//        String user_added_by = current_item.getUserId();
+        String user_added_by = current_item.getUserId();
 //        added_by.setText(String.format("%s %s", user_added_by.getFirstName(), user_added_by.getLastName()));
-        added_by.setText("ADDED BY..");
+//        added_by.setText("ADDED BY..");
 
         //If current user is viewer
 

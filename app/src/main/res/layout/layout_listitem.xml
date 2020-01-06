@@ -46,7 +46,7 @@
                 android:layout_weight="10"
                 />
             <Button
-                android:id="@+id/delete"
+                android:id="@+id/InList_delete"
                 android:layout_width="35dp"
                 android:layout_height="40dp"
                 android:background="@android:drawable/ic_delete"
