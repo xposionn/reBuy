@@ -2,9 +2,10 @@ package com.buildproject.rebuy.Modules;
 
 import com.google.firebase.Timestamp;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class ItemInList {
+public class ItemInList implements Serializable {
 
     public enum Priority {
         LOW, MID, HIGH;

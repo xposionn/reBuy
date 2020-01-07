@@ -13,6 +13,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ListsActivity"></activity>
         <activity android:name=".AddItemActivity" />
+        <activity android:name=".EditItemActivity" />
         <activity android:name=".NewListActivity" />
         <activity android:name=".ItemsActivity"/>
         <activity android:name=".MainActivity" />

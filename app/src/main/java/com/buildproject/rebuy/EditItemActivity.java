@@ -2,10 +2,12 @@ package com.buildproject.rebuy;
 
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ItemInList.Priority;
+import com.buildproject.rebuy.Modules.ListOfItems;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -20,6 +23,10 @@ import java.util.Date;
 import java.util.List;
 
 public class EditItemActivity extends AppCompatActivity {
+
+    //User Data
+    ListOfItems.Permission permission;
+
 
     //item data
     ItemInList current_item;
@@ -57,6 +64,8 @@ public class EditItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+
+
         //init components
         item_name = findViewById(R.id.edit_item_name);
         quantity = findViewById(R.id.quantity);
@@ -76,20 +85,26 @@ public class EditItemActivity extends AppCompatActivity {
 
         //get from previous intent
         Bundle bundle = getIntent().getExtras();
+
+
+        //Init userdata
+        permission = (ListOfItems.Permission) bundle.getSerializable("permission");
+        if(permission == ListOfItems.Permission.VIEWER){
+            Toast.makeText(this, "viewer", Toast.LENGTH_SHORT).show();
+            disableEnableControls(false, (ViewGroup) findViewById(R.id.parent_layout));
+            barcode_button.setEnabled(true);
+        }
+//
 //        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
         list_id = bundle.getString("list_id");
         //current_item = (ItemInList)bundle.get("item_info");
 
         //if is new item
-        if (current_item == null) {
-            current_item = new ItemInList();
-            current_item.setUserId(userId);
-        }
+        current_item = (ItemInList) bundle.getSerializable("item");
 
-        //get data about exists item
-        else {
+        if (current_item != null) {
             item_name.setText(current_item.getItemName());
-            added_at.setText(date_time_format.format(new Date()));
+            added_at.setText(current_item.getAddedTime());
             if (!current_item.getNotes().isEmpty())
                 notes.setText(current_item.getNotes());
         }
@@ -102,24 +117,17 @@ public class EditItemActivity extends AppCompatActivity {
 //        added_by.setText(String.format("%s %s", user_added_by.getFirstName(), user_added_by.getLastName()));
 //        added_by.setText("ADDED BY..");
 
-        //If current user is viewer
-
-/*        current_list = (ListOfItems)bundle.get("list_info");
-        if (current_list.getViewers().contains(current_user.getUserId())) {
-            item_name.setEnabled(false);
-            quantity.setEnabled(false);
-            down.setEnabled(false);
-            up.setEnabled(false);
-            green_priority.setEnabled(false);
-            yellow_priority.setEnabled(false);
-            red_priority.setEnabled(false);
-            is_bought.setEnabled(false);
-            notes.setEnabled(false);
-            apply_button.setEnabled(false);
-            //enable to press barcode_button!
-        }*/
     }
 
+    private void disableEnableControls(boolean enable, ViewGroup vg){
+        for (int i = 0; i < vg.getChildCount(); i++){
+            View child = vg.getChildAt(i);
+            child.setEnabled(enable);
+            if (child instanceof ViewGroup){
+                disableEnableControls(enable, (ViewGroup)child);
+            }
+        }
+    }
     public void clickDown(View view) {
         int i = Integer.parseInt(quantity.getText().toString());
         if (i>0) //minimum quantity is 0

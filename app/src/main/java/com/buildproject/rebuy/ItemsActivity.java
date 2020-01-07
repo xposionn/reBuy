@@ -32,7 +32,7 @@ public class ItemsActivity extends AppCompatActivity {
         new FirebaseDBadapterItems(list_id).readItems(new FirebaseDBadapterItems.DataStatus() {
             @Override
             public void DataIsLoaded(List<ItemInList> items, List<String> keys) {
-                new ItemsRecyclerView_Config().setConfig(mRecyclerView, ItemsActivity.this, items, keys, list_id);
+                new ItemsRecyclerView_Config().setConfig(mRecyclerView, ItemsActivity.this, items, keys, list_id,permission);
             }
 
             @Override

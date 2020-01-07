@@ -235,13 +235,6 @@
                 android:text="@string/created_at"
                 android:textSize="17sp" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginStart="5dp"
-                android:gravity="bottom"
-                android:text="@string/dateWithTimeHere"
-                android:textSize="17sp" />
 
         </LinearLayout>
 

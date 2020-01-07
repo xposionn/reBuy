@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.buildproject.rebuy.Modules.ItemInList;
+import com.buildproject.rebuy.Modules.ListOfItems;
 
 import java.util.List;
 
@@ -22,6 +23,7 @@ public class ItemsRecyclerView_Config {
     private Context mContext;
     private ItemsAdapter mItemAdapter;
     private String list_id;
+    private ListOfItems.Permission permission;
 
 
     public void setConfig(RecyclerView recyclerView, Context context, List<ItemInList> items, List<String> keys, String list_id){
@@ -29,9 +31,19 @@ public class ItemsRecyclerView_Config {
         mItemAdapter = new ItemsAdapter(items, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mItemAdapter);
-
         this.list_id = list_id;
-        mItemAdapter.setList_id(list_id);
+//        mItemAdapter.setList_id(list_id);
+    }
+
+
+    public void setConfig(RecyclerView recyclerView, Context context, List<ItemInList> items, List<String> keys, String list_id, ListOfItems.Permission permission){
+        mContext = context;
+        mItemAdapter = new ItemsAdapter(items, keys);
+        recyclerView.setLayoutManager(new LinearLayoutManager(context));
+        recyclerView.setAdapter(mItemAdapter);
+        this.list_id = list_id;
+//        mItemAdapter.setList_id(list_id);
+        this.permission = permission;
     }
 
     class ItemItemView extends RecyclerView.ViewHolder{
@@ -148,11 +160,11 @@ public class ItemsRecyclerView_Config {
     class ItemsAdapter extends RecyclerView.Adapter<ItemItemView>{
         private List<ItemInList> mItem;
         private List<String> mKeys;
-        private String list_id;
-
-        public void setList_id(String list_id) {
-            this.list_id = list_id;
-        }
+//        private String list_id;
+//
+//        public void setList_id(String list_id) {
+//            this.list_id = list_id;
+//        }
 
         public ItemsAdapter(List<ItemInList> mItem, List<String> mKeys) {
             this.mItem = mItem;
@@ -170,9 +182,12 @@ public class ItemsRecyclerView_Config {
             holder.bind(mItem.get(position), mKeys.get(position), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent newIntent = new Intent(view.getContext(), AddItemActivity.class);
+                    Intent newIntent = new Intent(view.getContext(), EditItemActivity.class);
                    // newIntent.putExtra("item_info",mItem.get(position));
+                    newIntent.putExtra("permission",permission);
+                    newIntent.putExtra("item",mItem.get(position));
                     newIntent.putExtra("list_id",list_id);
+
                     view.getContext().startActivity(newIntent);
                 }
             });

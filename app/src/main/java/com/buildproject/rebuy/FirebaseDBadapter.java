@@ -58,6 +58,7 @@ public class FirebaseDBadapter {
                     ListOfItems listOfItems = keyNode.getValue(ListOfItems.class);
 
                     boolean is_my_list = false;
+                    assert listOfItems != null;
                     if (listOfItems.getOwner().equals(id)) {
                         is_my_list = true;
                         listOfItems.setPermission(ListOfItems.Permission.OWNER);

@@ -183,13 +183,6 @@
                 android:text="@string/change_at"
                 android:textSize="17sp"/>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="bottom"
-                android:layout_marginStart="5dp"
-                android:text="@string/dateWithTimeHere"
-                android:textSize="17sp"/>
 
 
 
