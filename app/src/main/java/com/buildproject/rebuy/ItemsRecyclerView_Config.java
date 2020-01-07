@@ -187,6 +187,7 @@ public class ItemsRecyclerView_Config {
                     newIntent.putExtra("permission",permission);
                     newIntent.putExtra("item",mItem.get(position));
                     newIntent.putExtra("list_id",list_id);
+                    newIntent.putExtra("itemKey",mKeys.get(position));
 
                     view.getContext().startActivity(newIntent);
                 }

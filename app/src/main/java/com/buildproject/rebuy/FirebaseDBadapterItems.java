@@ -26,14 +26,31 @@ public class FirebaseDBadapterItems {
         mReferenceItems = mDatabase.getReference("lists").child(list_id);
     }
 
-    public interface DataStatus{
-        void DataIsLoaded(List<ItemInList> lists, List<String> keys);
-        void DataIsInserted();
-        void DataIsUpdated();
-        void DataIsDeleted();
+    public void editItem(String itemKey, ItemInList current_item, final DataStatus dataStatus) {
+        mReferenceItems = mReferenceItems.child("items").child(itemKey);
+        mReferenceItems.setValue(current_item)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsUpdated();
+                    }});
     }
 
-    public void updateItem (String itemId, String attribute, Object value, final DataStatus dataStatus) {
+
+
+
+public interface DataStatus {
+    void DataIsLoaded(List<ItemInList> lists, List<String> keys);
+
+    void DataIsInserted();
+
+    void DataIsUpdated();
+
+    void DataIsDeleted();
+
+}
+
+    public void updateItem(String itemId, String attribute, Object value, final DataStatus dataStatus) {
         mReferenceItems.child("items").child(itemId).child(attribute).setValue(value)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -43,7 +60,7 @@ public class FirebaseDBadapterItems {
                 });
     }
 
-    public void deleteItem (String key, final DataStatus dataStatus){
+    public void deleteItem(String key, final DataStatus dataStatus) {
         mReferenceItems.child("items").child(key).setValue(null)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -53,7 +70,7 @@ public class FirebaseDBadapterItems {
                 });
     }
 
-    public void addItem(ItemInList itemInList,final DataStatus dataStatus){
+    public void addItem(ItemInList itemInList, final DataStatus dataStatus) {
         mReferenceItems = mReferenceItems.child("items");
         String key = mReferenceItems.push().getKey();
         mReferenceItems.child(key).setValue(itemInList)
@@ -65,13 +82,14 @@ public class FirebaseDBadapterItems {
                 });
     }
 
-    public void readItems(final DataStatus dataStatus){
+
+    public void readItems(final DataStatus dataStatus) {
         mReferenceItems.child("items").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 items.clear();
                 List<String> keys = new ArrayList<>();
-                for(DataSnapshot keyNode: dataSnapshot.getChildren()){
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
                     keys.add(keyNode.getKey());
                     ItemInList itemInList = keyNode.getValue(ItemInList.class);
                     items.add(itemInList);

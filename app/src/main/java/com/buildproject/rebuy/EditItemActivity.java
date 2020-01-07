@@ -33,6 +33,7 @@ public class EditItemActivity extends AppCompatActivity {
     String list_id;
     //TODO initilize current_user
     String userId;
+    String itemKey;
 
     //components
     EditText item_name;
@@ -88,6 +89,7 @@ public class EditItemActivity extends AppCompatActivity {
 
 
         //Init userdata
+        itemKey = bundle.getString("itemKey");
         permission = (ListOfItems.Permission) bundle.getSerializable("permission");
         if(permission == ListOfItems.Permission.VIEWER){
             Toast.makeText(this, "viewer", Toast.LENGTH_SHORT).show();
@@ -115,7 +117,7 @@ public class EditItemActivity extends AppCompatActivity {
 
         String user_added_by = current_item.getUserId();
 //        added_by.setText(String.format("%s %s", user_added_by.getFirstName(), user_added_by.getLastName()));
-//        added_by.setText("ADDED BY..");
+//        added`_by.setText("ADDED BY..");
 
     }
 
@@ -190,7 +192,7 @@ public class EditItemActivity extends AppCompatActivity {
         current_item.setPriority(priority);
         current_item.setQuantity(Integer.parseInt(quantity.getText().toString()));
         //TODO push current_item()
-        new FirebaseDBadapterItems(list_id).addItem(current_item, new FirebaseDBadapterItems.DataStatus() {
+        new FirebaseDBadapterItems(list_id).editItem(itemKey,current_item, new FirebaseDBadapterItems.DataStatus() {
             @Override
             public void DataIsLoaded(List<ItemInList> lists, List<String> keys) {
 
@@ -198,12 +200,12 @@ public class EditItemActivity extends AppCompatActivity {
 
             @Override
             public void DataIsInserted() {
-                Toast.makeText(EditItemActivity.this, "Item has been added successfully", Toast.LENGTH_SHORT).show();
+
             }
 
             @Override
             public void DataIsUpdated() {
-
+                Toast.makeText(EditItemActivity.this, "Item has been updated successfully", Toast.LENGTH_SHORT).show();
             }
 
             @Override
