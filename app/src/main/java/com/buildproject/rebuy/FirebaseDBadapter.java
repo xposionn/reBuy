@@ -39,7 +39,6 @@ public class FirebaseDBadapter {
         void DataIsUpdated();
 
         void DataIsDeleted();
-
     }
 
     public void readLists(String id, final DataStatus dataStatus){

@@ -3,6 +3,7 @@ package com.buildproject.rebuy;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -23,7 +24,7 @@ public class ItemsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
-        permission = ListOfItems.string2Permission(Objects.requireNonNull(getIntent().getExtras()).getString("permission"));
+        permission = (ListOfItems.Permission) getIntent().getExtras().getSerializable("permission");
         setTitle(Objects.requireNonNull(getIntent().getExtras()).getString("list_title"));
 
         setContentView(R.layout.activity_items);
@@ -51,13 +52,14 @@ public class ItemsActivity extends AppCompatActivity {
         });
 
     }
-
-
+    
     public void moveToAddItemActivity(View v) {
         if (permission == ListOfItems.Permission.EDITOR || permission == ListOfItems.Permission.OWNER) {
             Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
             i.putExtra("list_id", list_id);
             startActivity(i);
+        }else{
+            Toast.makeText(this, "You have no permission to add a new Item", Toast.LENGTH_SHORT).show();
         }
     }
 }
