@@ -50,9 +50,6 @@ public class AddItemActivity extends AppCompatActivity {
 
     Button apply_button;
 
-    //TODO put this static variable in another class
-    static DateFormat date_time_format = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -1,5 +1,7 @@
 package com.buildproject.rebuy.Modules;
 
+import com.google.firebase.Timestamp;
+
 import java.util.Date;
 
 public class ItemInList {
@@ -18,7 +20,7 @@ public class ItemInList {
         this.itemName = itemName;
         this.priority = priority;
     }
-//    private Date addedTime = null;
+    private String addedTime;
     private String barcode = "";
     private String itemName;
     private String userId;
@@ -28,13 +30,13 @@ public class ItemInList {
         return priority;
     }
 
-//    public Date getAddedTime() {
-//        return addedTime;
-//    }
-//
-//    public void setAddedTime(Date addedTime) {
-//        this.addedTime = addedTime;
-//    }
+    public String getAddedTime() {
+        return addedTime;
+    }
+
+    public void setAddedTime(String addedTime) {
+        this.addedTime = addedTime;
+    }
 
     public void setPriority(Priority priority) {
         this.priority = priority;

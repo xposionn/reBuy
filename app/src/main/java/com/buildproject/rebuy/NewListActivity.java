@@ -110,4 +110,5 @@ public class NewListActivity extends AppCompatActivity {
     public void priorityHighPressed(View v){
         priority = "High";
     }
+
 }

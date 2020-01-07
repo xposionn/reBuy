@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.buildproject.rebuy.Modules.ItemInList;
+import com.buildproject.rebuy.Modules.ListOfItems;
 
 import java.util.List;
 import java.util.Objects;
@@ -16,12 +17,14 @@ public class ItemsActivity extends AppCompatActivity {
 
     private RecyclerView mRecyclerView;
     private String list_id;
+    private ListOfItems.Permission permission;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        list_id= Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
-//        setTitle(DBProvider.getInstance().getListByID(list_id).getTitleName());
+        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
+        permission = ListOfItems.string2Permission(Objects.requireNonNull(getIntent().getExtras()).getString("permission"));
+        setTitle(Objects.requireNonNull(getIntent().getExtras()).getString("list_title"));
 
         setContentView(R.layout.activity_items);
         mRecyclerView = (RecyclerView) findViewById(R.id.recycleview_items);
@@ -51,8 +54,10 @@ public class ItemsActivity extends AppCompatActivity {
 
 
     public void moveToAddItemActivity(View v) {
-        Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
-        i.putExtra("list_id",list_id);
-        startActivity(i);
+        if (permission == ListOfItems.Permission.EDITOR || permission == ListOfItems.Permission.OWNER) {
+            Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
+            i.putExtra("list_id", list_id);
+            startActivity(i);
+        }
     }
 }

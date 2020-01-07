@@ -16,7 +16,11 @@ public class ListOfItems {
     private List<String> editors;
     private List<String> viewers;
     private HashMap<String,ItemInList> items;
+    private Permission permission = Permission.NOTHING;
 
+    public enum Permission {
+        OWNER, EDITOR, VIEWER, NOTHING;
+    }
 
     public void setListId(String listId) {
         this.listId = listId;
@@ -29,6 +33,22 @@ public class ListOfItems {
     public void setPriority(String priority) {
         this.priority = priority;
     }
+
+    public void setPermission(Permission permission) {
+        this.permission = permission;
+    }
+
+    public static Permission string2Permission(String str) {
+        if (str.equals("OWNER"))
+            return Permission.OWNER;
+        if (str.equals("EDITOR"))
+            return Permission.EDITOR;
+        if (str.equals("VIEWER"))
+            return Permission.VIEWER;
+        return Permission.NOTHING;
+    }
+
+
 
     public ListOfItems(){ //used to init from firebase db
         this.editors = new ArrayList<>();
@@ -99,4 +119,6 @@ public class ListOfItems {
     public String getListId() {
         return listId;
     }
+
+    public Permission getAccountPermission() { return permission;}
 }
