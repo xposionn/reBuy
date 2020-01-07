@@ -103,8 +103,8 @@ public class EditItemActivity extends AppCompatActivity {
 
         //if is new item
         current_item = (ItemInList) bundle.getSerializable("item");
-
         if (current_item != null) {
+            setTitle(current_item.getItemName());
             item_name.setText(current_item.getItemName());
             added_at.setText(current_item.getAddedTime());
             if (!current_item.getNotes().isEmpty())
