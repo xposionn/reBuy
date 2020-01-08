@@ -115,6 +115,9 @@ public class ItemsRecyclerView_Config {
                 }
             });
 
+            if (permission== ListOfItems.Permission.VIEWER || permission== ListOfItems.Permission.NOTHING)
+                mDeleteItem.setEnabled(false);
+            
             mDeleteItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
