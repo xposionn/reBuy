@@ -145,7 +145,7 @@ public class AddItemActivity extends AppCompatActivity {
     public void saveItem (View view) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
-//        current_item.setAddedBy(userName);
+        current_item.setAddedBy(userName);
         current_item.setAddedTime(sdf.format(new Date()));
         current_item.setBought(is_bought.isChecked());
         current_item.setItemName(item_name.getText().toString());

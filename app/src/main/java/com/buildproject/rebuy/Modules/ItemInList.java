@@ -3,18 +3,14 @@ package com.buildproject.rebuy.Modules;
 import com.google.firebase.Timestamp;
 
 import java.io.Serializable;
-import java.util.Date;
 
 public class ItemInList implements Serializable {
 
     public enum Priority {
         LOW, MID, HIGH;
-
-
     }
 
     public ItemInList(){
-
     }
 
     public ItemInList(String itemName,Priority priority) {
@@ -26,6 +22,11 @@ public class ItemInList implements Serializable {
     private String itemName;
     private String userId;
     private int quantity = 1;
+    private Priority priority = Priority.LOW;
+    private String notes = "NO NOTES";
+    private String addedBy;
+    private boolean isBought = false;
+    private String listId;
 
     public Priority getPriority() {
         return priority;
@@ -35,20 +36,21 @@ public class ItemInList implements Serializable {
         return addedTime;
     }
 
+    public String getAddedBy() {
+        return addedBy;
+    }
+
     public void setAddedTime(String addedTime) {
         this.addedTime = addedTime;
+    }
+
+    public void setAddedBy(String addedBy) {
+        this.addedBy = addedBy;
     }
 
     public void setPriority(Priority priority) {
         this.priority = priority;
     }
-
-    private Priority priority = Priority.LOW;
-    private String notes = "NO NOTES";
-//    private Date addedTime;
-    private boolean isBought = false;
-    private String listId;
-
 
     public String getBarcode() {
         return barcode;

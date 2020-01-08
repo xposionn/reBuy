@@ -96,17 +96,16 @@ public class EditItemActivity extends AppCompatActivity {
             disableEnableControls(false, (ViewGroup) findViewById(R.id.parent_layout));
             barcode_button.setEnabled(true);
         }
-//
-//        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
+
         list_id = bundle.getString("list_id");
         //current_item = (ItemInList)bundle.get("item_info");
 
-        //if is new item
         current_item = (ItemInList) bundle.getSerializable("item");
         if (current_item != null) {
             setTitle(current_item.getItemName());
             item_name.setText(current_item.getItemName());
             added_at.setText(current_item.getAddedTime());
+            added_by.setText(current_item.getAddedBy());
             if (!current_item.getNotes().isEmpty())
                 notes.setText(current_item.getNotes());
         }
