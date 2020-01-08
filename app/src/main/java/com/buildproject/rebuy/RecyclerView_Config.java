@@ -22,9 +22,12 @@ import java.util.List;
 public class RecyclerView_Config {
     private Context mContext;
     private ListsAdapter mListAdapter;
-    public void setConfig(RecyclerView recyclerView, Context context, List<ListOfItems> lists, List<String> keys){
+    private String displayName;
+
+    public void setConfig(RecyclerView recyclerView, Context context, List<ListOfItems> lists, List<String> keys, String displayName){
         mContext = context;
         mListAdapter = new ListsAdapter(lists, keys);
+        this.displayName = displayName;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mListAdapter);
     }
@@ -87,6 +90,7 @@ public class RecyclerView_Config {
                     Intent newIntent = new Intent(view.getContext(),ItemsActivity.class);
                     newIntent.putExtra("list_id",mKeys.get(position));
                     newIntent.putExtra("list_title",mList.get(position).getTitleName());
+                    newIntent.putExtra("display_name",displayName);
                     newIntent.putExtra("permission", mList.get(position).getAccountPermission());
                     view.getContext().startActivity(newIntent);
                 }

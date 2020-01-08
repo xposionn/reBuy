@@ -28,7 +28,7 @@ public class ListsActivity extends AppCompatActivity {
         new FirebaseDBadapter().readLists(account.getId(),new FirebaseDBadapter.DataStatus() {
             @Override
             public void DataIsLoaded(List<ListOfItems> lists, List<String> keys) {
-                new RecyclerView_Config().setConfig(mRecyclerView, ListsActivity.this, lists,keys);
+                new RecyclerView_Config().setConfig(mRecyclerView, ListsActivity.this, lists,keys, account.getDisplayName());
             }
 
             @Override
