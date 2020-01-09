@@ -56,11 +56,11 @@ public class JoinListActivity extends AppCompatActivity {
         }
         account = getAccount();
 
-        if (permission_id == "0") {
+        if (permission_id.equals("0")) {
             permission = ListOfItems.Permission.EDITOR;
             mJoinText.setText(getString(R.string.editor_invite));
         }
-        else if (permission_id == "1") {
+        else if (permission_id.equals("1")) {
             permission = ListOfItems.Permission.VIEWER;
             mJoinText.setText(getString(R.string.viewer_invite));
         }

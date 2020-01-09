@@ -105,8 +105,8 @@
     <string name="added_at">Added at:</string>
     <string name="recommendationAdvice">Would you like to scan a barcode and help the community by recommending this item name?</string>
     <string name="enter_list_name">Enter the name for the list</string>
-    <string name="editors">Editors:</string>
-    <string name="viewers">Viewers:</string>
+    <string name="editors">Editors: </string>
+    <string name="viewers">Viewers: </string>
     <string name="created_at">Created at:</string>
     <string name="delete_list">Delete List</string>
     <string name="low_priority">Low Priority</string>

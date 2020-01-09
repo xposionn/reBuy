@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -30,6 +31,8 @@ public class NewListActivity extends AppCompatActivity {
     private ImageButton saveButton;
     private EditText editorNum;
     private ImageButton editorButton;
+    private EditText viewerNum;
+    private ImageButton viewerButton;
     private String priority="Normal";
     private final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
 
@@ -43,6 +46,20 @@ public class NewListActivity extends AppCompatActivity {
         saveButton = findViewById(R.id.save_list_btn);
         editorButton = findViewById(R.id.addEditor);
         editorNum = findViewById(R.id.editorNumberText);
+        viewerButton = findViewById(R.id.addViewer);
+        viewerNum = findViewById(R.id.viewerNumberText);
+
+
+        editorButton.setEnabled(false);
+        viewerButton.setEnabled(false);
+        if (checkSMSPermission(Manifest.permission.SEND_SMS)) {
+            editorButton.setEnabled(true);
+            viewerButton.setEnabled(true);
+        }
+        else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
+        }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -86,16 +103,6 @@ public class NewListActivity extends AppCompatActivity {
             }
         });
 
-        editorButton.setEnabled(false);
-        if (checkSMSPermission(Manifest.permission.SEND_SMS)) {
-            editorButton.setEnabled(true);
-        }
-        else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
-        }
-
-
 
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference ref = database.getReference("lists");
@@ -133,16 +140,17 @@ public class NewListActivity extends AppCompatActivity {
 
     public void sendSMS(ListOfItems.Permission permission) {
         String permission_id;
+        String number = "";
         if (permission == ListOfItems.Permission.EDITOR) {
             permission_id = "0";
-        }
-        else if (permission == ListOfItems.Permission.VIEWER)
+            number = editorNum.getText().toString();
+        } else if (permission == ListOfItems.Permission.VIEWER) {
             permission_id = "1";
-        else {
+            number = viewerNum.getText().toString();
+        } else {
             permission_id = "-1";
         }
 
-        String number = editorNum.getText().toString();
         if (number.isEmpty()) {
             return;
         }
@@ -163,9 +171,12 @@ public class NewListActivity extends AppCompatActivity {
 
     public void sendSMSEditor(View view) {
         sendSMS(ListOfItems.Permission.EDITOR);
+        System.out.println("editor click");
+
     }
 
     public void sendSMSViewer(View view) {
         sendSMS(ListOfItems.Permission.VIEWER);
+        System.out.println("viewer click");
     }
 }

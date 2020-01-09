@@ -17,6 +17,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
 
@@ -112,7 +113,7 @@ public class FirebaseDBadapter {
             mReferenceCurrentList = mReferenceLists.child(listId).child("viewers");
 
         String key = mReferenceCurrentList.push().getKey();
-        mReferenceCurrentList.setValue(key, partnerId)
+        mReferenceCurrentList.child(key).setValue(partnerId)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

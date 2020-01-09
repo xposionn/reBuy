@@ -137,19 +137,10 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="@string/editors"
-                    android:textSize="17sp" />
-
-                <ImageButton
-                    android:id="@+id/addEditor"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/plus_sign_image"
-                    app:srcCompat="@android:drawable/ic_input_add" />
+                    android:textSize="17sp"/>
 
                 <EditText
                     android:id="@+id/editorNumberText"
@@ -159,7 +150,18 @@
                     android:ems="10"
                     android:inputType="phone"
                     android:onClick="sendSMSEditor"
-                    android:textSize="17sp" />
+                    android:layout_marginLeft="40dp"
+                    android:textSize="17sp"/>
+
+                <ImageButton
+                    android:id="@+id/addEditor"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/plus_sign_image"
+                    app:srcCompat="@android:drawable/ic_input_add" />
+
             </LinearLayout>
 
             <!--             arraylist of users, where every user is an editor -->
@@ -197,29 +199,29 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:text="@string/viewers"
                     android:textSize="17sp" />
-
-                <ImageButton
-                    android:id="@+id/imageButton7"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1"
-                    android:background="@android:color/transparent"
-                    android:contentDescription="@string/plus_sign_image"
-                    app:srcCompat="@android:drawable/ic_input_add" />
 
                 <EditText
                     android:id="@+id/viewerNumberText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
                     android:ems="10"
                     android:inputType="phone"
                     android:onClick="sendSMSViewer"
                     android:textSize="17sp" />
+
+                <ImageButton
+                    android:id="@+id/addViewer"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:background="@android:color/transparent"
+                    android:contentDescription="@string/plus_sign_image"
+                    app:srcCompat="@android:drawable/ic_input_add" />
 
             </LinearLayout>
 
