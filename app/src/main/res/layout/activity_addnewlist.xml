@@ -143,13 +143,23 @@
                     android:textSize="17sp" />
 
                 <ImageButton
-                    android:id="@+id/imageButton6"
+                    android:id="@+id/addEditor"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/plus_sign_image"
                     app:srcCompat="@android:drawable/ic_input_add" />
+
+                <EditText
+                    android:id="@+id/editorNumberText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:inputType="phone"
+                    android:onClick="sendSMS"
+                    android:textSize="17sp" />
             </LinearLayout>
 
             <!--             arraylist of users, where every user is an editor -->

@@ -1,13 +1,19 @@
 package com.buildproject.rebuy;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
@@ -22,7 +28,10 @@ public class NewListActivity extends AppCompatActivity {
 
     private TextView uid;
     private ImageButton saveButton;
+    private EditText editorNum;
+    private ImageButton editorButton;
     private String priority="Normal";
+    private final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +41,8 @@ public class NewListActivity extends AppCompatActivity {
         account = getIntent().getParcelableExtra("account");
         uid = findViewById(R.id.uid);
         saveButton = findViewById(R.id.save_list_btn);
+        editorButton = findViewById(R.id.addEditor);
+        editorNum = findViewById(R.id.editorNumberText);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,7 +86,14 @@ public class NewListActivity extends AppCompatActivity {
             }
         });
 
-
+        editorButton.setEnabled(false);
+        if (checkSMSPermission(Manifest.permission.SEND_SMS)) {
+            editorButton.setEnabled(true);
+        }
+        else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
+        }
 
 
 
@@ -111,4 +129,25 @@ public class NewListActivity extends AppCompatActivity {
         priority = "High";
     }
 
+
+
+    public void sendSMS(View view) {
+        String number = editorNum.getText().toString();
+        if (number.isEmpty()) {
+            return;
+        }
+        if (checkSMSPermission(Manifest.permission.SEND_SMS)) {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(number, null, "send from rebuy", null, null);
+            Toast.makeText(this, "Invitation sent", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private boolean checkSMSPermission(String smsPermission) {
+        int check = ContextCompat.checkSelfPermission(this, smsPermission);
+        return (check == PackageManager.PERMISSION_GRANTED);
+    }
 }
