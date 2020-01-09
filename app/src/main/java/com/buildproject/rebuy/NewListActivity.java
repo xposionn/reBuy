@@ -131,14 +131,24 @@ public class NewListActivity extends AppCompatActivity {
 
 
 
-    public void sendSMS(View view) {
+    public void sendSMS(ListOfItems.Permission permission) {
+        String permission_id;
+        if (permission == ListOfItems.Permission.EDITOR) {
+            permission_id = "0";
+        }
+        else if (permission == ListOfItems.Permission.VIEWER)
+            permission_id = "1";
+        else {
+            permission_id = "-1";
+        }
+
         String number = editorNum.getText().toString();
         if (number.isEmpty()) {
             return;
         }
         if (checkSMSPermission(Manifest.permission.SEND_SMS)) {
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(number, null, "send from rebuy", null, null);
+            smsManager.sendTextMessage(number, null, permission.toString(), null, null);
             Toast.makeText(this, "Invitation sent", Toast.LENGTH_SHORT).show();
         }
         else {
@@ -149,5 +159,13 @@ public class NewListActivity extends AppCompatActivity {
     private boolean checkSMSPermission(String smsPermission) {
         int check = ContextCompat.checkSelfPermission(this, smsPermission);
         return (check == PackageManager.PERMISSION_GRANTED);
+    }
+
+    public void sendSMSEditor(View view) {
+        sendSMS(ListOfItems.Permission.EDITOR);
+    }
+
+    public void sendSMSViewer(View view) {
+        sendSMS(ListOfItems.Permission.VIEWER);
     }
 }
