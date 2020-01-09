@@ -37,8 +37,6 @@ public class FirebaseDBadapterItems {
     }
 
 
-
-
 public interface DataStatus {
     void DataIsLoaded(List<ItemInList> lists, List<String> keys);
 

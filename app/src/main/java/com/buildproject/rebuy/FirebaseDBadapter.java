@@ -15,6 +15,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static androidx.constraintlayout.widget.Constraints.TAG;
@@ -101,6 +102,25 @@ public class FirebaseDBadapter {
                     }
                 });
     }
+
+
+    public void addPartner(String listId, String partnerId, ListOfItems.Permission permission, final FirebaseDBadapterItems.DataStatus dataStatus) {
+        DatabaseReference mReferenceCurrentList;
+        if (permission== ListOfItems.Permission.EDITOR)
+            mReferenceCurrentList = mReferenceLists.child(listId).child("editors");
+        else
+            mReferenceCurrentList = mReferenceLists.child(listId).child("viewers");
+
+        String key = mReferenceCurrentList.push().getKey();
+        mReferenceCurrentList.setValue(key, partnerId)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsUpdated();
+                    }});
+    }
+
+
 /*     //TODO: get User from DB by his ID
     public User getUser(String userId,User user){
         User user1;

@@ -117,4 +117,6 @@
     <string name="save_list">Save List</string>
     <string name="change_at">Change At</string>
     <string name="cannot_delete_item">You have no permission to delete an item</string>
+    <string name="viewer_invite">Your friend invited you to be a viewer of his list.\nDo you confirm?</string>
+    <string name="editor_invite">Your friend invited you to be a editor of his list.\nDo you confirm?</string>
 </resources>
