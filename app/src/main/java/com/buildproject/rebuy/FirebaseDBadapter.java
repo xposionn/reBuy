@@ -105,6 +105,26 @@ public class FirebaseDBadapter {
     }
 
 
+    public void updateList(String listId, ListOfItems listOfItems, final DataStatus dataStatus) {
+        mReferenceLists.child(listId).setValue(listOfItems)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsUpdated();
+                    }
+                });
+    }
+
+    public void deleteList(String listId, final DataStatus dataStatus) {
+        mReferenceLists.child(listId).setValue(null)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsDeleted();
+                    }
+                });
+    }
+
     public void addPartner(final String listId, final String partnerId, ListOfItems.Permission permission, final FirebaseDBadapterItems.DataStatus dataStatus) {
         final DatabaseReference mReferenceCurrentList;
         if (permission== ListOfItems.Permission.EDITOR)

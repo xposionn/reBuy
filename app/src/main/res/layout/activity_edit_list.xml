@@ -55,7 +55,7 @@
                 android:weightSum="100">
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/edit_list_green_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="33"
@@ -67,7 +67,7 @@
                     app:srcCompat="@drawable/green_priority_btn" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/edit_list_yellow_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="33"
@@ -78,7 +78,7 @@
                     app:srcCompat="@drawable/yellow_priority_btn" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/edit_list_red_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="34"
@@ -110,6 +110,7 @@
                 android:textSize="17sp" />
 
             <TextView
+                android:id="@+id/edit_list_ownerName"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginStart="5dp"
@@ -309,6 +310,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
+                    android:onClick="deleteList_btn"
                     app:srcCompat="@android:drawable/ic_menu_delete" />
 
 

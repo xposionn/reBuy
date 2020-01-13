@@ -1,6 +1,7 @@
 package com.buildproject.rebuy;
 
 import android.Manifest;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
@@ -119,7 +120,7 @@ public class EditListActivity extends AppCompatActivity {
 
                     @Override
                     public void DataIsUpdated() {
-                        //TODO
+                        Toast.makeText(EditListActivity.this, "The list updated", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -206,4 +207,30 @@ public class EditListActivity extends AppCompatActivity {
         System.out.println("viewer click");
     }
 
+    public void deleteList_btn(View view) {
+        new FirebaseDBadapter().deleteList(list_id, new FirebaseDBadapter.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<ListOfItems> lists, List<String> keys) {
+
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+                Toast.makeText(EditListActivity.this, "The list deleted", Toast.LENGTH_SHORT).show();
+                Intent i = new Intent(getApplicationContext(), ListsActivity.class);
+                i.putExtra("account", account);
+                startActivity(i);
+            }
+        });
+    }
 }
