@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 
 import com.buildproject.rebuy.Modules.ListOfItems;
+import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.firebase.database.DataSnapshot;
@@ -68,6 +69,9 @@ public class EditListActivity extends AppCompatActivity {
         editorNum = findViewById(R.id.editorNumberText);
         viewerButton = findViewById(R.id.addViewer);
         viewerNum = findViewById(R.id.viewerNumberText);
+        editorButton.setEnabled(false);
+        viewerButton.setEnabled(false);
+
         list_id = getIntent().getStringExtra("list_id");
         greenBtn = findViewById(R.id.edit_list_green_btn);
         yellowBtn = findViewById(R.id.edit_list_yellow_btn);
@@ -82,9 +86,29 @@ public class EditListActivity extends AppCompatActivity {
                 current_list = dataSnapshot.getValue(ListOfItems.class);
                 listName.setText(current_list.getTitleName());
                 setPriority(current_list.getPriority());
-                //TODO set owner name instead of owner id
-                ownerName.setText(current_list.getOwner());
                 createdAt.setText(current_list.getAddedTime());
+
+                //TODO set owner name instead of owner id
+                //ownerName.setText(current_list.getOwner());
+                DatabaseReference mReferenceUser = mDatabase.getReference("users").child(current_list.getOwner());
+                mReferenceUser.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        User owner = dataSnapshot.getValue(User.class);
+                        ownerName.setText(owner.getFirstName() + " " + owner.getLastName());
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                current_list.setPermission((ListOfItems.Permission) getIntent().getExtras().getSerializable("permission"));
+                if (current_list.getAccountPermission() == ListOfItems.Permission.OWNER)
+                    setSMSEnable();
+
+
             }
 
             @Override
@@ -92,17 +116,6 @@ public class EditListActivity extends AppCompatActivity {
 
             }
         });
-
-        editorButton.setEnabled(false);
-        viewerButton.setEnabled(false);
-        if (checkSMSPermission(Manifest.permission.SEND_SMS)) {
-            editorButton.setEnabled(true);
-            viewerButton.setEnabled(true);
-        }
-        else {
-            ActivityCompat.requestPermissions(this,
-                    new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
-        }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,6 +137,9 @@ public class EditListActivity extends AppCompatActivity {
                     @Override
                     public void DataIsUpdated() {
                         Toast.makeText(EditListActivity.this, "The list updated", Toast.LENGTH_SHORT).show();
+                        Intent i = new Intent(getApplicationContext(), ListsActivity.class);
+                        i.putExtra("account", account);
+                        startActivity(i);
                     }
 
                     @Override
@@ -135,6 +151,16 @@ public class EditListActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void setSMSEnable() {
+        if (checkSMSPermission(Manifest.permission.SEND_SMS)) {
+            editorButton.setEnabled(true);
+            viewerButton.setEnabled(true);
+        } else {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.SEND_SMS}, SEND_SMS_PERMISSION_REQUEST_CODE);
+        }
     }
 
     public void priorityLowPressed(View v){
@@ -184,9 +210,17 @@ public class EditListActivity extends AppCompatActivity {
         if (number.isEmpty()) {
             return;
         }
+
+        StringBuilder message = new StringBuilder("http://www.reBuy.com/join/");
+        message.append(current_list.getOwner());
+        message.append('/');
+        message.append(list_id);
+        message.append('/');
+        message.append(permission_id);
+
         if (checkSMSPermission(Manifest.permission.SEND_SMS)) {
             SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(number, null, permission.toString(), null, null);
+            smsManager.sendTextMessage(number, null, message.toString(), null, null);
             Toast.makeText(this, "Invitation sent", Toast.LENGTH_SHORT).show();
         }
         else {

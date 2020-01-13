@@ -67,9 +67,10 @@ public class ItemsActivity extends AppCompatActivity {
     }
 
     public void editList(View view) {
-        if (permission == ListOfItems.Permission.OWNER) {
+        if (permission == ListOfItems.Permission.EDITOR || permission == ListOfItems.Permission.OWNER) {
             Intent i = new Intent(getApplicationContext(), EditListActivity.class);
             i.putExtra("list_id", list_id);
+            i.putExtra("permission",permission);
             startActivity(i);
         }else{
             Toast.makeText(this, "You have no permission to edit this list", Toast.LENGTH_SHORT).show();
