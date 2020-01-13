@@ -150,7 +150,6 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:inputType="phone"
-                    android:onClick="sendSMSEditor"
                     android:layout_marginLeft="40dp"
                     android:textSize="17sp"/>
 
@@ -161,6 +160,7 @@
                     android:layout_weight="1"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/plus_sign_image"
+                    android:onClick="sendSMSEditor"
                     app:srcCompat="@android:drawable/ic_input_add" />
 
             </LinearLayout>
@@ -212,7 +212,6 @@
                     android:layout_marginLeft="20dp"
                     android:ems="10"
                     android:inputType="phone"
-                    android:onClick="sendSMSViewer"
                     android:textSize="17sp" />
 
                 <ImageButton
@@ -220,6 +219,7 @@
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
+                    android:onClick="sendSMSViewer"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/plus_sign_image"
                     app:srcCompat="@android:drawable/ic_input_add" />
