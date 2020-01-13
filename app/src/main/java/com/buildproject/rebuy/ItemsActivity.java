@@ -65,4 +65,14 @@ public class ItemsActivity extends AppCompatActivity {
             Toast.makeText(this, "You have no permission to add a new Item", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public void editList(View view) {
+        if (permission == ListOfItems.Permission.OWNER) {
+            Intent i = new Intent(getApplicationContext(), EditListActivity.class);
+            i.putExtra("list_id", list_id);
+            startActivity(i);
+        }else{
+            Toast.makeText(this, "You have no permission to edit this list", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

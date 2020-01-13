@@ -37,6 +37,7 @@
         <activity android:name=".AddItemActivity" />
         <activity android:name=".EditItemActivity" />
         <activity android:name=".NewListActivity" />
+        <activity android:name=".EditListActivity"/>
         <activity android:name=".ItemsActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
