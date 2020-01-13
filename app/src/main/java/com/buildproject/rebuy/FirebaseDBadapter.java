@@ -1,6 +1,7 @@
 package com.buildproject.rebuy;
 
 import android.util.Log;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -26,6 +27,7 @@ public class FirebaseDBadapter {
     private DatabaseReference mReferenceLists;
     private DatabaseReference mReferenceUsers;
     private List<ListOfItems> lists = new ArrayList<>();
+    
 
     public FirebaseDBadapter() {
         mDatabase = FirebaseDatabase.getInstance();
@@ -127,6 +129,8 @@ public class FirebaseDBadapter {
 
     public void addPartner(final String listId, final String partnerId, ListOfItems.Permission permission, final FirebaseDBadapterItems.DataStatus dataStatus) {
         final DatabaseReference mReferenceCurrentList;
+        Log.d(TAG, "onDataChange: adding partner");
+
         if (permission== ListOfItems.Permission.EDITOR)
             mReferenceCurrentList = mReferenceLists.child(listId).child("editors");
         else
@@ -140,13 +144,18 @@ public class FirebaseDBadapter {
                     String partner = ds.getValue(String.class);
                     listOfPartners.add(partner);
                 }
-                listOfPartners.add(partnerId);
+                if(!listOfPartners.contains(partnerId)){
+                    listOfPartners.add(partnerId);
                 mReferenceCurrentList.setValue(listOfPartners)
                         .addOnSuccessListener(new OnSuccessListener<Void>() {
                             @Override
                             public void onSuccess(Void aVoid) {
                                 dataStatus.DataIsUpdated();
-                            }});
+                            }});}
+                else {
+                    Log.d(TAG, "onDataChange: already in");
+
+                }
             }
 
             @Override
