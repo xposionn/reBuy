@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -17,21 +18,37 @@ import androidx.core.content.ContextCompat;
 import com.buildproject.rebuy.Modules.ListOfItems;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
 public class EditListActivity extends AppCompatActivity {
     private static final String TAG = EditListActivity.class.getName();
     GoogleSignInAccount account;
+    private FirebaseDatabase mDatabase;
+    private DatabaseReference mReferenceList;
+    private ListOfItems current_list;
 
-    private TextView uid;
+    private String list_id;
+    private EditText listName;
+    private TextView ownerName;
     private ImageButton saveButton;
+
+    private String priority="Normal";
+    private ImageButton greenBtn;
+    private ImageButton yellowBtn;
+    private ImageButton redBtn;
+
     private EditText editorNum;
     private ImageButton editorButton;
     private EditText viewerNum;
     private ImageButton viewerButton;
-    private String priority="Normal";
     private final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +57,37 @@ public class EditListActivity extends AppCompatActivity {
 
         //account = getIntent().getParcelableExtra("account");
         account = GoogleSignIn.getLastSignedInAccount(this);
-        uid = findViewById(R.id.uid);
+        listName = findViewById(R.id.uid);
+        ownerName = findViewById(R.id.edit_list_ownerName);
+
         saveButton = findViewById(R.id.save_list_btn);
         editorButton = findViewById(R.id.addEditor);
         editorNum = findViewById(R.id.editorNumberText);
         viewerButton = findViewById(R.id.addViewer);
         viewerNum = findViewById(R.id.viewerNumberText);
+        list_id = getIntent().getStringExtra("list_id");
+        greenBtn = findViewById(R.id.edit_list_green_btn);
+        yellowBtn = findViewById(R.id.edit_list_yellow_btn);
+        redBtn = findViewById(R.id.edit_list_red_btn);
 
+        mDatabase = FirebaseDatabase.getInstance();
+        mReferenceList = mDatabase.getReference("lists").child(list_id);
+
+        mReferenceList.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                current_list = dataSnapshot.getValue(ListOfItems.class);
+                listName.setText(current_list.getTitleName());
+                setPriority(current_list.getPriority());
+                //TODO set owner name instead of owner id
+                ownerName.setText(current_list.getOwner());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         editorButton.setEnabled(false);
         viewerButton.setEnabled(false);
@@ -62,22 +103,10 @@ public class EditListActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //TODO: Get text and value from the activity
-                ListOfItems listOfItems = new ListOfItems();
-                listOfItems.setPriority(priority);
 
-                String titleName = uid.getText().toString();
-                if (titleName.isEmpty()) {
-                    Toast toast = Toast.makeText(view.getContext(), "Enter list name!", Toast.LENGTH_SHORT);
-                    toast.show();
-                    return;
-                }
-                else
-                    listOfItems.setTitleName(titleName);
-
-                listOfItems.setOwner(account.getId());
-
-                new FirebaseDBadapter().addList(listOfItems, new FirebaseDBadapter.DataStatus() {
+                current_list.setTitleName(listName.getText().toString());
+                current_list.setPriority(priority);
+                new FirebaseDBadapter().updateList(list_id, current_list, new FirebaseDBadapter.DataStatus() {
                     @Override
                     public void DataIsLoaded(List<ListOfItems> lists, List<String> keys) {
 
@@ -85,12 +114,12 @@ public class EditListActivity extends AppCompatActivity {
 
                     @Override
                     public void DataIsInserted() {
-                        Toast.makeText(EditListActivity.this, "List Added!", Toast.LENGTH_SHORT).show();
+
                     }
 
                     @Override
                     public void DataIsUpdated() {
-
+                        //TODO
                     }
 
                     @Override
@@ -98,42 +127,41 @@ public class EditListActivity extends AppCompatActivity {
 
                     }
                 });
+
             }
         });
-
-
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference ref = database.getReference("lists");
-//        //getting data from firebase
-//        ValueEventListener eventListener = new ValueEventListener() {
-//            @Override
-//            public void onDataChange(DataSnapshot dataSnapshot) {
-//                for(DataSnapshot ds : dataSnapshot.getChildren()) {
-//                    if(ds.getKey().equals(account.getId())) {
-//                        String product = ds.getKey();
-//                        Log.d(TAG, product);
-//                    }
-//                }
-//            }
-//            @Override
-//            public void onCancelled(DatabaseError databaseError) {}
-//        };
-//        ref.addListenerForSingleValueEvent(eventListener);
 
     }
 
     public void priorityLowPressed(View v){
-        priority = "Low";
+        setPriority("Low");
     }
 
     public void priorityNormalPressed(View v){
-        priority = "Normal";
+        setPriority("Normal");
     }
 
     public void priorityHighPressed(View v){
-        priority = "High";
+        setPriority("High");
     }
 
+    private void setPriority(String prio) {
+        priority = prio;
+
+        int not_chosen = 0xffffffff;
+        int chosen = 0x88888888;
+        greenBtn.setBackgroundColor(not_chosen);
+        yellowBtn.setBackgroundColor(not_chosen);
+        redBtn.setBackgroundColor(not_chosen);
+
+        if (priority.equals("Low")) {
+           greenBtn.setBackgroundColor(chosen);
+        } else if (priority.equals("Normal")) {
+            yellowBtn.setBackgroundColor(chosen);
+        } else if (priority.equals("High")) {
+            redBtn.setBackgroundColor(chosen);
+        }
+    }
 
 
     public void sendSMS(ListOfItems.Permission permission) {
