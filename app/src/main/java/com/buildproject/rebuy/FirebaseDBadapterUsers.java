@@ -41,7 +41,7 @@ public interface DataStatus {
 
 
     public void deleteItem(String key, final DataStatus dataStatus) {
-        mReferenceItems.child("users").child(key).setValue(null)
+        mReferenceItems.child("editors").child(key).setValue(null)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
