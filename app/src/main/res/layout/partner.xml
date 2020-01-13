@@ -9,7 +9,7 @@
     android:onClick="onClickOnList">
 
     <TextView
-        android:id="@+id/list_titleName"
+        android:id="@+id/user_id_editor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButton"
+        android:id="@+id/delete_editor"
         android:layout_width="47dp"
         android:layout_height="38dp"
         android:foregroundGravity="right"

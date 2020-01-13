@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,7 +27,7 @@ public class EditRecyclerView_Config {
     private ListOfItems.Permission permission;
 
 
-    public void setConfig(RecyclerView recyclerView, Context context, List<User> users, List<String> keys, String list_id){
+    public void setConfig(RecyclerView recyclerView, Context context, List<String> users, List<String> keys, String list_id){
         mContext = context;
         mItemAdapter = new UsersAdapter(users, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
@@ -38,20 +39,20 @@ public class EditRecyclerView_Config {
 
     class EditorView extends RecyclerView.ViewHolder{
         private TextView mUserName;
-        private Button mDeleteItem;
+        private ImageButton mDeleteItem;
 
         private String key; //item id record
 
         public EditorView(ViewGroup parent){
             super(LayoutInflater.from(mContext) //parent constructor
                     .inflate(R.layout.partner, parent,false));
-            mUserName = (TextView) itemView.findViewById(R.id.InList_item_name);
-            mDeleteItem = (Button) itemView.findViewById(R.id.InList_delete);
+            mUserName = (TextView) itemView.findViewById(R.id.user_id_editor);
+            mDeleteItem = (ImageButton) itemView.findViewById(R.id.delete_editor);
 
         }
 
-        private void setElements(final User user) {
-            mUserName.setText("adasdas");
+        private void setElements(final String user) {
+            mUserName.setText(user);
 
             mDeleteItem.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -64,7 +65,7 @@ public class EditRecyclerView_Config {
                         new FirebaseDBadapterUsers(list_id).deleteItem(key,
                                 new FirebaseDBadapterUsers.DataStatus() {
                                     @Override
-                                    public void DataIsLoaded(List<User> lists, List< String > keys) {
+                                    public void DataIsLoaded(List<String> lists, List< String > keys) {
 
                                     }
 
@@ -89,20 +90,20 @@ public class EditRecyclerView_Config {
         }
 
 
-        public void bind(final User user, final String key, View.OnClickListener listener){
+        public void bind(final String user, final String key, View.OnClickListener listener){
             setElements(user);
             itemView.setOnClickListener(listener);
             this.key = key;
         }
 
-        public void bind(final User user, final String key){
+        public void bind(final String user, final String key){
             setElements(user);
             this.key = key;
         }
     }
 
     class UsersAdapter extends RecyclerView.Adapter<EditorView>{
-        private List<User> mItem;
+        private List<String> mUser;
         private List<String> mKeys;
 //        private String list_id;
 //
@@ -110,8 +111,8 @@ public class EditRecyclerView_Config {
 //            this.list_id = list_id;
 //        }
 
-        public UsersAdapter(List<User> mItem, List<String> mKeys) {
-            this.mItem = mItem;
+        public UsersAdapter(List<String> mUser, List<String> mKeys) {
+            this.mUser = mUser;
             this.mKeys = mKeys;
         }
 
@@ -123,7 +124,7 @@ public class EditRecyclerView_Config {
 
         @Override
         public void onBindViewHolder(@NonNull EditorView holder, final int position) {
-            holder.bind(mItem.get(position), mKeys.get(position), new View.OnClickListener() {
+            holder.bind(mUser.get(position), mKeys.get(position), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     /*Intent newIntent = new Intent(view.getContext(), EditItemActivity.class);
@@ -142,7 +143,7 @@ public class EditRecyclerView_Config {
 
         @Override
         public int getItemCount() {
-            return mItem.size();
+            return mUser.size();
         }
     }
 }

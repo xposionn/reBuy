@@ -17,19 +17,19 @@ import java.util.List;
 public class FirebaseDBadapterUsers {
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceItems;
-    private List<User> users = new ArrayList<>();
+    private List<String> users = new ArrayList<>();
     String list_id;
 
     public FirebaseDBadapterUsers(String list_id) {
         mDatabase = FirebaseDatabase.getInstance();
         this.list_id = list_id;
-        mReferenceItems = mDatabase.getReference("lists").child(list_id).child("editors");
+        mReferenceItems = mDatabase.getReference("lists").child(list_id);
     }
 
 
 
 public interface DataStatus {
-    void DataIsLoaded(List<User> lists, List<String> keys);
+    void DataIsLoaded(List<String> lists, List<String> keys);
 
     void DataIsInserted();
 
@@ -71,7 +71,8 @@ public interface DataStatus {
                 List<String> keys = new ArrayList<>();
                 for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
                     keys.add(keyNode.getKey());
-                    User user = keyNode.getValue(User.class);
+                    String user = keyNode.getValue(String.class);
+
                     users.add(user);
                 }
                 dataStatus.DataIsLoaded(users, keys);

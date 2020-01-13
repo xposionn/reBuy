@@ -162,7 +162,7 @@ public class EditListActivity extends AppCompatActivity {
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_editors);
         new FirebaseDBadapterUsers(list_id).readUsers(new FirebaseDBadapterUsers.DataStatus() {
             @Override
-            public void DataIsLoaded(List<User> users, List<String> keys) {
+            public void DataIsLoaded(List<String> users, List<String> keys) {
                 new EditRecyclerView_Config().setConfig(mRecyclerView, EditListActivity.this, users, keys, list_id);
             }
 
