@@ -17,7 +17,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
 import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -34,7 +33,8 @@ import java.util.Objects;
 public class EditListActivity extends AppCompatActivity {
     private static final String TAG = EditListActivity.class.getName();
     GoogleSignInAccount account;
-    private RecyclerView mRecyclerView;
+    private RecyclerView mRecyclerViewEditors;
+    private RecyclerView mRecyclerViewViewers;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceList;
     private ListOfItems current_list;
@@ -159,11 +159,34 @@ public class EditListActivity extends AppCompatActivity {
 
 
         list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
-        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_editors);
-        new FirebaseDBadapterUsers(list_id).readUsers(new FirebaseDBadapterUsers.DataStatus() {
+        mRecyclerViewEditors = (RecyclerView) findViewById(R.id.recycler_partners);
+        new FirebaseDBadapterUsers(list_id).readUsers("editors", new FirebaseDBadapterUsers.DataStatus() {
             @Override
             public void DataIsLoaded(List<String> users, List<String> keys) {
-                new EditRecyclerView_Config().setConfig(mRecyclerView, EditListActivity.this, users, keys, list_id);
+                new EditRecyclerView_Config().setConfig(mRecyclerViewEditors, EditListActivity.this, users, keys, list_id, "editors");
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
+
+        mRecyclerViewViewers = (RecyclerView) findViewById(R.id.recycler_partners);
+        new FirebaseDBadapterUsers(list_id).readUsers("viewers", new FirebaseDBadapterUsers.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<String> users, List<String> keys) {
+                new EditRecyclerView_Config().setConfig(mRecyclerViewEditors, EditListActivity.this, users, keys, list_id, "viewers");
             }
 
             @Override

@@ -24,11 +24,13 @@ public class EditRecyclerView_Config {
     private Context mContext;
     private UsersAdapter mItemAdapter;
     private String list_id;
+    private String path;
     private ListOfItems.Permission permission;
 
 
-    public void setConfig(RecyclerView recyclerView, Context context, List<String> users, List<String> keys, String list_id){
+    public void setConfig(RecyclerView recyclerView, Context context, List<String> users, List<String> keys, String list_id, String path){
         mContext = context;
+        this.path = path;
         mItemAdapter = new UsersAdapter(users, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mItemAdapter);
@@ -62,7 +64,7 @@ public class EditRecyclerView_Config {
 //                        makeText(this, mContext.getString(R.string.cannot_delete_item), Toast.LENGTH_SHORT).show();
                     }
                     else {
-                        new FirebaseDBadapterUsers(list_id).deleteItem(key,
+                        new FirebaseDBadapterUsers(list_id).deleteItem(path, key,
                                 new FirebaseDBadapterUsers.DataStatus() {
                                     @Override
                                     public void DataIsLoaded(List<String> lists, List< String > keys) {

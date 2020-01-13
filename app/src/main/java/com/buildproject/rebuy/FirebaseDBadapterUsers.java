@@ -40,8 +40,8 @@ public interface DataStatus {
 }
 
 
-    public void deleteItem(String key, final DataStatus dataStatus) {
-        mReferenceItems.child("editors").child(key).setValue(null)
+    public void deleteItem(String path, String key, final DataStatus dataStatus) {
+        mReferenceItems.child(path).child(key).setValue(null)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -63,8 +63,8 @@ public interface DataStatus {
     }
 
 
-    public void readUsers(final DataStatus dataStatus) {
-        mReferenceItems.child("editors").addValueEventListener(new ValueEventListener() {
+    public void readUsers(String path, final DataStatus dataStatus) {
+        mReferenceItems.child(path).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 users.clear();
@@ -75,7 +75,7 @@ public interface DataStatus {
 
                     users.add(user);
                 }
-                dataStatus.DataIsLoaded(users, keys);
+                dataStatus.DataIsLoaded (users, keys);
             }
 
             @Override
