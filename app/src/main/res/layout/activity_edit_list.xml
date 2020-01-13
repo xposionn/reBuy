@@ -257,6 +257,14 @@
                 android:text="@string/created_at"
                 android:textSize="17sp" />
 
+            <TextView
+                android:id="@+id/edit_list_createdAt"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginStart="5dp"
+                android:gravity="bottom"
+                android:textSize="17sp" />   <!--will be changed from db  -->
+
 
         </LinearLayout>
 

@@ -13,6 +13,7 @@ public class ListOfItems {
     private String titleName;
     private String owner; //id of owner, as
     private String priority;
+    private String addedTime;
     private List<String> editors;
     private List<String> viewers;
     private HashMap<String,ItemInList> items;
@@ -24,6 +25,14 @@ public class ListOfItems {
 
     public void setListId(String listId) {
         this.listId = listId;
+    }
+
+    public String getAddedTime() {
+        return addedTime;
+    }
+
+    public void setAddedTime(String addedTime) {
+        this.addedTime = addedTime;
     }
 
     public void setTitleName(String titleName) {

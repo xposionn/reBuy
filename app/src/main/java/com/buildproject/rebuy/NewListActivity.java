@@ -21,6 +21,8 @@ import com.buildproject.rebuy.Modules.ListOfItems;
 import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class NewListActivity extends AppCompatActivity {
@@ -46,6 +48,8 @@ public class NewListActivity extends AppCompatActivity {
                 //TODO: Get text and value from the activity
                 ListOfItems listOfItems = new ListOfItems();
                 listOfItems.setPriority(priority);
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
+                listOfItems.setAddedTime(sdf.format(new Date()));
 
                 String titleName = uid.getText().toString();
                 if (titleName.isEmpty()) {

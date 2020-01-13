@@ -37,6 +37,7 @@ public class EditListActivity extends AppCompatActivity {
     private String list_id;
     private EditText listName;
     private TextView ownerName;
+    private TextView createdAt;
     private ImageButton saveButton;
 
     private String priority="Normal";
@@ -60,6 +61,7 @@ public class EditListActivity extends AppCompatActivity {
         account = GoogleSignIn.getLastSignedInAccount(this);
         listName = findViewById(R.id.uid);
         ownerName = findViewById(R.id.edit_list_ownerName);
+        createdAt = findViewById(R.id.edit_list_createdAt);
 
         saveButton = findViewById(R.id.save_list_btn);
         editorButton = findViewById(R.id.addEditor);
@@ -82,6 +84,7 @@ public class EditListActivity extends AppCompatActivity {
                 setPriority(current_list.getPriority());
                 //TODO set owner name instead of owner id
                 ownerName.setText(current_list.getOwner());
+                createdAt.setText(current_list.getAddedTime());
             }
 
             @Override
