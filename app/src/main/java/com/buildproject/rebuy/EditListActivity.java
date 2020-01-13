@@ -15,7 +15,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.RecyclerView;
 
+import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
 import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -27,10 +29,12 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+import java.util.Objects;
 
 public class EditListActivity extends AppCompatActivity {
     private static final String TAG = EditListActivity.class.getName();
     GoogleSignInAccount account;
+    private RecyclerView mRecyclerView;
     private FirebaseDatabase mDatabase;
     private DatabaseReference mReferenceList;
     private ListOfItems current_list;
@@ -151,6 +155,33 @@ public class EditListActivity extends AppCompatActivity {
             }
         });
 
+
+
+
+        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
+        mRecyclerView = (RecyclerView) findViewById(R.id.recycler_editors);
+        new FirebaseDBadapterUsers(list_id).readUsers(new FirebaseDBadapterUsers.DataStatus() {
+            @Override
+            public void DataIsLoaded(List<User> users, List<String> keys) {
+                new EditRecyclerView_Config().setConfig(mRecyclerView, EditListActivity.this, users, keys, list_id);
+            }
+
+            @Override
+            public void DataIsInserted() {
+
+            }
+
+            @Override
+            public void DataIsUpdated() {
+
+            }
+
+            @Override
+            public void DataIsDeleted() {
+
+            }
+        });
+
     }
 
     private void setSMSEnable() {
@@ -163,17 +194,6 @@ public class EditListActivity extends AppCompatActivity {
         }
     }
 
-    public void priorityLowPressed(View v){
-        setPriority("Low");
-    }
-
-    public void priorityNormalPressed(View v){
-        setPriority("Normal");
-    }
-
-    public void priorityHighPressed(View v){
-        setPriority("High");
-    }
 
     private void setPriority(String prio) {
         priority = prio;
