@@ -109,7 +109,7 @@ public class JoinListActivity extends AppCompatActivity {
     }
 
     public void endActivity() {
-        Intent i = new Intent(getApplicationContext(), ListActivity.class);
+        Intent i = new Intent(getApplicationContext(), LoginActivity.class);
         i.putExtra("account", account);
         startActivity(i);
     }

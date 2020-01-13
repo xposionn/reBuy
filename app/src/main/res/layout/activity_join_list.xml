@@ -15,7 +15,9 @@
             android:id="@+id/join_text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:layout_margin="15dp"
+            android:text="TextView"
+            android:textSize="18sp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -29,7 +31,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="click_accept"
-                android:text="Accept" />
+                android:text="Accept"
+                android:textColor="#478A49" />
 
             <Button
                 android:id="@+id/reject_join"
@@ -37,7 +40,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:onClick="click_reject"
-                android:text="Reject" />
+                android:text="Reject"
+                android:textColor="#FAD51515" />
         </LinearLayout>
     </LinearLayout>
 

@@ -105,20 +105,36 @@ public class FirebaseDBadapter {
     }
 
 
-    public void addPartner(String listId, String partnerId, ListOfItems.Permission permission, final FirebaseDBadapterItems.DataStatus dataStatus) {
-        DatabaseReference mReferenceCurrentList;
+    public void addPartner(final String listId, final String partnerId, ListOfItems.Permission permission, final FirebaseDBadapterItems.DataStatus dataStatus) {
+        final DatabaseReference mReferenceCurrentList;
         if (permission== ListOfItems.Permission.EDITOR)
             mReferenceCurrentList = mReferenceLists.child(listId).child("editors");
         else
             mReferenceCurrentList = mReferenceLists.child(listId).child("viewers");
 
-        String key = mReferenceCurrentList.push().getKey();
-        mReferenceCurrentList.child(key).setValue(partnerId)
-                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
-                        dataStatus.DataIsUpdated();
-                    }});
+        ValueEventListener valueEventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                List<String> listOfPartners = new ArrayList<>();
+                for(DataSnapshot ds : dataSnapshot.getChildren()) {
+                    String partner = ds.getValue(String.class);
+                    listOfPartners.add(partner);
+                }
+                listOfPartners.add(partnerId);
+                mReferenceCurrentList.setValue(listOfPartners)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                dataStatus.DataIsUpdated();
+                            }});
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.d(TAG, databaseError.getMessage());
+            }
+        };
+        mReferenceCurrentList.addListenerForSingleValueEvent(valueEventListener);
     }
 
 
