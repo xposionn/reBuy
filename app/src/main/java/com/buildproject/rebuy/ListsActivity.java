@@ -3,6 +3,7 @@ package com.buildproject.rebuy;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
@@ -28,7 +29,7 @@ public class ListsActivity extends AppCompatActivity {
         new FirebaseDBadapter().readLists(account.getId(),new FirebaseDBadapter.DataStatus() {
             @Override
             public void DataIsLoaded(List<ListOfItems> lists, List<String> keys) {
-                new RecyclerView_Config().setConfig(mRecyclerView, ListsActivity.this, lists,keys);
+                new RecyclerView_Config().setConfig(mRecyclerView, ListsActivity.this, lists,keys, account.getDisplayName());
             }
 
             @Override
@@ -46,5 +47,12 @@ public class ListsActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+
+    public void moveToNewListActivity(View v) {
+        Intent i = new Intent(getApplicationContext(), NewListActivity.class);
+        i.putExtra("account", account);
+        startActivity(i);
     }
 }

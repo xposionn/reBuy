@@ -6,6 +6,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public class ListOfItems {
@@ -13,6 +14,7 @@ public class ListOfItems {
     private String titleName;
     private String owner; //id of owner, as
     private String priority;
+    private String addedTime;
     private List<String> editors;
     private List<String> viewers;
     private HashMap<String,ItemInList> items;
@@ -24,6 +26,14 @@ public class ListOfItems {
 
     public void setListId(String listId) {
         this.listId = listId;
+    }
+
+    public String getAddedTime() {
+        return addedTime;
+    }
+
+    public void setAddedTime(String addedTime) {
+        this.addedTime = addedTime;
     }
 
     public void setTitleName(String titleName) {
@@ -78,8 +88,6 @@ public class ListOfItems {
     }
 
 
-
-
     public List<String> getEditors() {
         return editors;
     }
@@ -121,4 +129,12 @@ public class ListOfItems {
     }
 
     public Permission getAccountPermission() { return permission;}
+
+    public boolean isAllBought() {
+        for(ItemInList item : items.values() ) {
+            if (!item.isBought())
+                return false;
+        }
+        return true;
+    }
 }

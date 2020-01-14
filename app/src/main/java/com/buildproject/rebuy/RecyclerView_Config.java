@@ -2,14 +2,18 @@ package com.buildproject.rebuy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,12 +23,18 @@ import org.w3c.dom.Text;
 
 import java.util.List;
 
+import static com.buildproject.rebuy.R.*;
+import static com.buildproject.rebuy.R.color.colorPrimary;
+
 public class RecyclerView_Config {
     private Context mContext;
     private ListsAdapter mListAdapter;
-    public void setConfig(RecyclerView recyclerView, Context context, List<ListOfItems> lists, List<String> keys){
+    private String displayName;
+
+    public void setConfig(RecyclerView recyclerView, Context context, List<ListOfItems> lists, List<String> keys, String displayName){
         mContext = context;
         mListAdapter = new ListsAdapter(lists, keys);
+        this.displayName = displayName;
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mListAdapter);
     }
@@ -32,31 +42,51 @@ public class RecyclerView_Config {
     class ListItemView extends RecyclerView.ViewHolder{
         private TextView mListTitleName;
         private TextView mListOwnerName;
-        private TextView mListPriority;
+        private ImageView mListPriority;
 
         private String key; //list id record
 
         public ListItemView(ViewGroup parent){
             super(LayoutInflater.from(mContext) //parent constructor
                     .inflate(R.layout.listofitems_minified_for_recycleviews, parent,false));
-            mListTitleName = (TextView) itemView.findViewById(R.id.list_titleName);
-            mListOwnerName = (TextView) itemView.findViewById(R.id.list_ownerName);
-            mListPriority = (TextView) itemView.findViewById(R.id.list_priorityText);
+            mListTitleName = (TextView) itemView.findViewById(id.list_titleName);
+            mListOwnerName = (TextView) itemView.findViewById(id.list_ownerName);
+            mListPriority = (ImageView) itemView.findViewById(id.recycleview_lists_priority);
 
         }
+
+        private void setPriority(String priority) {
+            if (priority.equals("Low")) {
+                mListPriority.setImageResource(drawable.green_priority_btn);
+            } else if (priority.equals("Normal")) {
+                mListPriority.setImageResource(drawable.yellow_priority_btn);
+            } else if (priority.equals("High")) {
+                mListPriority.setImageResource(drawable.red_priority_btn);
+            }
+        }
+
+        private void setBackground(ListOfItems list) {
+            if (list.isAllBought()) {
+                mListTitleName.setBackgroundColor(Color.rgb(197,230,171));
+            }
+            else {
+                mListTitleName.setBackgroundColor(0);
+            }
+        }
+
         public void bind(ListOfItems list, String key){
             mListTitleName.setText(list.getTitleName());
-            mListOwnerName.setText(list.getOwner());
-            mListPriority.setText(list.getPriority());
+            new FirebaseDBadapterUsers().setNameByUesrID(list.getOwner(), mListOwnerName);
+            setPriority(list.getPriority());
+            setBackground(list);
             this.key = key;
-
-
         }
 
         public void bind(ListOfItems list, String key, View.OnClickListener listener){
             mListTitleName.setText(list.getTitleName());
-            mListOwnerName.setText(list.getOwner());
-            mListPriority.setText(list.getPriority());
+            new FirebaseDBadapterUsers().setNameByUesrID(list.getOwner(), mListOwnerName);
+            setPriority(list.getPriority());
+            setBackground(list);
             itemView.setOnClickListener(listener);
             this.key = key;
 
@@ -87,6 +117,7 @@ public class RecyclerView_Config {
                     Intent newIntent = new Intent(view.getContext(),ItemsActivity.class);
                     newIntent.putExtra("list_id",mKeys.get(position));
                     newIntent.putExtra("list_title",mList.get(position).getTitleName());
+                    newIntent.putExtra("display_name",displayName);
                     newIntent.putExtra("permission", mList.get(position).getAccountPermission());
                     view.getContext().startActivity(newIntent);
                 }

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -18,6 +19,8 @@ import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
 
 import java.util.List;
+
+import static android.widget.Toast.makeText;
 
 public class ItemsRecyclerView_Config {
     private Context mContext;
@@ -114,35 +117,39 @@ public class ItemsRecyclerView_Config {
                             });
                 }
             });
-
-            if (permission== ListOfItems.Permission.VIEWER || permission== ListOfItems.Permission.NOTHING)
-                mDeleteItem.setEnabled(false);
+            
             
             mDeleteItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    new FirebaseDBadapterItems(list_id).deleteItem(key,
-                            new FirebaseDBadapterItems.DataStatus() {
-                                @Override
-                                public void DataIsLoaded(List<ItemInList> lists, List<String> keys) {
+                    if (permission== ListOfItems.Permission.VIEWER || permission== ListOfItems.Permission.NOTHING) {
+                        //TODO make toast
+//                        makeText(this, mContext.getString(R.string.cannot_delete_item), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        new FirebaseDBadapterItems(list_id).deleteItem(key,
+                                new FirebaseDBadapterItems.DataStatus() {
+                                    @Override
+                                    public void DataIsLoaded(List< ItemInList > lists, List< String > keys) {
 
-                                }
+                                    }
 
-                                @Override
-                                public void DataIsInserted() {
+                                    @Override
+                                    public void DataIsInserted() {
 
-                                }
+                                    }
 
-                                @Override
-                                public void DataIsUpdated() {
+                                    @Override
+                                    public void DataIsUpdated() {
 
-                                }
+                                    }
 
-                                @Override
-                                public void DataIsDeleted() {
-                                    //TODO write log
-                                }
-                            });
+                                    @Override
+                                    public void DataIsDeleted() {
+                                        //TODO write log
+                                    }
+                                });
+                    }
                 }
             });
         }

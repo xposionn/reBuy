@@ -19,12 +19,14 @@ public class ItemsActivity extends AppCompatActivity {
     private RecyclerView mRecyclerView;
     private String list_id;
     private ListOfItems.Permission permission;
+    private String displayName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
         permission = (ListOfItems.Permission) getIntent().getExtras().getSerializable("permission");
+        displayName = getIntent().getExtras().getString("display_name");
         setTitle(Objects.requireNonNull(getIntent().getExtras()).getString("list_title"));
 
         setContentView(R.layout.activity_items);
@@ -57,9 +59,21 @@ public class ItemsActivity extends AppCompatActivity {
         if (permission == ListOfItems.Permission.EDITOR || permission == ListOfItems.Permission.OWNER) {
             Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
             i.putExtra("list_id", list_id);
+            i.putExtra("display_name",displayName);
             startActivity(i);
         }else{
             Toast.makeText(this, "You have no permission to add a new Item", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void editList(View view) {
+        if (permission == ListOfItems.Permission.EDITOR || permission == ListOfItems.Permission.OWNER) {
+            Intent i = new Intent(getApplicationContext(), EditListActivity.class);
+            i.putExtra("list_id", list_id);
+            i.putExtra("permission",permission);
+            startActivity(i);
+        }else{
+            Toast.makeText(this, "You have no permission to edit this list", Toast.LENGTH_SHORT).show();
         }
     }
 }

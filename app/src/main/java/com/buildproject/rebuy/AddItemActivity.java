@@ -27,6 +27,7 @@ public class AddItemActivity extends AppCompatActivity {
     String list_id;
     //TODO initilize current_user
     String userId;
+    String userName;
 
     //components
     EditText item_name;
@@ -74,7 +75,6 @@ public class AddItemActivity extends AppCompatActivity {
 
         //get from previous intent
         Bundle bundle = getIntent().getExtras();
-//        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
         list_id = bundle.getString("list_id");
 
         current_item = new ItemInList();
@@ -85,9 +85,7 @@ public class AddItemActivity extends AppCompatActivity {
         setPriority(current_item.getPriority());
         is_bought.setChecked(current_item.isBought());
 
-        String user_added_by = current_item.getUserId();
-//        added_by.setText(String.format("%s %s", user_added_by.getFirstName(), user_added_by.getLastName()));
-
+        userName = bundle.getString("display_name");
 
     }
 
@@ -145,6 +143,8 @@ public class AddItemActivity extends AppCompatActivity {
     }
 
     public void saveItem (View view) {
+
+        current_item.setAddedBy(userName);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         current_item.setAddedTime(sdf.format(new Date()));
         current_item.setBought(is_bought.isChecked());
