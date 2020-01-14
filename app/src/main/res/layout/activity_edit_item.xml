@@ -152,9 +152,9 @@
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:text="@string/added_by"
-                android:textSize="17sp"/>
+                android:textSize="17sp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -178,9 +178,14 @@
 
             <TextView
                 android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="@string/added_at"
+                android:textSize="17sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/changed_at"
-                android:text="@string/change_at"
                 android:textSize="17sp"/>
 
 
