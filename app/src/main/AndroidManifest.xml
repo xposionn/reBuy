@@ -12,32 +12,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".BarcodeScannerActivity"></activity>
         <activity android:name=".Services.JoinListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "http://www.reBuy.com/join” -->
-                <data android:scheme="http"
+                <data
                     android:host="www.rebuy.com"
-                    android:pathPrefix="/join" />
-                <!-- note that the leading "/" is required for pathPrefix-->
+                    android:pathPrefix="/join"
+                    android:scheme="http" />
+                <!-- note that the leading "/" is required for pathPrefix -->
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <!-- Accepts URIs that begin with "reBuy://join” -->
-                <data android:scheme="rebuy"
-                    android:host="join" />
+                <data
+                    android:host="join"
+                    android:scheme="rebuy" />
             </intent-filter>
         </activity>
-
         <activity android:name=".ListsActivity" />
         <activity android:name=".AddItemActivity" />
         <activity android:name=".EditItemActivity" />
         <activity android:name=".NewListActivity" />
-        <activity android:name=".EditListActivity"/>
+        <activity android:name=".EditListActivity" />
         <activity android:name=".ItemsActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
