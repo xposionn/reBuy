@@ -56,7 +56,7 @@
                 android:weightSum="100">
 
                 <ImageButton
-                    android:id="@+id/imageButton3"
+                    android:id="@+id/newList_green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="33"
@@ -68,7 +68,7 @@
                     app:srcCompat="@drawable/green_priority_btn" />
 
                 <ImageButton
-                    android:id="@+id/imageButton4"
+                    android:id="@+id/newList_yellow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="33"
@@ -79,7 +79,7 @@
                     app:srcCompat="@drawable/yellow_priority_btn" />
 
                 <ImageButton
-                    android:id="@+id/imageButton5"
+                    android:id="@+id/newList_red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="34"

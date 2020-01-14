@@ -31,6 +31,10 @@ public class NewListActivity extends AppCompatActivity {
 
     private TextView uid;
     private ImageButton saveButton;
+
+    private ImageButton greenBtn;
+    private ImageButton yellowBtn;
+    private ImageButton redBtn;
     private String priority="Normal";
 
     @Override
@@ -41,6 +45,10 @@ public class NewListActivity extends AppCompatActivity {
         account = getIntent().getParcelableExtra("account");
         uid = findViewById(R.id.uid);
         saveButton = findViewById(R.id.save_list_btn);
+
+        greenBtn = findViewById(R.id.newList_green);
+        yellowBtn = findViewById(R.id.newList_yellow);
+        redBtn = findViewById(R.id.newList_red);
 
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,8 +65,9 @@ public class NewListActivity extends AppCompatActivity {
                     toast.show();
                     return;
                 }
-                else
+                else {
                     listOfItems.setTitleName(titleName);
+                }
 
                 listOfItems.setOwner(account.getId());
 
@@ -71,7 +80,9 @@ public class NewListActivity extends AppCompatActivity {
                     @Override
                     public void DataIsInserted() {
                         Toast.makeText(NewListActivity.this, "List Added!", Toast.LENGTH_SHORT).show();
-                        //TODO start itemsActivity
+                        Intent i = new Intent(getApplicationContext(), ListsActivity.class);
+                        i.putExtra("account", account);
+                        startActivity(i);
                     }
 
                     @Override
@@ -89,16 +100,34 @@ public class NewListActivity extends AppCompatActivity {
 
     }
 
+    private void setPriority(String prio) {
+        priority = prio;
+
+        int not_chosen = 0xffffffff;
+        int chosen = 0x88888888;
+        greenBtn.setBackgroundColor(not_chosen);
+        yellowBtn.setBackgroundColor(not_chosen);
+        redBtn.setBackgroundColor(not_chosen);
+
+        if (priority.equals("Low")) {
+            greenBtn.setBackgroundColor(chosen);
+        } else if (priority.equals("Normal")) {
+            yellowBtn.setBackgroundColor(chosen);
+        } else if (priority.equals("High")) {
+            redBtn.setBackgroundColor(chosen);
+        }
+    }
+
     public void priorityLowPressed(View v){
-        priority = "Low";
+        setPriority("Low");
     }
 
     public void priorityNormalPressed(View v){
-        priority = "Normal";
+        setPriority("Normal");
     }
 
     public void priorityHighPressed(View v){
-        priority = "High";
+        setPriority("High");
     }
 
     public void notCreateList(View view) {
