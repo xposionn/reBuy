@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,7 +36,7 @@ public class RecyclerView_Config {
     class ListItemView extends RecyclerView.ViewHolder{
         private TextView mListTitleName;
         private TextView mListOwnerName;
-        private TextView mListPriority;
+        private ImageView mListPriority;
 
         private String key; //list id record
 
@@ -44,24 +45,33 @@ public class RecyclerView_Config {
                     .inflate(R.layout.listofitems_minified_for_recycleviews, parent,false));
             mListTitleName = (TextView) itemView.findViewById(R.id.list_titleName);
             mListOwnerName = (TextView) itemView.findViewById(R.id.list_ownerName);
-            mListPriority = (TextView) itemView.findViewById(R.id.list_priorityText);
-
+            mListPriority = (ImageView) itemView.findViewById(R.id.recycleview_lists_priority);
         }
+
+        private void setPriority(String priority) {
+            if (priority.equals("Low")) {
+                mListPriority.setImageResource(R.drawable.green_priority_btn);
+            } else if (priority.equals("Normal")) {
+                mListPriority.setImageResource(R.drawable.yellow_priority_btn);
+            } else if (priority.equals("High")) {
+                mListPriority.setImageResource(R.drawable.red_priority_btn);
+            }
+        }
+
+
         public void bind(ListOfItems list, String key){
             mListTitleName.setText(list.getTitleName());
 //            mListOwnerName.setText(list.getOwner());
             new FirebaseDBadapterUsers().setNameByUesrID(list.getOwner(), mListOwnerName);
-            mListPriority.setText(list.getPriority());
+            setPriority(list.getPriority());
             this.key = key;
-
-
         }
 
         public void bind(ListOfItems list, String key, View.OnClickListener listener){
             mListTitleName.setText(list.getTitleName());
 //            mListOwnerName.setText(list.getOwner());
             new FirebaseDBadapterUsers().setNameByUesrID(list.getOwner(), mListOwnerName);
-            mListPriority.setText(list.getPriority());
+            setPriority(list.getPriority());
             itemView.setOnClickListener(listener);
             this.key = key;
 
