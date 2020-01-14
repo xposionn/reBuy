@@ -6,29 +6,33 @@
     style="List"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:onClick="onClickOnList">
+    android:onClick="onClickOnList"
+    android:layout_gravity="fill_horizontal">
 
-    <TextView
-        android:id="@+id/user_id_editor"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center_vertical"
-        android:text="TextView"
-        android:textSize="15sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="100">
 
-    <ImageButton
-        android:id="@+id/delete_editor"
-        android:layout_width="47dp"
-        android:layout_height="38dp"
-        android:foregroundGravity="right"
-        android:scaleType="fitStart"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/minus_btn" />
+        <TextView
+            android:id="@+id/user_id_editor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="30"
+            android:gravity="center_vertical"
+            android:text="Partner Name"
+            android:textSize="13sp" />
+
+        <ImageButton
+            android:id="@+id/delete_editor"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center_horizontal"
+            android:background="#00FFFFFF"
+            android:scaleType="fitStart"
+            app:srcCompat="@drawable/minus_btn" />
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

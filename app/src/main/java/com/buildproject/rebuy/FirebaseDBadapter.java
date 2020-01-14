@@ -146,11 +146,11 @@ public class FirebaseDBadapter {
                 }
                 if(!listOfPartners.contains(partnerId)){
                     listOfPartners.add(partnerId);
-                mReferenceCurrentList.setValue(listOfPartners)
-                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                dataStatus.DataIsUpdated();
+                    mReferenceCurrentList.setValue(listOfPartners)
+                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    dataStatus.DataIsUpdated();
                             }});}
                 else {
                     Log.d(TAG, "onDataChange: already in");

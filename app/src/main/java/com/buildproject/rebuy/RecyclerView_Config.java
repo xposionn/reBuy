@@ -49,7 +49,8 @@ public class RecyclerView_Config {
         }
         public void bind(ListOfItems list, String key){
             mListTitleName.setText(list.getTitleName());
-            mListOwnerName.setText(list.getOwner());
+//            mListOwnerName.setText(list.getOwner());
+            new FirebaseDBadapterUsers().setNameByUesrID(list.getOwner(), mListOwnerName);
             mListPriority.setText(list.getPriority());
             this.key = key;
 
@@ -58,7 +59,8 @@ public class RecyclerView_Config {
 
         public void bind(ListOfItems list, String key, View.OnClickListener listener){
             mListTitleName.setText(list.getTitleName());
-            mListOwnerName.setText(list.getOwner());
+//            mListOwnerName.setText(list.getOwner());
+            new FirebaseDBadapterUsers().setNameByUesrID(list.getOwner(), mListOwnerName);
             mListPriority.setText(list.getPriority());
             itemView.setOnClickListener(listener);
             this.key = key;

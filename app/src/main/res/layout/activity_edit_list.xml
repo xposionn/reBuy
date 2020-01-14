@@ -174,9 +174,10 @@
 
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recycler_partners"
+                    android:id="@+id/recycler_editors"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="100dp">
 
 
                 </androidx.recyclerview.widget.RecyclerView>
@@ -232,8 +233,10 @@
                 android:orientation="vertical">
 
                 <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycler_viewers"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="100dp">
                     <!--                F.name, L.name-->
                 </androidx.recyclerview.widget.RecyclerView>
 

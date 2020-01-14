@@ -1,5 +1,7 @@
 package com.buildproject.rebuy;
 
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 
 import com.buildproject.rebuy.Modules.ItemInList;
@@ -19,6 +21,10 @@ public class FirebaseDBadapterUsers {
     private DatabaseReference mReferenceItems;
     private List<String> users = new ArrayList<>();
     String list_id;
+
+    public FirebaseDBadapterUsers() {
+        mDatabase = FirebaseDatabase.getInstance();
+    }
 
     public FirebaseDBadapterUsers(String list_id) {
         mDatabase = FirebaseDatabase.getInstance();
@@ -83,5 +89,29 @@ public interface DataStatus {
 
             }
         });
+    }
+
+    public void setNameByUesrID (String user_id, TextView textView) {
+        DatabaseReference mReferenceUser = mDatabase.getReference("users").child(user_id);
+        class UserListener implements ValueEventListener {
+
+            private TextView textView;
+
+            UserListener(TextView textView) {
+                this.textView = textView;
+            }
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                User user = dataSnapshot.getValue(User.class);
+                textView.setText(user.getFirstName() + " " + user.getLastName());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        }
+        mReferenceUser.addListenerForSingleValueEvent(new UserListener(textView));
     }
 }
