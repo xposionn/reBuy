@@ -1,5 +1,6 @@
 package com.buildproject.rebuy;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
@@ -178,10 +179,13 @@ public class EditItemActivity extends AppCompatActivity {
 
     public void onBarcodeClick(View view) {
         //TODO in future: open scanner activity and delete this stupid toast
-        CharSequence text = "Thank you!";
+        CharSequence text = "Thank you! One second...";
         int duration = Toast.LENGTH_SHORT;
         Toast toast = Toast.makeText(getApplicationContext(), text, duration);
         toast.show();
+        Intent i = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+//        i.putExtra("account", account);
+        startActivity(i);
     }
 
     public void saveItem (View view) {
