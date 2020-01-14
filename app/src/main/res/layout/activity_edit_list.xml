@@ -61,8 +61,7 @@
                     android:layout_weight="33"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/low_priority"
-
-                    android:onClick="priorityLowPressed"
+                    android:onClick="editList_priorityLowPressed"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/green_priority_btn" />
 
@@ -73,7 +72,7 @@
                     android:layout_weight="33"
                     android:background="@android:color/transparent"
                     android:contentDescription="@string/medium_priority"
-                    android:onClick="priorityNormalPressed"
+                    android:onClick="editList_priorityNormalPressed"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/yellow_priority_btn" />
 
@@ -83,10 +82,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="34"
                     android:background="@android:color/transparent"
-
                     android:contentDescription="@string/high_priority"
                     android:hapticFeedbackEnabled="false"
-                    android:onClick="priorityHighPressed"
+                    android:onClick="editList_priorityHighPressed"
                     android:scaleType="centerInside"
                     app:srcCompat="@drawable/red_priority_btn" />
             </LinearLayout>

@@ -236,6 +236,14 @@ public class EditListActivity extends AppCompatActivity {
         }
     }
 
+    public void editList_priorityLowPressed(View v){ setPriority("Low"); }
+
+    public void editList_priorityNormalPressed(View v){ setPriority("Normal"); }
+
+    public void editList_priorityHighPressed(View v){
+        setPriority("High");
+    }
+
 
     public void sendSMS(ListOfItems.Permission permission) {
         String permission_id;
