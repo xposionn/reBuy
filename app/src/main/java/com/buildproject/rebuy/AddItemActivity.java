@@ -69,7 +69,7 @@ public class AddItemActivity extends AppCompatActivity {
         added_by = findViewById(R.id.add_by);
         added_at = findViewById(R.id.changed_at);
         notes = findViewById(R.id.edit_notes);
-        barcode_button = findViewById(R.id.barcode);
+        barcode_button = findViewById(R.id.barcode_btn);
         apply_button = findViewById(R.id.edit_item_apply);
 
         //get from previous intent

@@ -211,12 +211,14 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="80"
                 android:layout_gravity="center_vertical"
+                android:id="@+id/result_scanner"
                 android:text="@string/recommendationAdvice" />
+
 
             <pl.droidsonroids.gif.GifImageView
                 android:layout_width="70dp"
                 android:layout_height="100dp"
-                android:id="@+id/barcode"
+                android:id="@+id/barcode_btn"
                 android:scaleType="fitCenter"
                 android:layout_marginTop="0sp"
                 android:src="@drawable/barcodegif"
