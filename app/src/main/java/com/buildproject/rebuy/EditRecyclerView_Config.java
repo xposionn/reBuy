@@ -54,7 +54,8 @@ public class EditRecyclerView_Config {
         }
 
         private void setElements(final String user) {
-            mUserName.setText(user);
+            //mUserName.setText(user);
+            new FirebaseDBadapterUsers().setNameByUesrID(user, mUserName);
 
             mDeleteItem.setOnClickListener(new View.OnClickListener() {
                 @Override
