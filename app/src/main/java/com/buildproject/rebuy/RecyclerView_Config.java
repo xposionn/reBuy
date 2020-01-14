@@ -2,15 +2,18 @@ package com.buildproject.rebuy;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuView;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,6 +22,9 @@ import com.buildproject.rebuy.Modules.ListOfItems;
 import org.w3c.dom.Text;
 
 import java.util.List;
+
+import static com.buildproject.rebuy.R.*;
+import static com.buildproject.rebuy.R.color.colorPrimary;
 
 public class RecyclerView_Config {
     private Context mContext;
@@ -43,35 +49,44 @@ public class RecyclerView_Config {
         public ListItemView(ViewGroup parent){
             super(LayoutInflater.from(mContext) //parent constructor
                     .inflate(R.layout.listofitems_minified_for_recycleviews, parent,false));
-            mListTitleName = (TextView) itemView.findViewById(R.id.list_titleName);
-            mListOwnerName = (TextView) itemView.findViewById(R.id.list_ownerName);
-            mListPriority = (ImageView) itemView.findViewById(R.id.recycleview_lists_priority);
+            mListTitleName = (TextView) itemView.findViewById(id.list_titleName);
+            mListOwnerName = (TextView) itemView.findViewById(id.list_ownerName);
+            mListPriority = (ImageView) itemView.findViewById(id.recycleview_lists_priority);
+
         }
 
         private void setPriority(String priority) {
             if (priority.equals("Low")) {
-                mListPriority.setImageResource(R.drawable.green_priority_btn);
+                mListPriority.setImageResource(drawable.green_priority_btn);
             } else if (priority.equals("Normal")) {
-                mListPriority.setImageResource(R.drawable.yellow_priority_btn);
+                mListPriority.setImageResource(drawable.yellow_priority_btn);
             } else if (priority.equals("High")) {
-                mListPriority.setImageResource(R.drawable.red_priority_btn);
+                mListPriority.setImageResource(drawable.red_priority_btn);
             }
         }
 
+        private void setBackground(ListOfItems list) {
+            if (list.isAllBought()) {
+                mListTitleName.setBackgroundColor(Color.rgb(197,230,171));
+            }
+            else {
+                mListTitleName.setBackgroundColor(0);
+            }
+        }
 
         public void bind(ListOfItems list, String key){
             mListTitleName.setText(list.getTitleName());
-//            mListOwnerName.setText(list.getOwner());
             new FirebaseDBadapterUsers().setNameByUesrID(list.getOwner(), mListOwnerName);
             setPriority(list.getPriority());
+            setBackground(list);
             this.key = key;
         }
 
         public void bind(ListOfItems list, String key, View.OnClickListener listener){
             mListTitleName.setText(list.getTitleName());
-//            mListOwnerName.setText(list.getOwner());
             new FirebaseDBadapterUsers().setNameByUesrID(list.getOwner(), mListOwnerName);
             setPriority(list.getPriority());
+            setBackground(list);
             itemView.setOnClickListener(listener);
             this.key = key;
 
