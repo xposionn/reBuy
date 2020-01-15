@@ -9,9 +9,11 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.buildproject.rebuy.Modules.User;
@@ -44,7 +46,13 @@ public class BarcodeScannerActivity extends AppCompatActivity {
     CameraView cameraView;
     Button btnDetectBarcode;
     AlertDialog waitingDialog;
+    String itemNameFromDialog;
+    AlertDialog.Builder itemNameDialogBuilder;
+    String list_id;
+    String displayName;
+
     String itemName;
+    String detectedItemBarcode;
 
     @Override
     protected void onResume() {
@@ -65,6 +73,8 @@ public class BarcodeScannerActivity extends AppCompatActivity {
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         itemName = Objects.requireNonNull(getIntent().getExtras()).getString("item_name");
+        list_id = getIntent().getExtras().getString("list_id");
+        displayName = getIntent().getExtras().getString("display_name");
 
         cameraView = (CameraView) findViewById(R.id.camerview);
         btnDetectBarcode = (Button)findViewById(R.id.btn_capture_barcode);
@@ -74,6 +84,39 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                 .setMessage("Please wait..")
                 .setCancelable(false)
                 .build();
+
+        itemNameDialogBuilder = new AlertDialog.Builder(this);
+        itemNameDialogBuilder.setTitle("Add item name for this barcode");
+        final EditText input = new EditText(this);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
+        itemNameDialogBuilder.setView(input);
+        // Set up the buttons
+        itemNameDialogBuilder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                itemNameFromDialog = input.getText().toString();
+                //save to db:
+                if(itemNameFromDialog!=null && !itemNameFromDialog.isEmpty()) {
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference("barcodes");
+                    myRef.child(Objects.requireNonNull(detectedItemBarcode)).setValue(itemNameFromDialog);
+                    Toast.makeText(BarcodeScannerActivity.this, "Saved " + itemNameFromDialog + " in database!", Toast.LENGTH_SHORT).show();
+                }
+                //move to add item with added item name:
+                Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
+                i.putExtra("list_id", list_id);
+                i.putExtra("display_name",displayName);
+                i.putExtra("barcode_name",itemNameFromDialog);
+                startActivity(i);
+            }
+        });
+        itemNameDialogBuilder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+
 
         btnDetectBarcode.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -147,22 +190,27 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         ValueEventListenerWithBarcode(String barcodeValue){
             super();
             this.barcode = barcodeValue;
-            list_id = getIntent().getExtras().getString("list_id");
-            displayName = getIntent().getExtras().getString("display_name");
+
         }
 
         @Override
         public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            boolean found = false;
             for(DataSnapshot keyNode : dataSnapshot.getChildren()){
                 if(keyNode.getKey().equals(this.barcode)){
+                    found = true;
                     Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
                     i.putExtra("list_id", list_id);
                     i.putExtra("display_name",displayName);
                     i.putExtra("barcode_name",keyNode.getValue(String.class));
                     startActivity(i);
+                    break;
                 }
             }
-            //todo: when not found
+            if(!found){
+                Toast.makeText(BarcodeScannerActivity.this, "Item not found.",Toast.LENGTH_SHORT).show();
+                itemNameDialogBuilder.show();
+            }
 
         }
 
@@ -181,6 +229,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                 case FirebaseVisionBarcode.TYPE_PRODUCT:
                 {
                     Toast.makeText(BarcodeScannerActivity.this, "Detected: "+item.getRawValue(),Toast.LENGTH_SHORT).show();
+                    detectedItemBarcode = item.getRawValue();
                     if(itemName!=null && !itemName.isEmpty()){
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference("barcodes");
