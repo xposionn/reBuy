@@ -45,6 +45,7 @@ public class ItemsActivity extends AppCompatActivity {
             if (mAccel > 30) {
                 Toast toast = Toast.makeText(getApplicationContext(), "Device has shaken.", Toast.LENGTH_LONG);
                 toast.show();
+
                 moveToAddItemActivity();
             }
         }
@@ -129,6 +130,16 @@ public class ItemsActivity extends AppCompatActivity {
         }else{
             Toast.makeText(this, "You have no permission to edit this list", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    public void addByBarcode(View v){
+        Intent i = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+        i.putExtra("item_name",""); //will get itemName from DB
+
+        //will be used to forward extras to "Add Item" activity:
+        i.putExtra("list_id", list_id);
+        i.putExtra("display_name",displayName);
+        startActivity(i);
     }
 
 }

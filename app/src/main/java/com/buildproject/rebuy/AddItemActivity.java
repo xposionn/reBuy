@@ -76,6 +76,10 @@ public class AddItemActivity extends AppCompatActivity {
         //get from previous intent
         Bundle bundle = getIntent().getExtras();
         list_id = bundle.getString("list_id");
+        if(bundle.getString("barcode_name")!=null){
+            item_name.setText(bundle.getString("barcode_name"));
+
+        }
 
         current_item = new ItemInList();
         current_item.setUserId(userId);

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -16,8 +17,11 @@ import android.widget.Toast;
 import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
@@ -133,7 +137,44 @@ public class BarcodeScannerActivity extends AppCompatActivity {
 
     }
 
+    //inner class
+    class ValueEventListenerWithBarcode implements ValueEventListener {
+        private String barcode;
+        private String list_id;
+        private String displayName;
+
+
+        ValueEventListenerWithBarcode(String barcodeValue){
+            super();
+            this.barcode = barcodeValue;
+            list_id = getIntent().getExtras().getString("list_id");
+            displayName = getIntent().getExtras().getString("display_name");
+        }
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            for(DataSnapshot keyNode : dataSnapshot.getChildren()){
+                if(keyNode.getKey().equals(this.barcode)){
+                    Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
+                    i.putExtra("list_id", list_id);
+                    i.putExtra("display_name",displayName);
+                    i.putExtra("barcode_name",keyNode.getValue(String.class));
+                    startActivity(i);
+                }
+            }
+            //todo: when not found
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    }
+
     private void processResult(List<FirebaseVisionBarcode> firebaseVisionBarcodes) {
+
+
         for(FirebaseVisionBarcode item : firebaseVisionBarcodes){
             int value_type = item.getValueType();
             switch (value_type){
@@ -146,6 +187,15 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                         myRef.child(Objects.requireNonNull(item.getRawValue())).setValue(itemName);
                         Toast.makeText(BarcodeScannerActivity.this, "Saved " + itemName + " in database!",Toast.LENGTH_SHORT).show();
                         super.onBackPressed();
+                    }else if(itemName!=null && itemName.equals("")){
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("barcodes");
+                        myRef.addListenerForSingleValueEvent(new ValueEventListenerWithBarcode(item.getRawValue()));
+
+                    }else{
+                        //nothing atm. should not get here.
+                        Toast.makeText(BarcodeScannerActivity.this, "Something bad happened.",Toast.LENGTH_SHORT).show();
+
                     }
 
                     // Alert dialog:
