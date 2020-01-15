@@ -30,6 +30,7 @@ public class ItemsActivity extends AppCompatActivity {
     private float mAccel; // acceleration apart from gravity
     private float mAccelCurrent; // current acceleration including gravity
     private float mAccelLast; // last acceleration including gravity
+    private  final int SENSOR_RATE = 20;
 
     private final SensorEventListener mSensorListener = new SensorEventListener() {
 
@@ -42,11 +43,8 @@ public class ItemsActivity extends AppCompatActivity {
             float delta = mAccelCurrent - mAccelLast;
             mAccel = mAccel * 0.9f + delta; // perform low-cut filter
 
-            if (mAccel > 30) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Device has shaken.", Toast.LENGTH_LONG);
-                toast.show();
-
-                moveToAddItemActivity();
+            if (mAccel > SENSOR_RATE) {
+                addByBarcode();
             }
         }
 
@@ -106,10 +104,6 @@ public class ItemsActivity extends AppCompatActivity {
         mAccelLast = SensorManager.GRAVITY_EARTH;
     }
 
-    public void moveToAddItemActivity(View v) {
-        moveToAddItemActivity();
-    }
-
     public void moveToAddItemActivity() {
         if (permission == ListOfItems.Permission.EDITOR || permission == ListOfItems.Permission.OWNER) {
             Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
@@ -132,7 +126,11 @@ public class ItemsActivity extends AppCompatActivity {
         }
     }
 
-    public void addByBarcode(View v){
+    public void addByBarcode(View v) {
+        addByBarcode();
+    }
+
+    public void addByBarcode(){
         Intent i = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
         i.putExtra("item_name",""); //will get itemName from DB
 
