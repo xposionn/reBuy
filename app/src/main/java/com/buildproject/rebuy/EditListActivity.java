@@ -44,6 +44,7 @@ public class EditListActivity extends AppCompatActivity {
     private TextView ownerName;
     private TextView createdAt;
     private ImageButton saveButton;
+    private ImageButton deleteButton;
 
     private String priority="Normal";
     private ImageButton greenBtn;
@@ -69,6 +70,7 @@ public class EditListActivity extends AppCompatActivity {
         createdAt = findViewById(R.id.edit_list_createdAt);
 
         saveButton = findViewById(R.id.save_list_btn);
+        deleteButton = findViewById(R.id.delete_list);
         editorButton = findViewById(R.id.addEditor);
         editorNum = findViewById(R.id.editorNumberText);
         viewerButton = findViewById(R.id.addViewer);
@@ -92,8 +94,6 @@ public class EditListActivity extends AppCompatActivity {
                 setPriority(current_list.getPriority());
                 createdAt.setText(current_list.getAddedTime());
 
-                //TODO set owner name instead of owner id
-                //ownerName.setText(current_list.getOwner());
                 DatabaseReference mReferenceUser = mDatabase.getReference("users").child(current_list.getOwner());
                 mReferenceUser.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -109,9 +109,11 @@ public class EditListActivity extends AppCompatActivity {
                 });
 
                 current_list.setPermission((ListOfItems.Permission) getIntent().getExtras().getSerializable("permission"));
-                if (current_list.getAccountPermission() == ListOfItems.Permission.OWNER)
+                deleteButton.setEnabled(false);
+                if (current_list.getAccountPermission() == ListOfItems.Permission.OWNER) {
+                    deleteButton.setEnabled(true);
                     setSMSEnable();
-
+                }
 
             }
 
