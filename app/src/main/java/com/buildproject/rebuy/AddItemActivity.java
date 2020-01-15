@@ -54,24 +54,21 @@ public class AddItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_item);
+        setContentView(R.layout.activity_add_item);
 
         //init components
-        item_name = findViewById(R.id.edit_item_name);
-        quantity = findViewById(R.id.quantity);
-        down = findViewById(R.id.imageButton_down);
-        up = findViewById(R.id.imageButton_up);
+        item_name = findViewById(R.id.add_item_name);
+        quantity = findViewById(R.id.add_quantity);
+        down = findViewById(R.id.add_imageButton_down);
+        up = findViewById(R.id.add_imageButton_up);
 
-        green_priority = findViewById(R.id.imageButton_green);
-        yellow_priority = findViewById(R.id.imageButton_yellow);
-        red_priority = findViewById(R.id.imageButton_red);
+        green_priority = findViewById(R.id.add_imageButton_green);
+        yellow_priority = findViewById(R.id.add_imageButton_yellow);
+        red_priority = findViewById(R.id.add_imageButton_red);
 
-        is_bought = findViewById(R.id.isbought);
-        added_by = findViewById(R.id.add_by);
-        added_at = findViewById(R.id.changed_at);
-        notes = findViewById(R.id.edit_notes);
-        barcode_button = findViewById(R.id.barcode_btn);
-        apply_button = findViewById(R.id.edit_item_apply);
+        is_bought = findViewById(R.id.add_isbought);
+        notes = findViewById(R.id.add_notes);
+        apply_button = findViewById(R.id.add_item_apply);
 
         //get from previous intent
         Bundle bundle = getIntent().getExtras();
@@ -93,26 +90,26 @@ public class AddItemActivity extends AppCompatActivity {
 
     }
 
-    public void clickDown(View view) {
+    public void add_clickDown(View view) {
         int i = Integer.parseInt(quantity.getText().toString());
         if (i>0) //minimum quantity is 0
             quantity.setText(Integer.toString(i-1));
     }
 
-    public void clickUp(View view) {
+    public void add_clickUp(View view) {
         int i = Integer.parseInt(quantity.getText().toString());
         quantity.setText(Integer.toString(++i));
     }
 
-    public void clickGreen(View view) {
+    public void add_clickGreen(View view) {
         setPriority(Priority.LOW);
     }
 
-    public void clickYellow(View view) {
+    public void add_clickYellow(View view) {
         setPriority(Priority.MID);
     }
 
-    public void clickRed(View view) {
+    public void add_clickRed(View view) {
         setPriority(Priority.HIGH);
     }
 
@@ -138,15 +135,7 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
-    public void onBarcodeClick(View view) {
-        //TODO in future: open scanner activity and delete this stupid toast
-        CharSequence text = "Thank you!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-        toast.show();
-    }
-
-    public void saveItem (View view) {
+    public void addItem (View view) {
 
         current_item.setAddedBy(userName);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
