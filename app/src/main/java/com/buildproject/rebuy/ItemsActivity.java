@@ -104,7 +104,7 @@ public class ItemsActivity extends AppCompatActivity {
         mAccelLast = SensorManager.GRAVITY_EARTH;
     }
 
-    public void moveToAddItemActivity() {
+    public void moveToAddItemActivity(View view) {
         if (permission == ListOfItems.Permission.EDITOR || permission == ListOfItems.Permission.OWNER) {
             Intent i = new Intent(getApplicationContext(), AddItemActivity.class);
             i.putExtra("list_id", list_id);

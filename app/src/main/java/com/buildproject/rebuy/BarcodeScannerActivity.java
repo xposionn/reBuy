@@ -187,10 +187,11 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         private String displayName;
 
 
-        ValueEventListenerWithBarcode(String barcodeValue){
+        ValueEventListenerWithBarcode(String barcodeValue, String list_id, String displayName){
             super();
             this.barcode = barcodeValue;
-
+            this.list_id = list_id;
+            this.displayName = displayName;
         }
 
         @Override
@@ -239,7 +240,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
                     }else if(itemName!=null && itemName.equals("")){
                         FirebaseDatabase database = FirebaseDatabase.getInstance();
                         DatabaseReference myRef = database.getReference("barcodes");
-                        myRef.addListenerForSingleValueEvent(new ValueEventListenerWithBarcode(item.getRawValue()));
+                        myRef.addListenerForSingleValueEvent(new ValueEventListenerWithBarcode(item.getRawValue(), list_id, displayName));
 
                     }else{
                         //nothing atm. should not get here.
