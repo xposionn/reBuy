@@ -28,14 +28,15 @@ public class EditRecyclerView_Config {
     private ListOfItems.Permission permission;
 
 
-    public void setConfig(RecyclerView recyclerView, Context context, List<String> users, List<String> keys, String list_id, String path){
+    public void setConfig(RecyclerView recyclerView, Context context, List<String> users, List<String> keys, String list_id, String path, ListOfItems.Permission permission){
         mContext = context;
         this.path = path;
         mItemAdapter = new UsersAdapter(users, keys);
         recyclerView.setLayoutManager(new LinearLayoutManager(context));
         recyclerView.setAdapter(mItemAdapter);
         this.list_id = list_id;
-//        mItemAdapter.setList_id(list_id);
+        this.permission = permission;
+
     }
 
 
@@ -60,7 +61,7 @@ public class EditRecyclerView_Config {
             mDeleteItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if (permission== ListOfItems.Permission.VIEWER || permission== ListOfItems.Permission.NOTHING) {
+                    if (permission== ListOfItems.Permission.EDITOR || permission== ListOfItems.Permission.VIEWER || permission== ListOfItems.Permission.NOTHING) {
                         //TODO make toast
 //                        makeText(this, mContext.getString(R.string.cannot_delete_item), Toast.LENGTH_SHORT).show();
                     }

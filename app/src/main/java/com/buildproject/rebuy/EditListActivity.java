@@ -163,7 +163,7 @@ public class EditListActivity extends AppCompatActivity {
         new FirebaseDBadapterUsers(list_id).readUsers("editors", new FirebaseDBadapterUsers.DataStatus() {
             @Override
             public void DataIsLoaded(List<String> users, List<String> keys) {
-                new EditRecyclerView_Config().setConfig(mRecyclerViewEditors, EditListActivity.this, users, keys, list_id, "editors");
+                new EditRecyclerView_Config().setConfig(mRecyclerViewEditors, EditListActivity.this, users, keys, list_id, "editors", current_list.getAccountPermission());
             }
 
             @Override
@@ -186,7 +186,7 @@ public class EditListActivity extends AppCompatActivity {
         new FirebaseDBadapterUsers(list_id).readUsers("viewers", new FirebaseDBadapterUsers.DataStatus() {
             @Override
             public void DataIsLoaded(List<String> users, List<String> keys) {
-                new EditRecyclerView_Config().setConfig(mRecyclerViewViewers, EditListActivity.this, users, keys, list_id, "viewers");
+                new EditRecyclerView_Config().setConfig(mRecyclerViewViewers, EditListActivity.this, users, keys, list_id, "viewers", current_list.getAccountPermission());
             }
 
             @Override
