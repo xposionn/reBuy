@@ -8,12 +8,16 @@ import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.buildproject.rebuy.Modules.User;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.ml.vision.FirebaseVision;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcode;
 import com.google.firebase.ml.vision.barcode.FirebaseVisionBarcodeDetector;
@@ -27,6 +31,7 @@ import com.wonderkiln.camerakit.CameraKitVideo;
 import com.wonderkiln.camerakit.CameraView;
 
 import java.util.List;
+import java.util.Objects;
 
 import dmax.dialog.SpotsDialog;
 
@@ -35,6 +40,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
     CameraView cameraView;
     Button btnDetectBarcode;
     AlertDialog waitingDialog;
+    String itemName;
 
     @Override
     protected void onResume() {
@@ -54,6 +60,7 @@ public class BarcodeScannerActivity extends AppCompatActivity {
         setContentView(R.layout.activity_barcode_scanner);
 
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        itemName = Objects.requireNonNull(getIntent().getExtras()).getString("item_name");
 
         cameraView = (CameraView) findViewById(R.id.camerview);
         btnDetectBarcode = (Button)findViewById(R.id.btn_capture_barcode);
@@ -132,21 +139,33 @@ public class BarcodeScannerActivity extends AppCompatActivity {
             switch (value_type){
                 case FirebaseVisionBarcode.TYPE_PRODUCT:
                 {
-                    androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
-                    builder.setMessage(item.getRawValue());
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialogInterface, int i) {
-                            dialogInterface.dismiss();
-                        }
-                    });
-                    androidx.appcompat.app.AlertDialog dialog = builder.create();
-                    dialog.show();
+                    Toast.makeText(BarcodeScannerActivity.this, "Detected: "+item.getRawValue(),Toast.LENGTH_SHORT).show();
+                    if(itemName!=null && !itemName.isEmpty()){
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference("barcodes");
+                        myRef.child(Objects.requireNonNull(item.getRawValue())).setValue(itemName);
+                        Toast.makeText(BarcodeScannerActivity.this, "Saved " + itemName + " in database!",Toast.LENGTH_SHORT).show();
+                        super.onBackPressed();
+                    }
+
+                    // Alert dialog:
+//                    androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+//                    builder.setMessage(item.getRawValue());
+//                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+//                        @Override
+//                        public void onClick(DialogInterface dialogInterface, int i) {
+//                            dialogInterface.dismiss();
+//                        }
+//                    });
+//                    androidx.appcompat.app.AlertDialog dialog = builder.create();
+//                    dialog.show();
+
                 }
                 break;
 
                 default:
-                    System.out.println("Default Type");
+                    Toast.makeText(BarcodeScannerActivity.this, "Different Type. ID = " + value_type,Toast.LENGTH_SHORT).show();
+                    System.out.println("Default Type. ID = " + value_type);
                     break;
             }
         }
