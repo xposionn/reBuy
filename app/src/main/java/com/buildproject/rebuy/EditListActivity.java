@@ -336,6 +336,37 @@ public class EditListActivity extends AppCompatActivity {
         });
     }
 
+    class AddPartnerListener implements  ValueEventListener {
+
+        private DatabaseReference mReference;
+        private int list_partners_size;
+
+        AddPartnerListener(DatabaseReference mReference, int list_partners_size) {
+            this.mReference = mReference;
+            this.list_partners_size = list_partners_size;
+        }
+
+        @Override
+        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+            int new_size = 0;
+            for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                new_size++;
+            }
+            if (new_size != list_partners_size) {
+                if (new_size == list_partners_size+1) {
+                    sendOnChannel1();
+                    //sendOnChannel2();
+                }
+                mReference.removeEventListener(this);
+            }
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+        }
+    }
+
     public void createAcceptListener(ListOfItems.Permission permission) {
         FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         DatabaseReference mReference = mDatabase.getReference("lists").child(list_id);
@@ -349,25 +380,8 @@ public class EditListActivity extends AppCompatActivity {
             list_partners_size = current_list.getViewers().size();
         }
 
-        mReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                int new_size = 0;
-                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
-                    new_size++;
-                }
-                if (new_size == list_partners_size+1) {
-                    sendOnChannel1();
-                    //sendOnChannel2();
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
-
+        //add notification listener
+        mReference.addValueEventListener(new AddPartnerListener(mReference, list_partners_size));
     }
 
     public void sendOnChannel1() {
