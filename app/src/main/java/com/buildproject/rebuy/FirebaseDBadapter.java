@@ -107,8 +107,15 @@ public class FirebaseDBadapter {
     }
 
 
-    public void updateList(String listId, ListOfItems listOfItems, final DataStatus dataStatus) {
-        mReferenceLists.child(listId).setValue(listOfItems)
+    public void updateNamePrioirityOfList(String listId, ListOfItems listOfItems, final DataStatus dataStatus) {
+        mReferenceLists.child(listId).child("titleName").setValue(listOfItems.getTitleName())
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        dataStatus.DataIsUpdated();
+                    }
+                });
+        mReferenceLists.child(listId).child("priority").setValue(listOfItems.getPriority())
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {

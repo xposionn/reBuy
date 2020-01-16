@@ -139,7 +139,7 @@ public class EditListActivity extends AppCompatActivity {
 
                 current_list.setTitleName(listName.getText().toString());
                 current_list.setPriority(priority);
-                new FirebaseDBadapter().updateList(list_id, current_list, new FirebaseDBadapter.DataStatus() {
+                new FirebaseDBadapter().updateNamePrioirityOfList(list_id, current_list, new FirebaseDBadapter.DataStatus() {
                     @Override
                     public void DataIsLoaded(List<ListOfItems> lists, List<String> keys) {
 
@@ -336,6 +336,7 @@ public class EditListActivity extends AppCompatActivity {
         });
     }
 
+    //Listener for new partner added
     class AddPartnerListener implements  ValueEventListener {
 
         private DatabaseReference mReference;
