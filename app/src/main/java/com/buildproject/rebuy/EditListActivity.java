@@ -1,6 +1,7 @@
 package com.buildproject.rebuy;
 
 import android.Manifest;
+import android.app.Notification;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -27,8 +30,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+
+import static com.buildproject.rebuy.App.CHANNEL_1_ID;
+import static com.buildproject.rebuy.App.CHANNEL_2_ID;
 
 public class EditListActivity extends AppCompatActivity {
     private static final String TAG = EditListActivity.class.getName();
@@ -57,11 +64,14 @@ public class EditListActivity extends AppCompatActivity {
     private ImageButton viewerButton;
     private final int SEND_SMS_PERMISSION_REQUEST_CODE = 1;
 
+    private NotificationManagerCompat notificationManager;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_list);
+        notificationManager = NotificationManagerCompat.from(this);
 
         //account = getIntent().getParcelableExtra("account");
         account = GoogleSignIn.getLastSignedInAccount(this);
@@ -275,6 +285,8 @@ public class EditListActivity extends AppCompatActivity {
             SmsManager smsManager = SmsManager.getDefault();
             smsManager.sendTextMessage(number, null, message.toString(), null, null);
             Toast.makeText(this, "Invitation sent", Toast.LENGTH_SHORT).show();
+
+            createAcceptListener(permission);
         }
         else {
             Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
@@ -322,5 +334,68 @@ public class EditListActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    public void createAcceptListener(ListOfItems.Permission permission) {
+        FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference mReference = mDatabase.getReference("lists").child(list_id);
+        final int list_partners_size;
+
+        if (permission == ListOfItems.Permission.EDITOR) {
+            mReference = mReference.child("editors");
+            list_partners_size = current_list.getEditors().size();
+        } else {
+            mReference = mReference.child("viewers");
+            list_partners_size = current_list.getViewers().size();
+        }
+
+        mReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                int new_size = 0;
+                for (DataSnapshot keyNode : dataSnapshot.getChildren()) {
+                    new_size++;
+                }
+                if (new_size == list_partners_size+1) {
+                    sendOnChannel1();
+                    //sendOnChannel2();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+    }
+
+    public void sendOnChannel1() {
+        String title = "reBuy :" + current_list.getTitleName();
+        String message = "Your request has been accepted";
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
+                .setSmallIcon(R.drawable.common_google_signin_btn_icon_light)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .build();
+
+        notificationManager.notify(1, notification);
+    }
+
+    public void sendOnChannel2() {
+        String title = "T2";
+        String message = "m2";
+
+        Notification notification = new NotificationCompat.Builder(this, CHANNEL_2_ID)
+                .setSmallIcon(R.drawable.common_google_signin_btn_icon_dark)
+                .setContentTitle(title)
+                .setContentText(message)
+                .setPriority(NotificationCompat.PRIORITY_LOW)
+                .build();
+
+        notificationManager.notify(2, notification);
     }
 }

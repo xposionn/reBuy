@@ -1,5 +1,6 @@
 package com.buildproject.rebuy;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,6 +13,8 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
@@ -36,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
     TextView dispName;
     ImageView profilePic;
     Uri imageUri;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
