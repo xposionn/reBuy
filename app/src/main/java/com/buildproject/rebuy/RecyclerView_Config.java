@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuView;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -43,6 +44,7 @@ public class RecyclerView_Config {
         private TextView mListTitleName;
         private TextView mListOwnerName;
         private ImageView mListPriority;
+        private ConstraintLayout mConstraintLayout;
 
         private String key; //list id record
 
@@ -52,6 +54,7 @@ public class RecyclerView_Config {
             mListTitleName = (TextView) itemView.findViewById(id.list_titleName);
             mListOwnerName = (TextView) itemView.findViewById(id.list_ownerName);
             mListPriority = (ImageView) itemView.findViewById(id.recycleview_lists_priority);
+            mConstraintLayout = (ConstraintLayout) itemView.findViewById(id.list_layout);
 
         }
 
@@ -67,10 +70,10 @@ public class RecyclerView_Config {
 
         private void setBackground(ListOfItems list) {
             if (list.isAllBought()) {
-                mListTitleName.setBackgroundColor(Color.rgb(197,230,171));
+                mConstraintLayout.setBackgroundColor(Color.rgb(197,230,171));
             }
             else {
-                mListTitleName.setBackgroundColor(0);
+                mConstraintLayout.setBackgroundColor(0);
             }
         }
 
