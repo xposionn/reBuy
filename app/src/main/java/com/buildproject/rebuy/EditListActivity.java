@@ -371,11 +371,11 @@ public class EditListActivity extends AppCompatActivity {
     }
 
     public void sendOnChannel1() {
-        String title = "reBuy :" + current_list.getTitleName();
+        String title = current_list.getTitleName();
         String message = "Your request has been accepted";
 
         Notification notification = new NotificationCompat.Builder(this, CHANNEL_1_ID)
-                .setSmallIcon(R.drawable.common_google_signin_btn_icon_light)
+                .setSmallIcon(R.drawable.barcode_static_btn)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
