@@ -32,6 +32,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="@string/slogan"
+        android:textSize="20sp"
+        android:textColor="#00F"
         app:layout_constraintBottom_toTopOf="@+id/sign_in_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
