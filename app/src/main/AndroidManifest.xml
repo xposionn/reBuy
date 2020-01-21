@@ -44,7 +44,6 @@
         <activity android:name=".NewListActivity" />
         <activity android:name=".EditListActivity" />
         <activity android:name=".ItemsActivity" />
-        <activity android:name=".MainActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
