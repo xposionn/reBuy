@@ -25,7 +25,7 @@
                 android:id="@+id/add_item_name"
                 android:gravity="center"
                 android:clickable="true"
-                android:hint="Enter name for this item"
+                android:hint="@string/enter_name_for_this_item"
                 android:inputType="text"
                 android:maxLines="1"/>
 
@@ -43,11 +43,12 @@
 
             <ImageButton
                 android:id="@+id/add_imageButton_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
+                android:background="@drawable/minus_btn"
                 android:onClick="add_clickDown"
-                app:srcCompat="@android:drawable/arrow_down_float" />
+                />
 
             <EditText
                 android:id="@+id/add_quantity"
@@ -64,11 +65,11 @@
 
             <ImageButton
                 android:id="@+id/add_imageButton_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
-                android:onClick="add_clickUp"
-                app:srcCompat="@android:drawable/arrow_up_float" />
+                android:background="@drawable/plus_btn"
+                android:onClick="add_clickUp" />
         </LinearLayout>
 
         <!--  priority: text, Linear(img1, img2, img3)  -->

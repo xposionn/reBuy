@@ -49,7 +49,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     private void updateUI(GoogleSignInAccount account) {
         if(account!=null){
-            Intent toMain = new Intent(getBaseContext(), MainActivity.class);
+            Intent toMain = new Intent(getBaseContext(), ListsActivity.class);
             toMain.putExtra("account",account);
             putUserOnDb(account);
             startActivity(toMain);

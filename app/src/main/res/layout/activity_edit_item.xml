@@ -43,11 +43,12 @@
 
             <ImageButton
                 android:id="@+id/imageButton_down"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
-                android:onClick="clickDown"
-                app:srcCompat="@android:drawable/arrow_down_float" />
+                android:background="@drawable/minus_btn"
+                android:onClick="add_clickDown"
+                />
 
             <EditText
                 android:id="@+id/quantity"
@@ -64,11 +65,11 @@
 
             <ImageButton
                 android:id="@+id/imageButton_up"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_weight="1"
-                android:onClick="clickUp"
-                app:srcCompat="@android:drawable/arrow_up_float" />
+                android:background="@drawable/plus_btn"
+                android:onClick="add_clickUp" />
         </LinearLayout>
 
         <!--  priority: text, Linear(img1, img2, img3)  -->
