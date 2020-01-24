@@ -1,4 +1,4 @@
-package com.buildproject.rebuy;
+package com.buildproject.rebuy.Configs;
 
 import android.content.Context;
 import android.content.Intent;
@@ -7,25 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuView;
 import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buildproject.rebuy.ItemsActivity;
 import com.buildproject.rebuy.Modules.ListOfItems;
-
-import org.w3c.dom.Text;
+import com.buildproject.rebuy.R;
+import com.buildproject.rebuy.Services.FirebaseDBadapterUsers;
 
 import java.util.List;
 
 import static com.buildproject.rebuy.R.*;
-import static com.buildproject.rebuy.R.color.colorPrimary;
 
 public class RecyclerView_Config {
     private Context mContext;
@@ -117,7 +113,7 @@ public class RecyclerView_Config {
             holder.bind(mList.get(position), mKeys.get(position), new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent newIntent = new Intent(view.getContext(),ItemsActivity.class);
+                    Intent newIntent = new Intent(view.getContext(), ItemsActivity.class);
                     newIntent.putExtra("list_id",mKeys.get(position));
                     newIntent.putExtra("list_title",mList.get(position).getTitleName());
                     newIntent.putExtra("display_name",displayName);

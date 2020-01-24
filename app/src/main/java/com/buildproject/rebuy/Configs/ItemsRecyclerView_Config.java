@@ -1,4 +1,4 @@
-package com.buildproject.rebuy;
+package com.buildproject.rebuy.Configs;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,14 +9,16 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.buildproject.rebuy.EditItemActivity;
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
+import com.buildproject.rebuy.R;
+import com.buildproject.rebuy.Services.FirebaseDBadapterItems;
 
 import java.util.List;
 

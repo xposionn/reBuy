@@ -13,9 +13,8 @@ import android.widget.Toast;
 
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ItemInList.Priority;
-import com.google.firebase.Timestamp;
+import com.buildproject.rebuy.Services.FirebaseDBadapterItems;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;

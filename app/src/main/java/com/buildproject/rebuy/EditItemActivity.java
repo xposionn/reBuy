@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,10 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ItemInList.Priority;
 import com.buildproject.rebuy.Modules.ListOfItems;
+import com.buildproject.rebuy.Services.FirebaseDBadapterItems;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class EditItemActivity extends AppCompatActivity {

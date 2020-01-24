@@ -2,7 +2,6 @@ package com.buildproject.rebuy.Services;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.ListActivity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,18 +10,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.buildproject.rebuy.AddItemActivity;
-import com.buildproject.rebuy.FirebaseDBadapter;
-import com.buildproject.rebuy.FirebaseDBadapterItems;
 import com.buildproject.rebuy.ItemsActivity;
 import com.buildproject.rebuy.LoginActivity;
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ListOfItems;
-import com.buildproject.rebuy.NewListActivity;
 import com.buildproject.rebuy.R;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 
 import java.util.List;
 
