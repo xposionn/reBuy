@@ -1,4 +1,4 @@
-package com.buildproject.rebuy;
+package com.buildproject.rebuy.Services;
 
 import androidx.annotation.NonNull;
 
@@ -35,8 +35,6 @@ public class FirebaseDBadapterItems {
                         dataStatus.DataIsUpdated();
                     }});
     }
-
-
 
 
 public interface DataStatus {

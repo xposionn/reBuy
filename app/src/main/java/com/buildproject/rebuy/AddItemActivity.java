@@ -13,9 +13,8 @@ import android.widget.Toast;
 
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ItemInList.Priority;
-import com.google.firebase.Timestamp;
+import com.buildproject.rebuy.Services.FirebaseDBadapterItems;
 
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -27,6 +26,7 @@ public class AddItemActivity extends AppCompatActivity {
     String list_id;
     //TODO initilize current_user
     String userId;
+    String userName;
 
     //components
     EditText item_name;
@@ -53,29 +53,29 @@ public class AddItemActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_edit_item);
+        setContentView(R.layout.activity_add_item);
 
         //init components
-        item_name = findViewById(R.id.edit_item_name);
-        quantity = findViewById(R.id.quantity);
-        down = findViewById(R.id.imageButton_down);
-        up = findViewById(R.id.imageButton_up);
+        item_name = findViewById(R.id.add_item_name);
+        quantity = findViewById(R.id.add_quantity);
+        down = findViewById(R.id.add_imageButton_down);
+        up = findViewById(R.id.add_imageButton_up);
 
-        green_priority = findViewById(R.id.imageButton_green);
-        yellow_priority = findViewById(R.id.imageButton_yellow);
-        red_priority = findViewById(R.id.imageButton_red);
+        green_priority = findViewById(R.id.add_imageButton_green);
+        yellow_priority = findViewById(R.id.add_imageButton_yellow);
+        red_priority = findViewById(R.id.add_imageButton_red);
 
-        is_bought = findViewById(R.id.isbought);
-        added_by = findViewById(R.id.add_by);
-        added_at = findViewById(R.id.changed_at);
-        notes = findViewById(R.id.edit_notes);
-        barcode_button = findViewById(R.id.barcode);
-        apply_button = findViewById(R.id.edit_item_apply);
+        is_bought = findViewById(R.id.add_isbought);
+        notes = findViewById(R.id.add_notes);
+        apply_button = findViewById(R.id.add_item_apply);
 
         //get from previous intent
         Bundle bundle = getIntent().getExtras();
-//        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
         list_id = bundle.getString("list_id");
+        if(bundle.getString("barcode_name")!=null){
+            item_name.setText(bundle.getString("barcode_name"));
+
+        }
 
         current_item = new ItemInList();
         current_item.setUserId(userId);
@@ -85,32 +85,30 @@ public class AddItemActivity extends AppCompatActivity {
         setPriority(current_item.getPriority());
         is_bought.setChecked(current_item.isBought());
 
-        String user_added_by = current_item.getUserId();
-//        added_by.setText(String.format("%s %s", user_added_by.getFirstName(), user_added_by.getLastName()));
-
+        userName = bundle.getString("display_name");
 
     }
 
-    public void clickDown(View view) {
+    public void add_clickDown(View view) {
         int i = Integer.parseInt(quantity.getText().toString());
         if (i>0) //minimum quantity is 0
             quantity.setText(Integer.toString(i-1));
     }
 
-    public void clickUp(View view) {
+    public void add_clickUp(View view) {
         int i = Integer.parseInt(quantity.getText().toString());
         quantity.setText(Integer.toString(++i));
     }
 
-    public void clickGreen(View view) {
+    public void add_clickGreen(View view) {
         setPriority(Priority.LOW);
     }
 
-    public void clickYellow(View view) {
+    public void add_clickYellow(View view) {
         setPriority(Priority.MID);
     }
 
-    public void clickRed(View view) {
+    public void add_clickRed(View view) {
         setPriority(Priority.HIGH);
     }
 
@@ -136,15 +134,9 @@ public class AddItemActivity extends AppCompatActivity {
         }
     }
 
-    public void onBarcodeClick(View view) {
-        //TODO in future: open scanner activity and delete this stupid toast
-        CharSequence text = "Thank you!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-        toast.show();
-    }
+    public void addItem (View view) {
 
-    public void saveItem (View view) {
+        current_item.setAddedBy(userName);
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         current_item.setAddedTime(sdf.format(new Date()));
         current_item.setBought(is_bought.isChecked());

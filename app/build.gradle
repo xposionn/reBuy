@@ -63,6 +63,17 @@ dependencies {
 
     //gif
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+
+    //dialogs, alerts dialogs support
+    implementation 'com.github.d-max:spots-dialog:1.1@aar'
+
+    //camera kit for taking photos
+    implementation 'com.wonderkiln:camerakit:0.13.1'
+
+    //ML-Vision from Google, with trained barcode module
+    implementation 'com.google.firebase:firebase-ml-vision:24.0.1'
+    implementation 'com.google.firebase:firebase-ml-vision-barcode-model:16.0.2'
+
 }
 
 apply plugin: 'com.google.gms.google-services'

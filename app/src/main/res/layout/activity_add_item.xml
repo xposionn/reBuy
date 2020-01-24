@@ -22,10 +22,10 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:id="@+id/edit_item_name"
+                android:id="@+id/add_item_name"
                 android:gravity="center"
                 android:clickable="true"
-                android:hint="Enter name for this item"
+                android:hint="@string/enter_name_for_this_item"
                 android:inputType="text"
                 android:maxLines="1"/>
 
@@ -42,7 +42,7 @@
 
 
             <ImageButton
-                android:id="@+id/imageButton_down"
+                android:id="@+id/add_imageButton_down"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
@@ -51,7 +51,7 @@
                 />
 
             <EditText
-                android:id="@+id/quantity"
+                android:id="@+id/add_quantity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -64,7 +64,7 @@
                 android:layout_marginHorizontal="25dp"/>
 
             <ImageButton
-                android:id="@+id/imageButton_up"
+                android:id="@+id/add_imageButton_up"
                 android:layout_width="35dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
@@ -98,33 +98,33 @@
                 >
 
                 <ImageButton
-                    android:id="@+id/imageButton_green"
+                    android:id="@+id/add_imageButton_green"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="33"
                     android:scaleType="centerInside"
-                    android:onClick="clickGreen"
+                    android:onClick="add_clickGreen"
                     app:srcCompat="@drawable/green_priority_btn"
                     android:background="@android:color/transparent"
 
                     />
 
                 <ImageButton
-                    android:id="@+id/imageButton_yellow"
+                    android:id="@+id/add_imageButton_yellow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="33"
                     android:background="@android:color/transparent"
-                    android:onClick="clickYellow"
+                    android:onClick="add_clickYellow"
                     app:srcCompat="@drawable/yellow_priority_btn"
                     android:scaleType="centerInside"/>
 
                 <ImageButton
-                    android:id="@+id/imageButton_red"
+                    android:id="@+id/add_imageButton_red"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="34"
-                    android:onClick="clickRed"
+                    android:onClick="add_clickRed"
                     android:background="@android:color/transparent"
                     app:srcCompat="@drawable/red_priority_btn"
                     android:scaleType="centerInside"/>
@@ -138,61 +138,11 @@
         <CheckBox
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/isbought"
+            android:id="@+id/add_isbought"
             android:text="Bought"
             android:textSize="20sp"
             android:layout_marginTop="10dp"/>
 
-        <!-- Addedby: text "added by: ", text  -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/added_by"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:id="@+id/add_by"
-                android:gravity="bottom"
-                android:layout_marginStart="5dp"
-                android:text="@string/f_name_l_name"
-                android:textSize="17sp"/>
-
-
-        </LinearLayout>
-
-        <!-- AddedAt: text "added at: ", Date  -->
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/added_at"
-                android:textSize="17sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/changed_at"
-                android:textSize="17sp"/>
-
-
-
-
-        </LinearLayout>
 
         <!--  Notes:  text "Notes: ", text(wrap content -vertical)  -->
 
@@ -200,43 +150,17 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="18sp"
-            android:id="@+id/edit_notes"
+            android:layout_marginTop="20sp"
+            android:id="@+id/add_notes"
             android:hint="Add notes: \n\n"
             />
-        <!--  recommendation:  text "add to recom.", imgButton  -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:orientation="horizontal"
-            android:weightSum="100"
-            >
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="80"
-                android:layout_gravity="center_vertical"
-                android:id="@+id/result_scanner"
-                android:text="@string/recommendationAdvice" />
-
-
-            <pl.droidsonroids.gif.GifImageView
-                android:layout_width="70dp"
-                android:layout_height="100dp"
-                android:id="@+id/barcode_btn"
-                android:scaleType="fitCenter"
-                android:layout_marginTop="0sp"
-                android:src="@drawable/barcodegif"
-                android:onClick="onBarcodeClick"
-                android:layout_weight="20"/>
-        </LinearLayout>
 
         <Button
-            android:id="@+id/edit_item_apply"
-            android:onClick="saveItem"
+            android:id="@+id/add_item_apply"
+            android:onClick="addItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20sp"
             android:text="Apply"
             android:layout_gravity="center"/>
 

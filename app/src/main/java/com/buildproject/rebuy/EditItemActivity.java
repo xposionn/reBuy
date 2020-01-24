@@ -1,5 +1,7 @@
 package com.buildproject.rebuy;
 
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,7 +9,6 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,10 +17,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.buildproject.rebuy.Modules.ItemInList;
 import com.buildproject.rebuy.Modules.ItemInList.Priority;
 import com.buildproject.rebuy.Modules.ListOfItems;
+import com.buildproject.rebuy.Services.FirebaseDBadapterItems;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 public class EditItemActivity extends AppCompatActivity {
@@ -65,6 +66,7 @@ public class EditItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_item);
 
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
 
         //init components
@@ -81,7 +83,7 @@ public class EditItemActivity extends AppCompatActivity {
         added_by = findViewById(R.id.add_by);
         added_at = findViewById(R.id.changed_at);
         notes = findViewById(R.id.edit_notes);
-        barcode_button = findViewById(R.id.barcode);
+        barcode_button = findViewById(R.id.barcode_btn);
         apply_button = findViewById(R.id.edit_item_apply);
 
         //get from previous intent
@@ -96,17 +98,16 @@ public class EditItemActivity extends AppCompatActivity {
             disableEnableControls(false, (ViewGroup) findViewById(R.id.parent_layout));
             barcode_button.setEnabled(true);
         }
-//
-//        list_id = Objects.requireNonNull(getIntent().getExtras()).getString("list_id");
+
         list_id = bundle.getString("list_id");
         //current_item = (ItemInList)bundle.get("item_info");
 
-        //if is new item
         current_item = (ItemInList) bundle.getSerializable("item");
         if (current_item != null) {
             setTitle(current_item.getItemName());
             item_name.setText(current_item.getItemName());
             added_at.setText(current_item.getAddedTime());
+            added_by.setText(current_item.getAddedBy());
             if (!current_item.getNotes().isEmpty())
                 notes.setText(current_item.getNotes());
         }
@@ -176,11 +177,20 @@ public class EditItemActivity extends AppCompatActivity {
     }
 
     public void onBarcodeClick(View view) {
-        //TODO in future: open scanner activity and delete this stupid toast
-        CharSequence text = "Thank you!";
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast = Toast.makeText(getApplicationContext(), text, duration);
-        toast.show();
+
+        if (!item_name.getText().toString().isEmpty()) {
+            CharSequence text = "Thank you! One second...";
+            int duration = Toast.LENGTH_SHORT;
+            Toast toast = Toast.makeText(getApplicationContext(), text, duration);
+            toast.show();
+            Intent i = new Intent(getApplicationContext(), BarcodeScannerActivity.class);
+            i.putExtra("item_name", item_name.getText().toString()); //will be added to DB.
+            startActivity(i);
+        } else {
+            Toast toast = Toast.makeText(getApplicationContext(), "Please enter item name first!", Toast.LENGTH_SHORT);
+            toast.show();
+
+        }
     }
 
     public void saveItem (View view) {

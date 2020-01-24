@@ -101,12 +101,12 @@
     <string name="default_item_quantity_1">1</string>
     <string name="priority">Priority:</string>
     <string name="f_name_l_name">F.name, L.name</string>
-    <string name="added_by">Added by:</string>
-    <string name="added_at">Added at:</string>
+    <string name="added_by">Added by: </string>
+    <string name="added_at">Added at: </string>
     <string name="recommendationAdvice">Would you like to scan a barcode and help the community by recommending this item name?</string>
     <string name="enter_list_name">Enter the name for the list</string>
-    <string name="editors">Editors:</string>
-    <string name="viewers">Viewers:</string>
+    <string name="editors">Editors: </string>
+    <string name="viewers">Viewers: </string>
     <string name="created_at">Created at:</string>
     <string name="delete_list">Delete List</string>
     <string name="low_priority">Low Priority</string>
@@ -115,5 +115,10 @@
     <string name="list_owner">List Owner:</string>
     <string name="plus_sign_image">Plus sign image</string>
     <string name="save_list">Save List</string>
-    <string name="change_at">Change At</string>
+    <string name="cannot_delete_item">You have no permission to delete an item</string>
+    <string name="viewer_invite">Your friend invited you to be a viewer of his list.\nDo you confirm?</string>
+    <string name="editor_invite">Your friend invited you to be a editor of his list.\nDo you confirm?</string>
+    <string name="quantity">Quantity:</string>
+    <string name="enter_name_for_this_item">Enter name for this item</string>
+    <string name="slogan">Scan it before you throw it,\n  If you want another one.</string>
 </resources>
